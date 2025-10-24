@@ -1,0 +1,8 @@
+"llama3.2:1b","default","""When the sky is grey, wisdom can be found beneath the clouds."""
+"gemma3:270m","default","Be prepared for the weather, as it can change quickly.
+"
+"qwen2.5:0.5b","default","When spring comes, when autumn follows, it is the season of wind and rain, where we witness changes through the seasons."
+"llama3.2:1b","finetuned","""When the storm passes, calm waters are revealed."""
+"gemma3:270m","finetuned","Weather is a constant cycle of change.
+"
+"qwen2.5:0.5b","finetuned","""Rain falls on the rain, and sunshine shines on the sun."""
