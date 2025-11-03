@@ -1,0 +1,40 @@
+x-vllm-base: &vllm_base
+    image: vllm/vllm-openai:latest
+    environment:
+      - HF_HOME=/models_cache
+      - HF_TOKEN=${HF_TOKEN:-}
+      - https_proxy=${https_proxy:-}
+    volumes:
+      - models_cache:/models_cache
+    ports:
+      - "8000:8000"
+    runtime: nvidia
+
+services:
+  qwen:
+    <<: *vllm_base
+    command: >
+      --model Qwen/Qwen2.5-7B-Instruct
+      --served-model-name qwen2.5
+      --gpu-memory-utilization 0.9 
+      --download-dir /models_cache 
+      --dtype bfloat16
+  ministral:
+    <<: *vllm_base
+    command: >
+      --model mistralai/Ministral-8B-Instruct-2410
+      --served-model-name ministral
+      --gpu-memory-utilization 0.9 
+      --download-dir /models_cache 
+      --dtype bfloat16
+  gemma:
+    <<: *vllm_base
+    command: >
+      --model google/gemma-3-4b-it
+      --served-model-name gemma
+      --gpu-memory-utilization 0.9 
+      --download-dir /models_cache 
+      --dtype bfloat16
+
+volumes:
+  models_cache:
