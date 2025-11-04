@@ -30,13 +30,22 @@ services:
       --generation-config vllm 
       --download-dir /models_cache 
       --dtype bfloat16
-  yandex:
+  gemma:
     <<: *vllm_base
     command: >
-      --model yandex/YandexGPT-5-Lite-8B-instruct
-      --served-model-name yandex
-      --gpu-memory-utilization 0.9 
-      --download-dir /models_cache
-      --generation-config vllm
+      --model google/gemma-3-4b-it
+      --served-model-name gemma
+      --port 8000
+      --gpu-memory-utilization 0.9
+      --generation-config vllm 
+      --download-dir /models_cache 
       --dtype bfloat16
-
+#  yandex:
+#    <<: *vllm_base
+#    command: >
+#      --model yandex/YandexGPT-5-Lite-8B-instruct
+#      --served-model-name yandex
+#      --gpu-memory-utilization 0.9
+#      --download-dir /models_cache
+#      --generation-config vllm
+#      --dtype bfloat16
