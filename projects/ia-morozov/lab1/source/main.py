@@ -13,7 +13,8 @@ logger = logging.getLogger(__name__)
 MODEL_HF_NAMES = {
     "qwen2.5": "Qwen_Qwen2.5-7B-Instruct",
     "ministral": "mistralai_Ministral-8B-Instruct-2410",
-    "yandex": "yandex_YandexGPT-5-Lite-8B-instruct"
+    "yandex": "yandex_YandexGPT-5-Lite-8B-instruct",
+    "gemma": "google_gemma-3-4b-it"
 }
 
 SAMPLING_PARAMS = {
