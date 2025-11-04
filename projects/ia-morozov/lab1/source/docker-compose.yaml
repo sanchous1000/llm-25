@@ -5,7 +5,8 @@ x-vllm-base: &vllm_base
       - HF_TOKEN=${HF_TOKEN:-}
       - https_proxy=${https_proxy:-}
     volumes:
-      - models_cache:/models_cache
+      - ./models_cache:/models_cache
+      - ./default.json:/default.json
     ports:
       - "8000:8000"
     runtime: nvidia
@@ -16,7 +17,8 @@ services:
     command: >
       --model Qwen/Qwen2.5-7B-Instruct
       --served-model-name qwen2.5
-      --gpu-memory-utilization 0.9 
+      --gpu-memory-utilization 0.9
+      --generation-config vllm 
       --download-dir /models_cache 
       --dtype bfloat16
   ministral:
@@ -24,17 +26,17 @@ services:
     command: >
       --model mistralai/Ministral-8B-Instruct-2410
       --served-model-name ministral
-      --gpu-memory-utilization 0.9 
+      --gpu-memory-utilization 0.9
+      --generation-config vllm 
       --download-dir /models_cache 
       --dtype bfloat16
-  gemma:
+  yandex:
     <<: *vllm_base
     command: >
-      --model google/gemma-3-4b-it
-      --served-model-name gemma
+      --model yandex/YandexGPT-5-Lite-8B-instruct
+      --served-model-name yandex
       --gpu-memory-utilization 0.9 
-      --download-dir /models_cache 
+      --download-dir /models_cache
+      --generation-config vllm
       --dtype bfloat16
 
-volumes:
-  models_cache:
