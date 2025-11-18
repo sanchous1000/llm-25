@@ -1,0 +1,22 @@
+"llama3.2:1b","default","Washington Capitals has won its second Stanley Cup this season!","SPORT"
+"gemma3:270m","default","Washington Capitals has won its second Stanley Cup this season!","ENGAGERS"
+"qwen2.5:0.5b","default","Washington Capitals has won its second Stanley Cup this season!","STYLING"
+"llama3.2:1b","finetuned","Washington Capitals has won its second Stanley Cup this season!","SPORT"
+"gemma3:270m","finetuned","Washington Capitals has won its second Stanley Cup this season!","POLITICS
+"
+"qwen2.5:0.5b","finetuned","Washington Capitals has won its second Stanley Cup this season!","STYLUE CUP"
+"llama3.2:1b","default","Donald Trump was shot in the ear during the meeting with people in Georgia!","Politics"
+"gemma3:270m","default","Donald Trump was shot in the ear during the meeting with people in Georgia!","POLITICS
+"
+"qwen2.5:0.5b","default","Donald Trump was shot in the ear during the meeting with people in Georgia!","SPORT"
+"llama3.2:1b","finetuned","Donald Trump was shot in the ear during the meeting with people in Georgia!","EMERGENCY"
+"gemma3:270m","finetuned","Donald Trump was shot in the ear during the meeting with people in Georgia!","POLitics"
+"qwen2.5:0.5b","finetuned","Donald Trump was shot in the ear during the meeting with people in Georgia!","EMERGENCY"
+"llama3.2:1b","default","Tsunami has hit the eastern coast of Japan. 30 people injured, expecting a higher waves in Russian Far East.","EMERGENCY"
+"gemma3:270m","default","Tsunami has hit the eastern coast of Japan. 30 people injured, expecting a higher waves in Russian Far East.","Tsunami
+"
+"qwen2.5:0.5b","default","Tsunami has hit the eastern coast of Japan. 30 people injured, expecting a higher waves in Russian Far East.","EMERGENCY"
+"llama3.2:1b","finetuned","Tsunami has hit the eastern coast of Japan. 30 people injured, expecting a higher waves in Russian Far East.","EMERGENCY"
+"gemma3:270m","finetuned","Tsunami has hit the eastern coast of Japan. 30 people injured, expecting a higher waves in Russian Far East.","Tsunami
+"
+"qwen2.5:0.5b","finetuned","Tsunami has hit the eastern coast of Japan. 30 people injured, expecting a higher waves in Russian Far East.","EMERGENCY"
