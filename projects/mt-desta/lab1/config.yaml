@@ -1,0 +1,13 @@
+models:
+  - name: TinyLlama
+    family: llama
+    backend: ollama
+    model_id: tinyllama
+  - name: Qwen
+    family: qwen
+    backend: ollama
+    model_id: qwen:0.5b
+  - name: Gemma
+    family: gemma
+    backend: ollama
+    model_id: gemma3:4b
