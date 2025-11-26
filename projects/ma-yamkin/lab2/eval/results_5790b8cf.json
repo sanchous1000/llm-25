@@ -1,0 +1,262 @@
+[
+  {
+    "question": "What is the main contribution of the proposed method in addressing data scarcity for Named Entity Recognition (NER) in low-resource settings?",
+    "answer": "The main contribution of the proposed method in addressing data scarcity for Named Entity Recognition (NER) in low-resource settings is introducing a strategic data augmentation technique that preserves entity information while paraphrasing the surrounding context, thereby expanding the training data without compromising semantic relationships.",
+    "sources": [
+      {
+        "arxiv_id": "2510.17720v1",
+        "page": "2"
+      },
+      {
+        "arxiv_id": "2510.17720v1",
+        "page": "2"
+      },
+      {
+        "arxiv_id": "2510.17720v1",
+        "page": "2"
+      },
+      {
+        "arxiv_id": "2510.17720v1",
+        "page": "1"
+      },
+      {
+        "arxiv_id": "2510.17720v1",
+        "page": "1"
+      }
+    ]
+  },
+  {
+    "question": "What advantages does the proposed PANER framework offer over existing zero-shot NER models like GNER and SLIMER in terms of computational efficiency and out-of-domain performance?",
+    "answer": "The proposed PANER framework offers several advantages over existing zero-shot NER models like GNER and SLIMER in terms of computational efficiency and out-of-domain performance. First, theframework achieves comparable performance with state-of-the-art zero-shot NER models while requiring significantly fewer computational resources. Second, the framework shows consistent improvements in F1 scores (up to 17 points) over baseline versions when using the paraphrasing augmentation technique. This indicates that PANER is effective at leveraging limited available data and can offer a promising solution for organizations with restricted access to annotated datasets and compute power. In addition, the framework demonstrates improved performance in domain-specific settings through strategic paraphrasing of the surrounding context which preserves entity information and expands training data without compromising semantic relationships. Therefore, it is beneficial in low-resource situations where generalization to out-of-domain entities is crucial.",
+    "sources": [
+      {
+        "arxiv_id": "2510.17720v1",
+        "page": "8"
+      },
+      {
+        "arxiv_id": "2510.17720v1",
+        "page": "1"
+      },
+      {
+        "arxiv_id": "2510.17720v1",
+        "page": "2"
+      },
+      {
+        "arxiv_id": "2510.17720v1",
+        "page": "2"
+      },
+      {
+        "arxiv_id": "2510.17720v1",
+        "page": "6"
+      }
+    ]
+  },
+  {
+    "question": "What is the primary purpose of the MT-Video-Bench benchmark introduced in the paper, and how does it differ from previous evaluation datasets for multimodal large language models (MLLMs)?",
+    "answer": "The primary purpose of the MT-Video-Bench benchmark introduced in the paper is to comprehensively evaluate the \"Perceptivity\" and \"Interactivity\" of Multimodal Large Language Models (MLLMs) in multi-turn video-grounded dialogues. It differs from previous evaluation datasets for multimodal large language models as it primarily focuses on evaluating the multi-turn dialogue capabilities, while overlooking the video understanding capabilities that were the focus of other benchmarks. MT-Video-Bench is designed to mimic real-world interactive scenarios, emphasizing contextual coherence, cross-scene video comprehension, and adaptive interactivity, and it includes 987 meticulously curated multi-turn dialogues with 5,805 QA pairs.",
+    "sources": [
+      {
+        "arxiv_id": "2510.17722v1",
+        "page": "3"
+      },
+      {
+        "arxiv_id": "2510.17722v1",
+        "page": "1"
+      },
+      {
+        "arxiv_id": "2510.17722v1",
+        "page": "1"
+      },
+      {
+        "arxiv_id": "2510.17722v1",
+        "page": "2"
+      },
+      {
+        "arxiv_id": "2510.17722v1",
+        "page": "9"
+      }
+    ]
+  },
+  {
+    "question": "How does the number of video frames affect model performance across different capabilities in the MT-Video-Bench evaluation, and what does this reveal about the role of visual context in multi-turn video dialogue reasoning?",
+    "answer": "In the MT-Video-Bench evaluation, increasing the number of video frames may have varying effects on model performance depending on the resolution. Within a certain range, higher resolution can enhance the model's ability to capture visual details; however, excessive resolution might lead to a decline in performance due to the increased number of input tokens that may exceed the model’s optimal processing capacity.\n\nRegarding the role of visual context in multi-turn video dialogue reasoning as revealed by the study:\n- Model performance generally decreases as video length increases, suggesting that longer videos pose greater challenges for capturing and reasoning over multi-turn dialogues' content.\n- More turns within the dialogue tend to improve model performance, but this improvement is dependent on the conversation's total number of turns and the efficiency with which models integrate contextual information for coherent dialogue states (e.g., larger models may handle long conversations more efficiently).\n- Contextual information plays a crucial role in model performance, as providing meticulously curated golden dialogue history yields higher results than self-predicted or no context at all.\nThis insight underscores the need for models that can reason over long contexts while engaging in adaptive and coherent conversations involving video content and multi-turn dialogues.",
+    "sources": [
+      {
+        "arxiv_id": "2510.17722v1",
+        "page": "9"
+      },
+      {
+        "arxiv_id": "2510.17722v1",
+        "page": "3"
+      },
+      {
+        "arxiv_id": "2510.17722v1",
+        "page": "1"
+      },
+      {
+        "arxiv_id": "2510.17722v1",
+        "page": "8"
+      },
+      {
+        "arxiv_id": "2510.17722v1",
+        "page": "5"
+      }
+    ]
+  },
+  {
+    "question": "What distinguishes AcademicEval from related frameworks like ResearchTown and WildLong in terms of its design goals, data sourcing, and approach to mitigating label leakage in long-context LLM evaluation?",
+    "answer": "What distinguishes AcademicEval from related frameworks like ResearchTown and WildLong is its design goals, data sourcing, and approach to mitigating label leakage in long-context LLM evaluation.\n\n1. Design Goals: Unlike ResearchTown which focuses on simulating collaborative behavior and ensuring realistic outputs under controlled settings, AcademicEval is a live benchmark designed specifically for evaluating the performance of Long Language Models (LLMs) on hierarchical writing tasks in authentic academic papers. It aims to measure LLMs' long-context reasoning and generation abilities on real-world academic tasks, unlike WildLong which focuses on data synthesis for instruction tuning.\n2. Data Sourcing: AcademicEval leverages the ArXiv repository as its main data source, whereas ResearchTown does not explicitly mention where it sources its data from. WildLong also uses user queries to extract meta-information and build co-occurrence graphs but does not focus on authentic academic papers like AcademicEval.\n3. Approach to Mitigating Label Leakage: AcademicEval is designed as a live-updating benchmark that continuously incorporates newly published ArXiv papers, making the evaluation set evolve over time and reducing the likelihood of performance being dominated by pre-encoded knowledge. This mitigation strategy contrasts with the approaches used in ResearchTown and WildLong, which do not provide explicit information on how they handle label leakage issues during training or testing of LLMs.",
+    "sources": [
+      {
+        "arxiv_id": "2510.17725v1",
+        "page": "3"
+      },
+      {
+        "arxiv_id": "2510.17725v1",
+        "page": "3"
+      },
+      {
+        "arxiv_id": "2510.17725v1",
+        "page": "13"
+      },
+      {
+        "arxiv_id": "2510.17725v1",
+        "page": "1"
+      },
+      {
+        "arxiv_id": "2510.17725v1",
+        "page": "2"
+      }
+    ]
+  },
+  {
+    "question": "How do human-judged preferences for academic writing tasks (e.g., Title, Abstract, Introduction, Related Work) differ from automatic metrics like BERTScore and ROUGE-L, and what does this reveal about the strengths of RALM versus non-RALM models across different tasks?",
+    "answer": "Human-judged preferences for academic writing tasks differ from automatic metrics like BERTScore and ROUGE-L in several ways. Human judgment considers broader qualitative aspects beyond lexical or semantic overlap, focusing more on higher-level writing quality such as style, coherence, feasibility, and academic style. On the other hand, automaticmetrics like BERTScore and ROUGE-L primarily reward overlap between the generated and reference texts.\n\nThe experiment shows that model performance depends on task nature and qualitative dimensions. Some models (like Hermes) perform better in short tasks where strong style and concision are valued, while others (like Mixtral) perform better at longer lengths when given correlated contexts. However, RALM models (Gemma and LLaMA) are not consistently preferred across all tasks, suggesting that aggressive retrieval may not always align with judged quality in certain contexts such as title writing.\n\nThe study also reveals the complementarity of these two evaluations: automatic metrics reward overlap, while human judgment emphasizes higher-level writing quality. This suggests that integrating both types of evaluation can lead to more comprehensive and accurate assessments of machine-generated academic writing.",
+    "sources": [
+      {
+        "arxiv_id": "2510.17725v1",
+        "page": "12"
+      },
+      {
+        "arxiv_id": "2510.17725v1",
+        "page": "12"
+      },
+      {
+        "arxiv_id": "2510.17725v1",
+        "page": "9"
+      },
+      {
+        "arxiv_id": "2510.17725v1",
+        "page": "12"
+      },
+      {
+        "arxiv_id": "2510.17725v1",
+        "page": "13"
+      }
+    ]
+  },
+  {
+    "question": "What is the primary advantage of the proposed multi-threading kernel for Spiking Neural Networks (SNNs) in neuromorphic edge applications, and how does it improve upon previous implementations in terms of performance, energy efficiency, and core utilization?",
+    "answer": "The primary advantage of the proposed multi-threading kernel for Spiking Neural Networks (SNNs) is its ability to improve performance, energy efficiency, and core utilization in neuromorphic edge applications. It provides speed-up gains over single thread processing by a factor of four on moderately sized SNNs and 1.7X on a Synfire network, and it load-balances all cores available on multi-core processors such as ARM, which are used in today's mobile devices. This results in an energy efficiency improvement of up to 70% compared to static core assignment. The kernel enables the development of edge applications that have low Size, Weight, and Power (SWaP), and can prototype the integration of neuromorphic chips. These advantages are achieved through multi-threading, dynamic load balancing, performance monitoring, and the creation of a synthetic load network named Chainfire.",
+    "sources": [
+      {
+        "arxiv_id": "2510.17745v1",
+        "page": "1"
+      },
+      {
+        "arxiv_id": "2510.17745v1",
+        "page": "1"
+      },
+      {
+        "arxiv_id": "2510.17745v1",
+        "page": "4"
+      },
+      {
+        "arxiv_id": "2510.17745v1",
+        "page": "3"
+      },
+      {
+        "arxiv_id": "2510.17745v1",
+        "page": "2"
+      }
+    ]
+  },
+  {
+    "question": "How does the multi-threading kernel in CARLsim achieve performance gains on neuromorphic edge applications, and what are the observed speed-up factors for the Chainfire and Synfire networks when scaling across multiple CPU cores?",
+    "answer": "The multi-threading kernel in CARLsim achieves performance gains on neuromorphic edge applications by scaling efficiently over available cores of modern CPUs, such as ARM Cortex-76 in Raspberry Pi 5, addressing the performance limitations of PThreads in CARLsim and other SNN simulators. The kernel includes multi-threading for SNNs that scale independently of network partitioning, dynamic load balancing to avoid synchronization bottlenecks, a performance monitor with ms precision for SNNs, and a synthetic load network named Chainfire.\n\nThe observed speed-up factors for the Chainfire network when scaling across multiple CPU cores are not explicitly stated in the provided information, so it's impossible to provide exact speed-up factors for this network; however, there are performance comparisons shown for both Chainfire and Synfire networks on Intel i9 and several ARM Cortex processors.\n\nThe specific speed-up factors observed for the Synfire network when scaling across multiple CPU cores can be seen in the figure (b) of the provided document, which shows a speed-up factor of approximately 7 for going from 1 to 8 cores on an Intel i9-11900K @ 3.5 GHz.\n\nKeep in mind that this analysis is based solely on the information provided and does not make any assumptions or extrapolate beyond what's presented.",
+    "sources": [
+      {
+        "arxiv_id": "2510.17745v1",
+        "page": "2"
+      },
+      {
+        "arxiv_id": "2510.17745v1",
+        "page": "2"
+      },
+      {
+        "arxiv_id": "2510.17745v1",
+        "page": "2"
+      },
+      {
+        "arxiv_id": "2510.17745v1",
+        "page": "4"
+      },
+      {
+        "arxiv_id": "2510.17745v1",
+        "page": "3"
+      }
+    ]
+  },
+  {
+    "question": "How does the proposed approach in this study enhance the predictability of Sea Ice Concentration (SIC) and Sea Ice Velocity (SIV) compared to prior deep learning methods, and what role does the physics-informed training scheme play in improving the HIS-Unet framework?",
+    "answer": "The proposed approach in this study enhances the predictability of Sea Ice Concentration (SIC) and Sea Ice Velocity (SIV) compared to prior deep learning methods because it integrates physical knowledge into the model through a physics-informed neural network (PINN) approach. This is done by designing physics loss functions that regulate SIV and SIC values, modifying the output layer to guarantee physically valid SIC values, and adding an additional activation function to the output layer in the HIS-Unet framework. The physics-informed training scheme plays a critical role in improving the performance of the HIS-Unet. However, the specific improvement it provides is not specified in the context text you've provided.",
+    "sources": [
+      {
+        "arxiv_id": "2510.17756v1",
+        "page": "6"
+      },
+      {
+        "arxiv_id": "2510.17756v1",
+        "page": "16"
+      },
+      {
+        "arxiv_id": "2510.17756v1",
+        "page": "33"
+      },
+      {
+        "arxiv_id": "2510.17756v1",
+        "page": "34"
+      },
+      {
+        "arxiv_id": "2510.17756v1",
+        "page": "9"
+      }
+    ]
+  },
+  {
+    "question": "How do the Weighting Attention Modules (WAMs) facilitate information sharing between the Sea Ice Velocity (SIV) and Sea Ice Concentration (SIC) branches in the proposed multi-task U-Net architecture, and what role do channel and spatial attention mechanisms play within each WAM?",
+    "answer": "The Weighting Attention Modules (WAMs) facilitate information sharing between the Sea Ice Velocity (SIV) and Sea Ice Concentration (SIC) branches in the proposed multi-task U-Net architecture by multiplying linear weights to the input SIV and SIC feature maps, determining the shared information (ξin,share), then passing this shared information through channel attention and spatial attention modules. The channel attention mechanism highlights the meaningful channels within the shared information, while the spatial attention mechanism emphasizes informative parts of the shared data. This process is described in more detail in Koo and Rahnemoonfar (2024).",
+    "sources": [
+      {
+        "arxiv_id": "2510.17756v1",
+        "page": "19"
+      },
+      {
+        "arxiv_id": "2510.17756v1",
+        "page": "17"
+      },
+      {
+        "arxiv_id": "2510.17756v1",
+        "page": "18"
+      },
+      {
+        "arxiv_id": "2510.17756v1",
+        "page": "17"
+      },
+      {
+        "arxiv_id": "2510.17756v1",
+        "page": "16"
+      }
+    ]
+  }
+]

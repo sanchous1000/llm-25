@@ -1,0 +1,99 @@
+{
+  "config_hash": "d44dbaee",
+  "top_k": 5,
+  "recall": 0.7,
+  "precision": 0.14,
+  "mrr": 0.65,
+  "per_query": [
+    {
+      "question": "What is the main contribution of the proposed method in addressing data scarcity for Named Entity Recognition (NER) in low-resource settings?",
+      "relevant_chunks": [
+        "2510.17720v1_page_002"
+      ],
+      "recall": 1.0,
+      "precision": 0.2,
+      "mrr": 1.0
+    },
+    {
+      "question": "What advantages does the proposed PANER framework offer over existing zero-shot NER models like GNER and SLIMER in terms of computational efficiency and out-of-domain performance?",
+      "relevant_chunks": [
+        "2510.17720v1_page_008"
+      ],
+      "recall": 1.0,
+      "precision": 0.2,
+      "mrr": 1.0
+    },
+    {
+      "question": "What is the primary purpose of the MT-Video-Bench benchmark introduced in the paper, and how does it differ from previous evaluation datasets for multimodal large language models (MLLMs)?",
+      "relevant_chunks": [
+        "2510.17722v1_page_002"
+      ],
+      "recall": 0.0,
+      "precision": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "question": "How does the number of video frames affect model performance across different capabilities in the MT-Video-Bench evaluation, and what does this reveal about the role of visual context in multi-turn video dialogue reasoning?",
+      "relevant_chunks": [
+        "2510.17722v1_page_009"
+      ],
+      "recall": 1.0,
+      "precision": 0.2,
+      "mrr": 1.0
+    },
+    {
+      "question": "What distinguishes AcademicEval from related frameworks like ResearchTown and WildLong in terms of its design goals, data sourcing, and approach to mitigating label leakage in long-context LLM evaluation?",
+      "relevant_chunks": [
+        "2510.17725v1_page_003"
+      ],
+      "recall": 1.0,
+      "precision": 0.2,
+      "mrr": 1.0
+    },
+    {
+      "question": "How do human-judged preferences for academic writing tasks (e.g., Title, Abstract, Introduction, Related Work) differ from automatic metrics like BERTScore and ROUGE-L, and what does this reveal about the strengths of RALM versus non-RALM models across different tasks?",
+      "relevant_chunks": [
+        "2510.17725v1_page_012"
+      ],
+      "recall": 1.0,
+      "precision": 0.2,
+      "mrr": 1.0
+    },
+    {
+      "question": "What is the primary advantage of the proposed multi-threading kernel for Spiking Neural Networks (SNNs) in neuromorphic edge applications, and how does it improve upon previous implementations in terms of performance, energy efficiency, and core utilization?",
+      "relevant_chunks": [
+        "2510.17745v1_page_001"
+      ],
+      "recall": 1.0,
+      "precision": 0.2,
+      "mrr": 1.0
+    },
+    {
+      "question": "How does the multi-threading kernel in CARLsim achieve performance gains on neuromorphic edge applications, and what are the observed speed-up factors for the Chainfire and Synfire networks when scaling across multiple CPU cores?",
+      "relevant_chunks": [
+        "2510.17745v1_page_003"
+      ],
+      "recall": 0.0,
+      "precision": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "question": "How does the proposed approach in this study enhance the predictability of Sea Ice Concentration (SIC) and Sea Ice Velocity (SIV) compared to prior deep learning methods, and what role does the physics-informed training scheme play in improving the HIS-Unet framework?",
+      "relevant_chunks": [
+        "2510.17756v1_page_009"
+      ],
+      "recall": 0.0,
+      "precision": 0.0,
+      "mrr": 0.0
+    },
+    {
+      "question": "How do the Weighting Attention Modules (WAMs) facilitate information sharing between the Sea Ice Velocity (SIV) and Sea Ice Concentration (SIC) branches in the proposed multi-task U-Net architecture, and what role do channel and spatial attention mechanisms play within each WAM?",
+      "relevant_chunks": [
+        "2510.17756v1_page_017"
+      ],
+      "recall": 1.0,
+      "precision": 0.2,
+      "mrr": 0.5
+    }
+  ]
+}
