@@ -56,6 +56,8 @@ RAG пайплайн отрабатывает корректно, извлека
 - chunk_overlap: 8
 - include_headers_in_chunk: true
 
+Сильно влияют на качество параметры разбиения по чанкам.
+
 ## Инструкция по запуску
 1. Установить зависимости: `pip install -r requirements.txt`
 2. Запустить скрипт: `python source/fetch_arxiv_pdfs.py`
