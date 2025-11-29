@@ -38,11 +38,8 @@ def build_prompt(question: str, contexts: List[Dict[str, Any]]) -> str:
 def main():
     ap = argparse.ArgumentParser(description="RAG запрос к LLM (Ollama) с контекстом из Qdrant")
     ap.add_argument("--question", required=True)
-    ap.add_argument("--ollama_host", default="http://localhost:11434")
     ap.add_argument("--embed_model", default="nomic-embed-text", help="Модель эмбеддингов в Ollama")
     ap.add_argument("--llm_model", default="llama3.2", help="LLM модель в Ollama")
-    ap.add_argument("--qdrant_host", default="localhost")
-    ap.add_argument("--qdrant_port", type=int, default=6333)
     ap.add_argument("--collection", default="vllm_docs")
     ap.add_argument("--top_k", type=int, default=5)
     args = ap.parse_args()
@@ -66,7 +63,7 @@ def main():
             trace_context={"trace_id": trace_id}
         ) as gen:
             # 1) Эмбеддинг запроса
-            q_vec = embed_query(args.question, model=args.embed_model, host=args.ollama_host)
+            q_vec = embed_query(args.question, model=args.embed_model, host="http://localhost:11434")
             gen.update(
                 model=args.embed_model,
                 input={"query": args.question},
@@ -81,7 +78,11 @@ def main():
             trace_context={"trace_id": trace_id}
         ) as span:
             # 2) Поиск в Qdrant
-            qdrant = QdrantCollection(name=args.collection, host=args.qdrant_host, port=args.qdrant_port)
+            qdrant = QdrantCollection(
+                name=args.collection, 
+                host=os.getenv("QDRANT_HOST", default="localhost"), 
+                port=os.getenv("QDRANT_PORT", default=6333)
+            )
             results = qdrant.search(q_vec, top_k=args.top_k)
             span.update(
                 input={"embedding": q_vec},
@@ -108,7 +109,7 @@ def main():
             trace_context={"trace_id": trace_id}
         ) as gen:
              # 4) Вызов LLM в Ollama
-            answer = generate_answer(prompt, model=args.llm_model, host=args.ollama_host)
+            answer = generate_answer(prompt, model=args.llm_model, host="http://localhost:11434")
             gen.update(
                 input={"prompt": prompt, "model": args.llm_model},
                 output={"answer":  answer}

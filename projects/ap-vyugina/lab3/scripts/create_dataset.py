@@ -30,8 +30,6 @@ def get_doc_id_to_path_mapping(qdrant_host: str, qdrant_port: int, collection: s
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="Оценка качества retrieval системы")
-    ap.add_argument("--qdrant_host", default="localhost")
-    ap.add_argument("--qdrant_port", type=int, default=6333)
     ap.add_argument("--collection", default="vllm_docs")
     args = ap.parse_args()
 
@@ -41,7 +39,12 @@ if __name__ == "__main__":
         base_url=os.getenv("LANGFUSE_BASE_URL"),
     )
 
-    id_to_path_mapping = get_doc_id_to_path_mapping(args.qdrant_host, args.qdrant_port, args.collection)
+    id_to_path_mapping = get_doc_id_to_path_mapping(
+        qdrant_host=os.getenv("QDRANT_HOST", default="localhost"), 
+        qdrant_port=os.getenv("QDRANT_PORT", default=6333), 
+        collection=args.collection
+    )
+    
     path_to_id_mapping = {path: doc_id for doc_id, path in id_to_path_mapping.items()}
 
     ground_truth_file = '../artifacts/ground_truth_example.json'
