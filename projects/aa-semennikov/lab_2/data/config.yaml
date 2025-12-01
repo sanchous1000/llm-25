@@ -1,0 +1,52 @@
+chunking:
+  splitter_type: 'markdown'
+  chunk_size: 512
+  chunk_overlap: 50
+  include_headers_in_text: true
+  header_levels: ['h1', 'h2', 'h3', 'h4']
+  min_chunk_size: 50
+
+embeddings:
+  vectorization_type: 'dense'
+  dense:
+    model: 'bge-base-en-v1.5'
+    batch_size: 32
+    device: 'cpu'
+paths:
+  corpus_dir: 'corpus'
+  output_dir: 'data'
+  chunks_dir: 'chunks'
+  embeddings_dir: 'embeddings'
+  index_dir: 'index'
+
+versioning:
+  # Автоматическое создание версий при изменении параметров
+  auto_version: true
+  version_format: 'hash'
+  keep_history: true
+
+qdrant:
+  host: 'localhost'
+  port: 6333
+  collection_name: 'documents'
+  
+  hnsw:
+    # Количество двунаправленных связей, создаваемых для каждого нового элемента
+    # Большие значения улучшают качество поиска, но увеличивают память (16-64)
+    m: 32
+    # Количество ближайших соседей, которые отслеживаются во время построения графа
+    ef_construction: 200
+    # Количество ближайших соседей, которые отслеживаются во время поиска
+    ef_search: 200
+  
+  batch_size: 100
+  distance_metric: 'cosine'
+
+rag:
+  top_k: 5
+  llm_model: 'llama3.1:8b'
+  temperature: 0.7
+  max_tokens: 512
+  ollama:
+    base_url: 'http://localhost:11434/v1'
+    api_key: 'pass'

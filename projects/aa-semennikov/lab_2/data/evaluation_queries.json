@@ -1,0 +1,107 @@
+{
+  "queries": [
+    {
+      "id": 1,
+      "query": "How to train a GPT model from scratch?",
+      "relevant_documents": [
+        "nanoGPT__README.md",
+        "minGPT__README.md",
+        "llm.c__README.md"
+      ],
+      "description": "Вопрос о обучении GPT моделей с нуля"
+    },
+    {
+      "id": 2,
+      "query": "What is backpropagation and how does it work in neural networks?",
+      "relevant_documents": [
+        "micrograd__README.md",
+        "nn-zero-to-hero__README.md"
+      ],
+      "description": "Вопрос о backpropagation в нейронных сетях"
+    },
+    {
+      "id": 3,
+      "query": "How to implement character-level language model with RNN?",
+      "relevant_documents": [
+        "char-rnn__Readme.md",
+        "makemore__README.md",
+        "recurrentjs__Readme.md"
+      ],
+      "description": "Вопрос о character-level RNN моделях"
+    },
+    {
+      "id": 4,
+      "query": "What are transformers and how do they work?",
+      "relevant_documents": [
+        "transformers__README.md",
+        "nanoGPT__README.md",
+        "minGPT__README.md"
+      ],
+      "description": "Вопрос о трансформерах"
+    },
+    {
+      "id": 5,
+      "query": "How to train and run Llama 2 model efficiently?",
+      "relevant_documents": [
+        "llama2.c__README.md",
+        "llm.c__README.md"
+      ],
+      "description": "Вопрос о Llama 2"
+    },
+    {
+      "id": 6,
+      "query": "What is tokenization and how to build a tokenizer?",
+      "relevant_documents": [
+        "minbpe__README.md",
+        "makemore__README.md"
+      ],
+      "description": "Вопрос о токенизации"
+    },
+    {
+      "id": 7,
+      "query": "How to visualize high-dimensional data and embeddings?",
+      "relevant_documents": [
+        "tsnejs__Readme.md",
+        "convnetjs__Readme.md"
+      ],
+      "description": "Вопрос о визуализации данных"
+    },
+    {
+      "id": 8,
+      "query": "What are neural networks and how to build them from scratch?",
+      "relevant_documents": [
+        "micrograd__README.md",
+        "nn-zero-to-hero__README.md",
+        "optim__README.md"
+      ],
+      "description": "Вопрос о создании нейронных сетей с нуля"
+    },
+    {
+      "id": 9,
+      "query": "How to generate images using neural networks?",
+      "relevant_documents": [
+        "neuraltalk__Readme.md",
+        "neuraltalk2__README.md",
+        "convnetjs__Readme.md"
+      ],
+      "description": "Вопрос о генерации изображений"
+    },
+    {
+      "id": 10,
+      "query": "What is reinforcement learning and how to implement it?",
+      "relevant_documents": [
+        "reinforcejs__README.md",
+        "convnetjs__Readme.md"
+      ],
+      "description": "Вопрос о reinforcement learning"
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "created": "2025-11-26",
+    "description": "Набор запросов для оценки качества retrieval системы",
+    "corpus": "Andrej Karpathy GitHub repositories README files",
+    "total_queries": 10
+  }
+}
+
