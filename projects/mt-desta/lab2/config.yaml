@@ -1,0 +1,27 @@
+data:
+  source_dir: "data"
+  chunk_size: 500
+  chunk_overlap: 50
+
+splitter:
+  type: "recursive" # Options: "recursive", "token", "markdown_only"
+  include_headers: true
+
+vectorization:
+  type: "sparse" # Options: "dense", "sparse", "hybrid"
+
+embedding:
+  model_name: "sentence-transformers/all-MiniLM-L6-v2"
+
+vector_store:
+  path: "chroma_db"
+  collection_name: "rag_collection"
+  hnsw:
+    M: 16
+    ef_construction: 100
+    ef_search: 10
+    quantization: false # Placeholder for future use
+
+llm:
+  model_id: "gemma3:4b" # Default, can be changed
+  base_url: "http://localhost:11434/api/generate"
