@@ -1,0 +1,19 @@
+# Langfuse dependencies
+langfuse>=2.0.0
+python-dotenv>=1.0.0
+
+# Dependencies from lab2 (include them here for completeness)
+langchain
+langchain-community
+chromadb
+sentence-transformers
+pypdf
+python-docx
+python-pptx
+unstructured
+markdown
+markdownify
+pyyaml
+requests
+rank_bm25
+
