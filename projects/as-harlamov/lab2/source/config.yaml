@@ -1,0 +1,56 @@
+# Configuration for RAG system
+
+# Document processing
+documents:
+  input_dir: "data/raw"
+  output_dir: "data/processed"
+  supported_formats: ["pdf", "docx", "pptx", "md", "html"]
+
+# Chunking configuration
+chunking:
+  strategy: "hybrid"  # Options: recursive, markdown, hybrid (hybrid recommended for better results)
+  chunk_size: 300  # tokens (smaller chunks for better precision)
+  chunk_overlap: 50  # tokens
+  include_headers: true
+  separators: ["\n\n", "\n", " ", ""]
+
+# Embedding configuration
+embeddings:
+  type: "hybrid"  # Options: dense, sparse, hybrid (hybrid combines dense + sparse for better recall)
+  model: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"  # For dense
+  # For OpenAI embeddings:
+  # provider: "openai"
+  # model: "text-embedding-3-small"
+  # api_key: "${OPENAI_API_KEY}"
+  
+  # For sparse (BM25):
+  # bm25_k1: 1.5
+  # bm25_b: 0.75
+
+# Vector store configuration
+vector_store:
+  provider: "qdrant"  # Options: qdrant, faiss
+  url: "http://localhost:6333"
+  collection_name: "rag_documents"
+  hnsw_config:
+    m: 32  # Number of edges per node in the index graph (increased for better accuracy)
+    ef_construction: 200  # Number of neighbours to consider during index building (increased for better quality)
+    # Note: ef_search is a search-time parameter, not a collection config parameter
+  recreate_collection: false
+
+# RAG pipeline
+rag:
+  top_k: 10  # Increased for better recall
+  llm_provider: "local"  # Options: openai, anthropic, local
+  # For OpenAI: set OPENAI_API_KEY environment variable
+  # For Anthropic: set ANTHROPIC_API_KEY environment variable
+  # For local/OLLAMA: set LOCAL_LLM_BASE_URL (default: http://localhost:11434/v1)
+  llm_model: "qwen:7b"  # Model name for OLLAMA (available: qwen:7b, mistral:7b-instruct, llama3.2:1b, qwen3-coder:480b-cloud)
+  temperature: 0.7
+  max_tokens: 1000
+
+# Evaluation
+evaluation:
+  test_questions_file: "data/test_questions.json"
+  k_values: [5, 10]
+

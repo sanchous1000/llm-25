@@ -1,0 +1,20 @@
+{
+  "config": {
+    "chunking": {
+      "strategy": "hybrid",
+      "chunk_size": 300,
+      "chunk_overlap": 50
+    },
+    "embeddings": {
+      "type": "hybrid",
+      "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    }
+  },
+  "metrics": {
+    "recall@5": 0.9,
+    "precision@5": 0.5399999999999999,
+    "recall@10": 0.9,
+    "precision@10": 0.26999999999999996,
+    "mrr": 1.0
+  }
+}
