@@ -8,3 +8,6 @@ TOP_K = int(5)
 LLM_MODEL = 'llama3.2:3b'
 COLLECTION_NAME = 'docs'
 
+QDRANT_HOST = 'localhost'
+QDRANT_PORT = int(6333)
+
