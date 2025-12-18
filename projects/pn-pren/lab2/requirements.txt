@@ -1,0 +1,17 @@
+python-docx
+python-pptx
+pypdf
+beautifulsoup4
+markdown
+langchain
+langchain-community
+sentence-transformers
+qdrant-client
+nltk
+scikit-learn
+pandas
+numpy
+pyyaml
+python-dotenv
+ollama
+rank-bm25

@@ -10,4 +10,5 @@ COLLECTION_NAME = 'docs'
 
 QDRANT_HOST = 'localhost'
 QDRANT_PORT = int(6333)
-
+OLLAMA_HOST = 'localhost'
+OLLAMA_PORT = int(11434)
