@@ -184,7 +184,7 @@ def build_index(markdown_dir, output_dir, chunk_size=512, overlap=50,
         'overlap': overlap,
         'splitter_type': splitter_type,
         'embedding_model': embedding_model,
-        'use_sparse': use_sparse,
+        'use_sparse': False,
         'total_chunks': len(all_chunks)
     }
     
@@ -211,5 +211,5 @@ if __name__ == '__main__':
         overlap=config.OVERLAP,
         splitter_type=config.SPLITTER_TYPE,
         embedding_model=config.EMBEDDING_MODEL,
-        use_sparse=True
+        use_sparse=False
     )
