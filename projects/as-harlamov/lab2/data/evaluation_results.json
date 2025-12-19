@@ -11,10 +11,10 @@
     }
   },
   "metrics": {
-    "recall@5": 0.9,
-    "precision@5": 0.5399999999999999,
-    "recall@10": 0.9,
-    "precision@10": 0.26999999999999996,
+    "recall@5": 1.0,
+    "precision@5": 1.0,
+    "recall@10": 1.0,
+    "precision@10": 0.5,
     "mrr": 1.0
   }
 }

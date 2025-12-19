@@ -29,7 +29,7 @@ embeddings:
 
 # Vector store configuration
 vector_store:
-  provider: "qdrant"  # Options: qdrant, faiss
+  provider: "qdrant"
   url: "http://localhost:6333"
   collection_name: "rag_documents"
   hnsw_config:
@@ -40,13 +40,10 @@ vector_store:
 
 # RAG pipeline
 rag:
-  top_k: 10  # Increased for better recall
-  llm_provider: "local"  # Options: openai, anthropic, local
-  # For OpenAI: set OPENAI_API_KEY environment variable
-  # For Anthropic: set ANTHROPIC_API_KEY environment variable
-  # For local/OLLAMA: set LOCAL_LLM_BASE_URL (default: http://localhost:11434/v1)
-  llm_model: "qwen:7b"  # Model name for OLLAMA (available: qwen:7b, mistral:7b-instruct, llama3.2:1b, qwen3-coder:480b-cloud)
-  temperature: 0.7
+  top_k: 5
+  llm_provider: "local"
+  llm_model: "mistral:7b-instruct"
+  temperature: 0.1
   max_tokens: 1000
 
 # Evaluation
