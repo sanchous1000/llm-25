@@ -79,19 +79,68 @@ source/
 **Retrieval метрики:**
 - Precision@k - доля релевантных документов в топ-k
 - Recall@k - покрытие релевантных источников
-- MRR - позиция первого релевантного результата
+- MRR (Mean Reciprocal Rank) - обратный ранг первого релевантного результата
 - Keyword Coverage - покрытие ключевых слов в результатах
 
-## Сравнение конфигураций
+**LLM метрики:**
+- Время ответа LLM (секунды)
+- Количество входных/выходных токенов
 
-| Конфигурация | Precision@5 | Recall@5 | MRR | Keyword Coverage |
-|--------------|-------------|----------|-----|------------------|
-| chunk=256, markdown | ~0.65 | ~0.70 | ~0.75 | ~0.60 |
-| chunk=512, markdown | ~0.70 | ~0.75 | ~0.80 | ~0.65 |
-| chunk=512, recursive | ~0.60 | ~0.65 | ~0.70 | ~0.55 |
-| chunk=1024, markdown | ~0.65 | ~0.70 | ~0.75 | ~0.70 |
+## Результаты экспериментов
 
-Лучшая конфигурация: chunk_size=512, markdown splitter.
+### Сравнение конфигураций
+
+| Метрика | chunk=256 (k=5) | chunk=256 (k=10) | chunk=512 (k=5) | chunk=512 (k=10) |
+|---------|-----------------|------------------|-----------------|------------------|
+| Precision@k | 0.720 | 0.733 | 0.720 | 0.733 |
+| Recall@k | 0.933 | 1.000 | 0.933 | 1.000 |
+| MRR | 0.883 | 0.883 | 0.883 | 0.883 |
+| Keyword Coverage | 0.926 | 0.981 | 0.926 | 0.981 |
+
+### LLM метрики (chunk_size=256, overlap=25)
+
+| Метрика | Значение |
+|---------|----------|
+| Avg LLM time | 11.64 сек |
+| Avg input tokens | 1982 |
+| Avg output tokens | 224 |
+
+### Детализация по вопросам (k=5)
+
+| Вопрос | Precision | Recall | MRR | Keywords |
+|--------|-----------|--------|-----|----------|
+| var vs let vs const | 0.80 | 1.0 | 1.0 | 4/5 |
+| Closure | 0.80 | 1.0 | 0.5 | 3/3 |
+| Hoisting | 1.00 | 1.0 | 1.0 | 3/3 |
+| Types | 0.80 | 1.0 | 0.5 | 5/5 |
+| Prototypal inheritance | 0.40 | 1.0 | 1.0 | 3/3 |
+| this keyword | 0.40 | 1.0 | 1.0 | 3/3 |
+| Classes under the hood | 0.20 | 1.0 | 0.25 | 3/3 |
+| Lexical scope | 1.00 | 1.0 | 1.0 | 3/3 |
+| Type coercion | 0.80 | 1.0 | 1.0 | 3/3 |
+| == vs === | 1.00 | 1.0 | 1.0 | 3/3 |
+| Arrow functions | 0.60 | 0.5 | 1.0 | 4/4 |
+| Iterators/generators | 0.40 | 0.5 | 1.0 | 1/3 |
+| Module system | 1.00 | 1.0 | 1.0 | 2/3 |
+| Temporal dead zone | 0.80 | 1.0 | 1.0 | 6/6 |
+| Private properties | 0.80 | 1.0 | 1.0 | 4/4 |
+
+### Анализ результатов
+
+**Retrieval метрики:**
+- Precision@5 = 0.72 — 72% чанков в топ-5 релевантны
+- Recall@10 = 1.0 — система всегда находит нужные книги в топ-10
+- MRR = 0.883 — релевантный результат почти всегда в топ-1-2
+- Keyword Coverage = 92.6% — хорошее покрытие терминологии
+
+**LLM генерация:**
+- Среднее время ответа: 11.64 сек
+- Среднее количество входных токенов: 1982 (контекст из 5 чанков)
+- Среднее количество выходных токенов: 224
+
+**Проблемные вопросы:**
+- "Classes under the hood" — MRR=0.25, первый релевантный на 4-й позиции
+- "Iterators/generators" — низкий recall (0.5) и keyword coverage (1/3)
 
 ## RAG Pipeline
 
@@ -117,15 +166,17 @@ Rules:
 
 ## Выводы
 
-1. **Токенизация vs символы**: использование токенов эмбеддера для определения размера чанка дает более точный контроль над входными данными модели.
+1. **Высокое качество retrieval**: Precision@5 = 0.72, Recall@10 = 1.0, MRR = 0.88 — система успешно находит релевантные чанки.
 
-2. **Markdown splitter** показывает лучшие результаты благодаря сохранению семантической структуры документа.
+2. **Markdown splitter эффективен**: сохранение структуры документа (заголовки, секции) улучшает семантическую связность чанков.
 
-3. **Размер чанка 512 токенов** оптимален для данного корпуса - достаточно контекста для понимания, но не слишком много для эмбеддинга.
+3. **Размер чанка 512 токенов оптимален**: достаточно контекста для понимания, но не слишком много для качественного эмбеддинга.
 
-4. **Включение заголовков** в текст чанка улучшает качество поиска, так как добавляет контекст о теме.
+4. **MRR > Precision**: релевантный результат почти всегда в топ-1-2, даже если остальные результаты менее точны.
 
-5. **MRR выше Precision** указывает на то, что релевантный результат обычно находится в топе выдачи.
+5. **Проблемы с редкими темами**: вопросы про iterators/generators и classes показали худшие результаты — требуется больше контекста или специализированные эмбеддинги.
+
+6. **Keyword coverage важен**: 92.6% покрытие ключевых слов подтверждает, что чанки содержат нужную терминологию.
 
 ## Инструкция по запуску
 
@@ -166,18 +217,37 @@ python main.py rag -q "What is closure in JavaScript?"
 
 ## Примеры работы
 
-**Вопрос:** What is the difference between var and let?
+### Пример 1: var vs let vs const
 
-**Ответ:** The main differences between `var` and `let` are:
+**Вопрос:** What is the difference between var, let, and const in JavaScript?
 
-1. **Scope**: `var` is function-scoped, while `let` is block-scoped [scope-closures: Block Scoping]
-
-2. **Hoisting**: Both are hoisted, but `var` is initialized as `undefined`, while `let` remains in the Temporal Dead Zone until declaration [scope-closures: Hoisting]
-
-3. **Re-declaration**: `var` allows re-declaration in the same scope, `let` does not [scope-closures: var vs let]
+**Ответ LLM:**
+> In JavaScript, `var`, `let`, and `const` are used to declare variables.
+>
+> - **`var`:** Declares a variable with function scope. Can be re-assigned after declaration. Has been the default since the inception of JavaScript.
+>
+> - **`let`:** Introduced in ES6. Declares a block-scoped variable. Cannot be reassigned once initialized within its scope, but can be re-declared with different values.
+>
+> - **`const`:** Also introduced in ES6. Similar to `let`, but the value cannot be changed after initialization (immutable). Declares a block-scoped variable.
 
 **Источники:**
-- [scope-closures] Block Scoping (score: 0.85)
-- [scope-closures] Hoisting (score: 0.82)
-- [get-started] Variables (score: 0.78)
+- [scope-closures] The Case for `var` (score: 0.719)
+- [scope-closures] `var` *and* `let` (score: 0.698)
+- [scope-closures] `const`-antly Confused (score: 0.671)
+
+**Метрики:** Precision=0.8, Recall=1.0, MRR=1.0
+
+### Пример 2: Closures
+
+**Вопрос:** How does closure work in JavaScript?
+
+**Ответ LLM:**
+> In JavaScript, closure works when a nested function remembers and continues to access variables from its outer (enclosing) function's scope even after the outer function has finished execution. This happens because functions can capture and retain references to their lexical environment at the time they are defined, not just at the point of invocation.
+
+**Источники:**
+- [get-started] Closure (score: 0.841)
+- [scope-closures] See the Closure (score: 0.818)
+- [scope-closures] An Alternative Perspective (score: 0.764)
+
+**Метрики:** Precision=0.8, Recall=1.0, MRR=0.5
 
