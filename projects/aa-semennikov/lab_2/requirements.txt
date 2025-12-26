@@ -1,0 +1,28 @@
+# Базовые зависимости
+requests>=2.31.0
+python-dotenv>=1.0.0
+pyyaml>=6.0.1
+numpy>=1.24.0
+tqdm>=4.66.0
+
+# Для работы с текстом и токенизации
+tiktoken>=0.5.1
+transformers>=4.35.0
+
+# Для embeddings
+sentence-transformers>=2.2.2
+torch>=2.0.0
+
+# Для OpenAI (опционально)
+openai>=1.3.0
+
+# Для работы с markdown
+markdown>=3.5.0
+beautifulsoup4>=4.12.0
+
+# Утилиты
+click>=8.1.7
+pandas>=2.1.0
+
+# Для векторного хранилища
+qdrant-client>=1.16.1
