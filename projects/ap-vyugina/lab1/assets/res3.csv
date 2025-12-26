@@ -1,0 +1,12 @@
+"llama3.2:1b","default","Here is a two-sentence summary of the abstract:
+
+The authors introduce DE-ViT, a few-shot object detector that uses a novel region-propagation mechanism and learnable spatial integral layer to localize features without finetuning prototypes, achieving state-of-the-art results on various benchmarks. DE-ViT also improves upon existing few-shot object detection methods by surpassing state-of-the-art performance on one-shot and real-world applications in robotics."
+"gemma3:270m","default","Few-shot object detection models, based on a novel region-propagation mechanism, outperform traditional methods in open environments, demonstrating significant performance gains for COCO, SoTA, and LVIS.
+"
+"qwen2.5:0.5b","default","DE-ViT is a new region propagation mechanism for localization that allows training without the need for finetuning. It is a few-shot object detection model, achieving state-of-the-art results in COCO and LVIS benchmarks with limited fine-tuning efforts."
+"llama3.2:1b","finetuned","Here is a two-sentence summary of the abstract:
+
+The authors introduce DE-ViT, a few-shot object detector that uses a novel region-propagation mechanism and learnable spatial integral layer to project features into a robust subspace without finetuning prototypes. DE-ViT achieves state-of-the-art results on several benchmarks, including COCO, LVIS, and Pascal VOC, and outperforms few-shot SoTA by 15-17 mAP in real-world applications."
+"gemma3:270m","finetuned","DE-ViT, a few-shot object detector, learns novel categories from only a few example images, offering a basic skill for robot tasks. It employs a learnable spatial integral layer to localize features, instead of training prototypes. DE-ViT achieves state-of-the-art results on various benchmarks, notably COCO and LVIS, with a 15 mAP improvement for COCO and a 7.2 mAP improvement for LVIS.
+"
+"qwen2.5:0.5b","finetuned","DE-ViT is a few-shot object detector that introduces a novel architecture and mechanism to localize regions in the input images without requiring finetuning. It uses learnable spatial integral layers to transform region masks into bounding boxes, instead of using prototype classifiers. The paper evaluates DE-ViT on various benchmarks including Pascal VOC, COCO, and LVIS, achieving state-of-the-art results."
