@@ -1,0 +1,7 @@
+prompts:
+  - text: "Write a short story about a robot learning to paint. Output only the story."
+    type: generation
+  - text: "Classify the following text into one of these categories: [Sports, Politics, Technology]. Text: 'The new processor offers 20% better performance.' Output ONLY the category name."
+    type: classification
+  - text: "Summarize the following text in one sentence: 'Photosynthesis is a process used by plants and other organisms to convert light energy into chemical energy that, through cellular respiration, can later be released to fuel the organism's activities. This chemical energy is stored in carbohydrate molecules, such as sugars and starches, which are synthesized from carbon dioxide and water.' Output ONLY the summary."
+    type: summarization
