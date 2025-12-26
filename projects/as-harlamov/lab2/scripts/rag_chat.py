@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
+from datetime import datetime
 from pathlib import Path
-
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "source"))
 
@@ -21,6 +21,11 @@ def main():
         print(f"Ошибка инициализации: {e}")
         return
 
+    session_id = f"chat_session_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    print(f"Session ID: {session_id}")
+    print("Результаты можно просмотреть в интерфейсе Langfuse по адресу http://localhost:3000")
+    print("Введите 'quit', 'exit' или 'q' для выхода\n")
+
     while True:
         try:
             query = input("> ").strip()
@@ -31,7 +36,7 @@ def main():
             if not query:
                 continue
 
-            result = rag.answer(query)
+            result = rag.answer(query, session_id=session_id, return_trace_id=True)
 
             print(f"\n{result['answer']}\n")
 
@@ -44,6 +49,9 @@ def main():
                     snippet_preview = snippet[:80] + "..." if len(snippet) > 80 else snippet
                     print(f"  {i}. стр. {page} ({score:.2f}): {snippet_preview}")
                 print()
+
+            if result.get("trace_id"):
+                print(f"Trace ID: {result['trace_id']}\n")
 
         except KeyboardInterrupt:
             break

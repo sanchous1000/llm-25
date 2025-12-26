@@ -1,20 +1,46 @@
+import os
 from typing import Any, Dict, List
 
 from anthropic import Anthropic
+from dotenv import load_dotenv
+from langfuse import Langfuse
 from openai import OpenAI
 
 from config import Config
 from embeddings import EmbeddingGenerator
 from vector_store import VectorStore
 
+load_dotenv()
+
 
 class RAGPipeline:
-    def __init__(self, config: Config, embedding_generator: EmbeddingGenerator, vector_store: VectorStore):
+    def __init__(
+        self,
+        config: Config,
+        embedding_generator: EmbeddingGenerator,
+        vector_store: VectorStore,
+        langfuse_public_key: str = None,
+        langfuse_secret_key: str = None,
+        langfuse_host: str = None,
+    ):
         self.config = config
         self.embedding_generator = embedding_generator
         self.vector_store = vector_store
         self.llm_client = None
         self._initialize_llm()
+
+        langfuse_url = (
+            langfuse_host
+            or os.getenv("LANGFUSE_BASE_URL")
+            or os.getenv("LANGFUSE_HOST")
+            or "http://localhost:3000"
+        )
+
+        self.langfuse = Langfuse(
+            public_key=langfuse_public_key or os.getenv("LANGFUSE_PUBLIC_KEY", ""),
+            secret_key=langfuse_secret_key or os.getenv("LANGFUSE_SECRET_KEY", ""),
+            host=langfuse_url,
+        )
 
     def _initialize_llm(self):
         import os
@@ -61,7 +87,7 @@ class RAGPipeline:
         corpus_texts = [point.payload.get("text", "") for point in all_points_sorted]
         return corpus_texts
 
-    def _retrieve_context(self, query: str) -> List[Dict[str, Any]]:
+    def _retrieve_context(self, query: str, parent_span=None) -> List[Dict[str, Any]]:
         if self.config.embeddings.type == "dense":
             query_embedding = self._vectorize_query(query)
             results = self.vector_store.search(query_embedding, top_k=self.config.rag.top_k)
@@ -76,6 +102,43 @@ class RAGPipeline:
             )
         else:
             raise ValueError(f"Unsupported embedding type: {self.config.embeddings.type}")
+
+        if parent_span:
+            retrieval_metrics = {}
+            if results:
+                scores = [r.get("score", 0.0) for r in results]
+                if scores:
+                    retrieval_metrics["avg_retrieval_score"] = sum(scores) / len(scores)
+                    retrieval_metrics["max_retrieval_score"] = max(scores)
+                    retrieval_metrics["min_retrieval_score"] = min(scores)
+                
+                dense_scores = [r.get("dense_score", 0.0) for r in results if "dense_score" in r]
+                if dense_scores:
+                    retrieval_metrics["avg_dense_score"] = sum(dense_scores) / len(dense_scores)
+                    retrieval_metrics["max_dense_score"] = max(dense_scores)
+                
+                sparse_scores = [r.get("sparse_score", 0.0) for r in results if "sparse_score" in r]
+                if sparse_scores:
+                    retrieval_metrics["avg_sparse_score"] = sum(sparse_scores) / len(sparse_scores)
+                    retrieval_metrics["max_sparse_score"] = max(sparse_scores)
+            
+            with parent_span.start_as_current_span(
+                name="retrieve_context",
+                input={"query": query, "embedding_type": self.config.embeddings.type, "top_k": self.config.rag.top_k},
+                metadata={
+                    "embedding_type": self.config.embeddings.type,
+                    "top_k": self.config.rag.top_k,
+                    **retrieval_metrics,
+                },
+            ) as span:
+                span.update(
+                    output={"num_chunks": len(results), "chunks": results},
+                    metadata={
+                        "num_chunks": len(results),
+                        "status": "success",
+                        **retrieval_metrics,
+                    },
+                )
 
         return results
 
@@ -105,53 +168,185 @@ class RAGPipeline:
 
         return prompt
 
-    def _generate_answer(self, prompt: str) -> str:
-        if self.config.rag.llm_provider in ["openai", "local"]:
-            response = self.llm_client.chat.completions.create(
-                model=self.config.rag.llm_model,
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "Ты - помощник, который отвечает на вопросы ТОЛЬКО на основе предоставленной документации. НЕ используй информацию из интернета или свои знания вне документации.",
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=self.config.rag.temperature,
-                max_tokens=self.config.rag.max_tokens,
-            )
-            return response.choices[0].message.content
-        elif self.config.rag.llm_provider == "anthropic":
-            response = self.llm_client.messages.create(
-                model=self.config.rag.llm_model,
-                max_tokens=self.config.rag.max_tokens,
-                temperature=self.config.rag.temperature,
-                messages=[
-                    {"role": "user", "content": prompt},
-                ],
-            )
-            return response.content[0].text
-        else:
-            raise ValueError(f"Unsupported LLM provider: {self.config.rag.llm_provider}")
-
-    def answer(self, query: str) -> Dict[str, Any]:
-        context_chunks = self._retrieve_context(query)
-        prompt = self._build_prompt(query, context_chunks)
-        answer = self._generate_answer(prompt)
-
-        citations = []
-        for chunk in context_chunks:
-            citations.append(
-                {
-                    "source": chunk["metadata"].get("source", "unknown"),
-                    "page": chunk["metadata"].get("page", chunk["metadata"].get("section", "unknown")),
-                    "snippet": chunk["text"][:200] + "..." if len(chunk["text"]) > 200 else chunk["text"],
-                    "score": chunk.get("score", 0.0),
-                },
-            )
-
-        return {
-            "query": query,
-            "answer": answer,
-            "citations": citations,
-            "context_chunks": len(context_chunks),
+    def _generate_answer(self, prompt: str, parent_span=None) -> str:
+        model_params = {
+            "model": self.config.rag.llm_model,
+            "temperature": self.config.rag.temperature,
+            "max_tokens": self.config.rag.max_tokens,
+            "provider": self.config.rag.llm_provider,
         }
+
+        result = None
+        error_msg = None
+
+        try:
+            if self.config.rag.llm_provider in ["openai", "local"]:
+                response = self.llm_client.chat.completions.create(
+                    model=self.config.rag.llm_model,
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": "Ты - помощник, который отвечает на вопросы ТОЛЬКО на основе предоставленной документации. НЕ используй информацию из интернета или свои знания вне документации.",
+                        },
+                        {"role": "user", "content": prompt},
+                    ],
+                    temperature=self.config.rag.temperature,
+                    max_tokens=self.config.rag.max_tokens,
+                )
+                result = response.choices[0].message.content
+            elif self.config.rag.llm_provider == "anthropic":
+                response = self.llm_client.messages.create(
+                    model=self.config.rag.llm_model,
+                    max_tokens=self.config.rag.max_tokens,
+                    temperature=self.config.rag.temperature,
+                    messages=[
+                        {"role": "user", "content": prompt},
+                    ],
+                )
+                result = response.content[0].text
+            else:
+                error_msg = f"Unsupported LLM provider: {self.config.rag.llm_provider}"
+        except Exception as e:
+            error_msg = f"Ошибка при генерации ответа: {e}"
+
+        if parent_span:
+            with parent_span.start_as_current_generation(
+                name="generate_answer",
+                model=self.config.rag.llm_model,
+                model_parameters=model_params,
+                input=prompt,
+                metadata={"provider": self.config.rag.llm_provider, "model": self.config.rag.llm_model},
+            ) as generation:
+                if result:
+                    generation.update(output=result, metadata={"status": "success"})
+                elif error_msg:
+                    generation.update(output=error_msg, level="ERROR", metadata={"error": error_msg})
+
+        if error_msg:
+            raise ValueError(error_msg)
+
+        return result
+
+    def answer(
+        self,
+        query: str,
+        session_id: str = None,
+        user_id: str = None,
+        return_trace_id: bool = False,
+    ) -> Dict[str, Any]:
+        tags = [self.config.rag.llm_provider, self.config.rag.llm_model]
+        if self.config.embeddings.type:
+            tags.append(self.config.embeddings.type)
+
+        with self.langfuse.start_as_current_span(
+            name="rag_answer",
+            input={"query": query},
+            metadata={
+                "query": query,
+                "operation": "rag_answer",
+                "llm_provider": self.config.rag.llm_provider,
+                "llm_model": self.config.rag.llm_model,
+                "embedding_type": self.config.embeddings.type,
+                "top_k": self.config.rag.top_k,
+            },
+        ) as span:
+            span.update_trace(
+                name=f"rag_answer_{self.config.rag.llm_provider}",
+                session_id=session_id,
+                user_id=user_id,
+                tags=tags,
+            )
+
+            trace_id = span.trace_id
+
+            try:
+                context_chunks = self._retrieve_context(query, parent_span=span)
+                prompt = self._build_prompt(query, context_chunks)
+                answer = self._generate_answer(prompt, parent_span=span)
+
+                citations = []
+                scores = []
+                dense_scores = []
+                sparse_scores = []
+                
+                for chunk in context_chunks:
+                    score = chunk.get("score", 0.0)
+                    scores.append(score)
+                    
+                    if "dense_score" in chunk:
+                        dense_scores.append(chunk.get("dense_score", 0.0))
+                    if "sparse_score" in chunk:
+                        sparse_scores.append(chunk.get("sparse_score", 0.0))
+                    
+                    citations.append(
+                        {
+                            "source": chunk["metadata"].get("source", "unknown"),
+                            "page": chunk["metadata"].get("page", chunk["metadata"].get("section", "unknown")),
+                            "snippet": chunk["text"][:200] + "..." if len(chunk["text"]) > 200 else chunk["text"],
+                            "score": score,
+                        },
+                    )
+
+                vector_db_metrics = {}
+                if scores:
+                    vector_db_metrics["avg_retrieval_score"] = sum(scores) / len(scores)
+                    vector_db_metrics["max_retrieval_score"] = max(scores)
+                    vector_db_metrics["min_retrieval_score"] = min(scores)
+                    vector_db_metrics["score_std"] = (
+                        (sum((s - vector_db_metrics["avg_retrieval_score"]) ** 2 for s in scores) / len(scores)) ** 0.5
+                        if len(scores) > 1 else 0.0
+                    )
+                
+                if dense_scores:
+                    vector_db_metrics["avg_dense_score"] = sum(dense_scores) / len(dense_scores)
+                    vector_db_metrics["max_dense_score"] = max(dense_scores)
+                
+                if sparse_scores:
+                    vector_db_metrics["avg_sparse_score"] = sum(sparse_scores) / len(sparse_scores)
+                    vector_db_metrics["max_sparse_score"] = max(sparse_scores)
+
+                result = {
+                    "query": query,
+                    "answer": answer,
+                    "citations": citations,
+                    "context_chunks": len(context_chunks),
+                    "vector_db_metrics": vector_db_metrics,
+                }
+
+                for metric_name, metric_value in vector_db_metrics.items():
+                    try:
+                        self.langfuse.create_score(
+                            name=metric_name,
+                            value=float(metric_value),
+                            trace_id=trace_id,
+                            comment=f"Метрика из векторной базы данных: {metric_name}",
+                        )
+                    except Exception as e:
+                        pass
+
+                span.update(
+                    output=result,
+                    metadata={
+                        "num_citations": len(citations),
+                        "num_context_chunks": len(context_chunks),
+                        "status": "success",
+                        **vector_db_metrics,
+                    },
+                )
+
+                self.langfuse.flush()
+
+                if return_trace_id:
+                    result["trace_id"] = trace_id
+
+                return result
+            except Exception as e:
+                span.update(
+                    output={"error": str(e)},
+                    level="ERROR",
+                    metadata={"error": str(e)},
+                )
+                self.langfuse.flush()
+                if return_trace_id:
+                    raise
+                raise
