@@ -1,0 +1,184 @@
+{
+  "questions": [
+    {
+      "question": "What is the scope of the sustainability statement (which entities, geographies, operations are included)?",
+      "ground_truth_chunks": [
+        "value chain segments",
+        "upstream – own operations – downstream",
+        "consolidated basis"
+      ],
+      "expected_topics": ["consolidated basis", "value chain", "subsidiaries", "upstream", "downstream"]
+    },
+    {
+      "question": "What are the main methods used for calculating scope 3 greenhouse gas emissions?",
+      "ground_truth_chunks": [
+        "E1: The calculation of scope 3",
+        "Ecoinvent Database",
+        "average dataset method"
+      ],
+      "expected_topics": ["average dataset method", "distance-based method", "spend-based method", "GHG Protocol", "Ecoinvent Database"]
+    },
+    {
+      "question": "What ISO certifications does the company maintain?",
+      "ground_truth_chunks": [
+        "ISO 9001, ISO 14001, ISO 50001 and ISO 45001",
+        "ISO/IEC 27001 certification",
+        "100% of our manufacturing plants were certified"
+      ],
+      "expected_topics": ["ISO 9001", "ISO 14001", "ISO 50001", "ISO 45001", "ISO/IEC 27001", "FSSC 22001"]
+    },
+    {
+      "question": "What is the role of the Social Responsibility Committee?",
+      "ground_truth_chunks": [
+        "Social Responsibility Committee",
+        "sustainability targets is aligned",
+        "ELT and subsequently by the Social Responsibility Committee"
+      ],
+      "expected_topics": ["Social Responsibility Committee", "sustainability goals", "policies", "strategies"]
+    },
+    {
+      "question": "What are the responsibilities of the Sustainability Steering Committee?",
+      "ground_truth_chunks": [
+        "Sustainability Steering Committee",
+        "Sustainability SteerCo",
+        "CEO and including members of the ELT"
+      ],
+      "expected_topics": ["Sustainability SteerCo", "CEO", "ELT", "targets", "climate transition plan"]
+    },
+    {
+      "question": "What percentage of manufacturing plants were certified with ISO standards in 2024?",
+      "ground_truth_chunks": [
+        "100% of our manufacturing plants were certified",
+        "ISO 9001, ISO 14001, FSSC 22001 and ISO 45001",
+        "manufacturing plants were certified"
+      ],
+      "expected_topics": ["100%", "manufacturing plants", "ISO 9001", "ISO 14001", "FSSC 22001", "ISO 45001"]
+    },
+    {
+      "question": "What frameworks or reporting standards are used for the sustainability statement?",
+      "ground_truth_chunks": [
+        "Task Force on Climate-related Financial Disclosure",
+        "TCFD",
+        "ESRS"
+      ],
+      "expected_topics": ["TCFD", "ESRS", "Task Force on Climate-related Financial Disclosure"]
+    },
+    {
+      "question": "What is the basis for preparation of the sustainability statement?",
+      "ground_truth_chunks": [
+        "consolidated basis",
+        "double materiality assessment",
+        "value chain"
+      ],
+      "expected_topics": ["consolidated basis", "financial statements", "value chain", "double materiality assessment"]
+    },
+    {
+      "question": "What data sources are used for estimating value chain metrics?",
+      "ground_truth_chunks": [
+        "indirect sources",
+        "Ecoinvent Database",
+        "GHG Protocol"
+      ],
+      "expected_topics": ["indirect sources", "suppliers", "industry-average figures", "GHG Protocol", "Ecoinvent Database"]
+    },
+    {
+      "question": "What is the level of measurement uncertainty for the disclosed data?",
+      "ground_truth_chunks": [
+        "low/ moderate levels of uncertainty",
+        "measurement uncertainty",
+        "moderate uncertainty because they depend"
+      ],
+      "expected_topics": ["low/moderate levels of uncertainty", "primary data", "actual data", "measurement uncertainty"]
+    },
+    {
+      "question": "Which countries have IT function centers with ISO/IEC 27001 certification?",
+      "ground_truth_chunks": [
+        "Bulgaria and Greece",
+        "ISO/IEC 27001",
+        "IT function"
+      ],
+      "expected_topics": ["Bulgaria", "Greece", "ISO/IEC 27001", "IT function"]
+    },
+    {
+      "question": "What is the role of the Audit and Risk Committee?",
+      "ground_truth_chunks": [
+        "Audit and Risk Committee",
+        "accounting policies",
+        "financial reporting"
+      ],
+      "expected_topics": ["Audit and Risk Committee", "accounting policies", "financial reporting", "risk management", "internal control"]
+    },
+    {
+      "question": "What are the main value chain segments mentioned in the sustainability statement?",
+      "ground_truth_chunks": [
+        "upstream – own operations – downstream",
+        "value chain segments",
+        "Tier 1 suppliers"
+      ],
+      "expected_topics": ["upstream", "own operations", "downstream", "Tier 1 suppliers", "customers"]
+    },
+    {
+      "question": "What information is excluded from the sustainability statement due to intellectual property concerns?",
+      "ground_truth_chunks": [
+        "no omission",
+        "intellectual property",
+        "ESRS 1 section 7.7"
+      ],
+      "expected_topics": ["no omission", "intellectual property", "know-how", "innovation", "ESRS 1 section 7.7"]
+    },
+    {
+      "question": "What is the approach to comparative information in the sustainability statement?",
+      "ground_truth_chunks": [
+        "no comparative information",
+        "GRI Content Index",
+        "2022, 2023, 2024"
+      ],
+      "expected_topics": ["no comparative information", "GRI Content Index", "2022", "2023", "2024"]
+    },
+    {
+      "question": "What departments provide information to the Sustainability SteerCo?",
+      "ground_truth_chunks": [
+        "Corporate Sustainability team",
+        "Business Resilience team",
+        "QSE, Engineering teams"
+      ],
+      "expected_topics": ["Corporate Sustainability team", "Business Resilience team", "QSE", "Engineering teams", "People and Culture team", "Procurement team"]
+    },
+    {
+      "question": "What are the main responsibilities of business unit General Managers regarding sustainability?",
+      "ground_truth_chunks": [
+        "General Managers",
+        "local business unit",
+        "localising sustainability strategy"
+      ],
+      "expected_topics": ["General Managers", "GMs", "local business unit", "sustainability performance", "localising sustainability strategy"]
+    },
+    {
+      "question": "What methods are used for calculating CO2e factors in scope 3 emissions?",
+      "ground_truth_chunks": [
+        "CO2e factor",
+        "average dataset method",
+        "IEA"
+      ],
+      "expected_topics": ["average dataset method", "CO2e factor", "paper", "PET", "aluminium", "PE materials", "IEA"]
+    },
+    {
+      "question": "What is the coverage of Mission 2025 sustainability commitments?",
+      "ground_truth_chunks": [
+        "Mission 2025",
+        "Egyptian operations",
+        "baseline year"
+      ],
+      "expected_topics": ["Mission 2025", "Egyptian operations", "baseline year", "target year"]
+    },
+    {
+      "question": "What standards are used to recognize suppliers?",
+      "ground_truth_chunks": [
+        "European Standards",
+        "European Standardisation System",
+        "ISO 9001, ISO 14001, ISO 50001 and ISO 45001"
+      ],
+      "expected_topics": ["European Standards", "European Standardisation System", "ISO 9001", "ISO 14001", "ISO 50001", "ISO 45001"]
+    }
+  ]
+}
