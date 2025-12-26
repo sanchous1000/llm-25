@@ -1,0 +1,16 @@
+[project]
+name = "source"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ipykernel>=7.1.0",
+    "ipywidgets>=8.1.7",
+    "matplotlib==3.10.7",
+    "notebook>=7.4.7",
+    "openai>=2.6.1",
+    "pandas>=2.3.3",
+    "pandas-stubs==2.3.2.250926",
+    "tabulate==0.9.0",
+]
