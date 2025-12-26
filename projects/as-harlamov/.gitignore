@@ -1,0 +1,4 @@
+qdrant_storage
+lab2/data/chunks
+lab2/data/embeddings/
+lab2/data/processed/

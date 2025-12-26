@@ -1,0 +1,35 @@
+documents:
+  input_dir: "data/raw"
+  output_dir: "data/processed"
+  supported_formats: ["pdf", "docx", "pptx", "md", "html"]
+
+chunking:
+  strategy: "hybrid"
+  chunk_size: 300
+  chunk_overlap: 50
+  include_headers: true
+  separators: ["\n\n", "\n", " ", ""]
+
+embeddings:
+  type: "hybrid"
+  model: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+
+vector_store:
+  provider: "qdrant"
+  url: "http://localhost:6333"
+  collection_name: "rag_documents"
+  hnsw_config:
+    m: 32
+    ef_construction: 200
+  recreate_collection: false
+
+rag:
+  top_k: 5
+  llm_provider: "local"
+  llm_model: "llama3.2:1b"
+  temperature: 0.1
+  max_tokens: 1000
+
+evaluation:
+  test_questions_file: "data/test_questions.json"
+  k_values: [5, 10]
