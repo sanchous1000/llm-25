@@ -1,0 +1,19 @@
+chunking:
+  splitter: "markdown_recursive"
+  chunk_size: 512
+  chunk_overlap: 8
+  include_headers_in_chunk: true
+
+embedding:
+  model: "intfloat/e5-large-v2"
+
+vector_store:
+  hnsw_m: 16
+  hnsw_ef_construct: 100
+  hnsw_ef_search: 50
+
+retrieval:
+  top_k: 5
+
+llm:
+  model: "llama3"
