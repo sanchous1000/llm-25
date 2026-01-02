@@ -1,0 +1,162 @@
+queries:
+  - id: 1
+    query: "What racial abilities do dwarves have?"
+    relevant_docs:
+      - document: "01 races.md"
+        md_headers:
+          - {H3: "Dwarf Traits"}
+          - {H4: "Hill Dwarf"}
+
+  - id: 2
+    query: "How does darkvision work for elves?"
+    relevant_docs:
+      - document: "01 races.md"
+        md_headers:
+          - {H3: "Elf Traits"}
+          - {H4: "High Elf"}
+
+  - id: 3
+    query: "What is the Lucky trait for halflings?"
+    relevant_docs:
+      - document: "01 races.md"
+        md_headers:
+          - {H3: "Halfling Traits"}
+          - {H4: "Lightfoot"}
+
+  - id: 4
+    query: "How does barbarian Rage work?"
+    relevant_docs:
+      - document: "02 classes.md"
+        md_headers:
+          - {H3: "Rage"}
+          - {H4: "The Barbarian"}
+
+  - id: 5
+    query: "What weapons can a barbarian use at start?"
+    relevant_docs:
+      - document: "02 classes.md"
+        md_headers:
+          - {H4: "Proficiencies"}
+          - {H4: "Equipment"}
+          - {H4: "Hit Points"}
+
+  - id: 6
+    query: "How much does plate armor cost?"
+    relevant_docs:
+      - document: "04 equipment.md"
+        md_headers:
+          - {H3: "Heavy Armor"}
+          - {H3: "Armor List"}
+
+  - id: 7
+    query: "What is the exchange rate between gold and silver?"
+    relevant_docs:
+      - document: "04 equipment.md"
+        md_headers:
+          - {H4: "Standard Exchange Rates"}
+
+  - id: 8
+    query: "How does initiative work in combat?"
+    relevant_docs:
+      - document: "07 combat.md"
+        md_headers:
+          - {H3: "Initiative"}
+          - {H3: "Your Turn"}
+
+  - id: 9
+    query: "What happens when surprised in combat?"
+    relevant_docs:
+      - document: "07 combat.md"
+        md_headers:
+          - {H3: "Surprise"}
+
+  - id: 10
+    query: "Can you take bonus action and reaction same turn?"
+    relevant_docs:
+      - document: "07 combat.md"
+        md_headers:
+          - {H4: "Bonus Actions"}
+          - {H3: "Reactions"}
+          - {H3: "Your Turn"}
+
+  - id: 11
+    query: "What are spell slots and how do they restore?"
+    relevant_docs:
+      - document: "08 spellcasting.md"
+        md_headers:
+          - {H3: "Spell Slots"}
+          - {H4: "Casting a Spell at a Higher Level"}
+          - {H3: "Known and Prepared Spells"}
+
+  - id: 12
+    query: "What components are required to cast spells?"
+    relevant_docs:
+      - document: "08 spellcasting.md"
+        md_headers:
+          - {H3: "Components"}
+          - {H4: "Verbal (V)"}
+          - {H4: "Somatic (S)"}
+          - {H4: "Material (M)"}
+
+  - id: 13
+    query: "How do cantrips differ from regular spells?"
+    relevant_docs:
+      - document: "08 spellcasting.md"
+        md_headers:
+          - {H3: "Cantrips"}
+          - {H3: "Spell Level"}
+
+  - id: 14
+    query: "What are ritual spells?"
+    relevant_docs:
+      - document: "08 spellcasting.md"
+        md_headers:
+          - {H3: "Rituals"}
+
+  - id: 15
+    query: "What monster types exist?"
+    relevant_docs:
+      - document: "11 monsters.md"
+        md_headers:
+          - {H3: "Type"}
+          - {H4: "Tags"}
+
+  - id: 16
+    query: "How is monster AC calculated?"
+    relevant_docs:
+      - document: "11 monsters.md"
+        md_headers:
+          - {H3: "Armor Class"}
+
+  - id: 17
+    query: "What size categories do monsters have?"
+    relevant_docs:
+      - document: "11 monsters.md"
+        md_headers:
+          - {H3: "Size"}
+          - {H4: "Size Categories"}
+
+  - id: 18
+    query: "How are monster hit points determined?"
+    relevant_docs:
+      - document: "11 monsters.md"
+        md_headers:
+          - {H3: "Hit Points"}
+          - {H4: "Hit Dice by Size"}
+
+  - id: 19
+    query: "What is difference between light and heavy armor?"
+    relevant_docs:
+      - document: "04 equipment.md"
+        md_headers:
+          - {H3: "Light Armor"}
+          - {H3: "Medium Armor"}
+          - {H3: "Heavy Armor"}
+
+  - id: 20
+    query: "How does Reckless Attack work?"
+    relevant_docs:
+      - document: "02 classes.md"
+        md_headers:
+          - {H3: "Reckless Attack"}
+          - {H3: "Danger Sense"}

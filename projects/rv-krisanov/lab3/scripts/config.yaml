@@ -1,0 +1,32 @@
+# Build index configuration (наследовано из lab2)
+build:
+  input_path: "../../lab2/source/corpus"
+  output_path: "../../lab2/embeddings.json"
+  model: "sentence-transformers/all-MiniLM-L6-v2"
+  max_tokens: 512
+  overlap: 50
+
+# Vector store configuration (наследовано из lab2)
+vector_store:
+  embeddings_path: "../../lab2/embeddings.json"
+  qdrant_url: "http://localhost:6333"
+  collection_name: "test_collection"
+  rebuild: false
+  hnsw:
+    m: 16
+    ef_construct: 100
+
+# Agent/App configuration (наследовано из lab2)
+agent:
+  collection_name: "test_collection"
+  embedding_model: "all-MiniLM-L6-v2"
+  retrieval_limit: 7
+  system_prompt: "Ты - эксперт по правилам D&D 5e. Отвечай на вопросы кратко и лаконично. Используй инструменты для поиска фактов."
+
+# Experiment configuration (специфично для lab3)
+experiment:
+  dataset_name: "dnd5e_rag_evaluation"
+  experiment_name: "rag_baseline_eval"
+  k_values: [5, 10]
+  evaluation_queries_path: "../evaluation_queries.yaml"
+

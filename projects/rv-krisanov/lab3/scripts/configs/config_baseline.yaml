@@ -1,0 +1,22 @@
+build:
+  input_path: "source/corpus"
+  output_path: "embeddings_baseline.json"
+  model: "sentence-transformers/all-MiniLM-L6-v2"
+  chunk_size: 256
+  overlap: 30
+
+vector_store:
+  embeddings_path: "embeddings_baseline.json"
+  qdrant_url: "http://localhost:6333"
+  collection_name: "dnd5e_baseline"
+  rebuild: true
+  hnsw:
+    m: 16
+    ef_construct: 100
+    full_scan_threshold: 10000
+
+agent:
+  collection_name: "dnd5e_baseline"
+  embedding_model: "all-MiniLM-L6-v2"
+  retrieval_limit: 5
+  system_prompt: "Ты - эксперт по правилам D&D 5e. Отвечай на вопросы кратко и лаконично. Используй инструменты для поиска фактов."
