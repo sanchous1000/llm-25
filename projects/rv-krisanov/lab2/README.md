@@ -50,6 +50,14 @@ source/corpus/
 
 Файл: `evaluation_queries.yaml`
 
+### Получение исходных данных
+
+```bash
+git clone https://github.com/bagelbits/5e-srd-api.git submodules/dnd-5e-srd
+mkdir -p source/corpus
+cp submodules/dnd-5e-srd/markdown/*.md source/corpus/
+```
+
 ---
 
 ## 2. Парсинг источников в Markdown
@@ -389,21 +397,25 @@ Response:
 - Python 3.13+
 - Docker (для Qdrant)
 - uv (менеджер зависимостей)
+- Git
 
-### Установка
+### Быстрый старт
 
 ```bash
-# 1. Установить зависимости
+# 1. Получить данные (если еще не скопированы)
+git clone https://github.com/bagelbits/5e-srd-api.git submodules/dnd-5e-srd
+mkdir -p source/corpus && cp submodules/dnd-5e-srd/markdown/*.md source/corpus/
+
+# 2. Установить зависимости и запустить Qdrant
 uv sync
+docker run -d -p 6333:6333 qdrant/qdrant:latest
 
-# 2. Запустить Qdrant в Docker
-docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant:latest
-
-# 3. Проверить, что Qdrant доступен
-curl http://localhost:6333/health
+# 3. Запустить эксперименты
+chmod +x run_experiments.sh
+./run_experiments.sh
 ```
 
-### Запуск экспериментов
+### Запуск экспериментов отдельно
 
 ```bash
 # Запустить все 3 эксперимента (build → load → evaluate)
@@ -424,22 +436,25 @@ uv run python scripts/evaluate.py \
     --output=results/baseline.json
 ```
 
-### Результаты экспериментов
+### Шаг 3: Просмотр результатов
 
 ```bash
-# Посмотреть метрики
+# Посмотреть метрики экспериментов
 cat results/baseline.json
 cat results/large_chunks.json
 cat results/better_hnsw.json
+
+# Или использовать jq для красивого вывода
+cat results/better_hnsw.json | jq '.aggregate_metrics'
 ```
 
-### Запуск RAG-агента
+### Шаг 4: Запуск RAG-агента (опционально)
 
 ```bash
 # Вариант 1: FastAPI REST API
 uv run python scripts/app.py
 
-# Тестирование через curl
+# В другом терминале: тестирование через curl
 curl -X POST http://localhost:8000/query \
   -H "Content-Type: application/json" \
   -d '{"question": "How does barbarian Rage work?", "k": 10}'
