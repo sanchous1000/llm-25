@@ -1,0 +1,90 @@
+{
+  "config": {
+    "dense_model": "intfloat/multilingual-e5-large",
+    "device": null,
+    "k_values": [
+      5,
+      10
+    ]
+  },
+  "evaluations": [
+    {
+      "search_type": "dense",
+      "num_questions": 20,
+      "metrics": {
+        "Recall@5": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "Precision@5": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "Recall@10": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "Precision@10": {
+          "mean": 0.5,
+          "std": 0.0
+        },
+        "MRR": {
+          "mean": 1.0,
+          "std": 0.0
+        }
+      }
+    },
+    {
+      "search_type": "sparse",
+      "num_questions": 20,
+      "metrics": {
+        "Recall@5": {
+          "mean": 0.45999999999999996,
+          "std": 0.31048349392520047
+        },
+        "Precision@5": {
+          "mean": 0.45999999999999996,
+          "std": 0.31048349392520047
+        },
+        "Recall@10": {
+          "mean": 0.58,
+          "std": 0.3340658617698013
+        },
+        "Precision@10": {
+          "mean": 0.29,
+          "std": 0.16703293088490065
+        },
+        "MRR": {
+          "mean": 0.7546428571428571,
+          "std": 0.38621181536370763
+        }
+      }
+    },
+    {
+      "search_type": "hybrid",
+      "num_questions": 20,
+      "metrics": {
+        "Recall@5": {
+          "mean": 0.7100000000000001,
+          "std": 0.2046948949045872
+        },
+        "Precision@5": {
+          "mean": 0.7100000000000001,
+          "std": 0.2046948949045872
+        },
+        "Recall@10": {
+          "mean": 0.96,
+          "std": 0.07999999999999997
+        },
+        "Precision@10": {
+          "mean": 0.48,
+          "std": 0.03999999999999999
+        },
+        "MRR": {
+          "mean": 0.95,
+          "std": 0.15
+        }
+      }
+    }
+  ]
+}
