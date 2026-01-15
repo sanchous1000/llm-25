@@ -1,0 +1,3 @@
+source/.env
+source/results/*
+clickhouse-config
