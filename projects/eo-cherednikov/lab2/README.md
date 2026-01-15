@@ -11,7 +11,7 @@ lab2/
 ├── scripts/
 │   ├── build_index.py          # Парсинг документов и разбиение на чанки
 │   ├── build_embeddings.py     # Построение эмбеддингов и загрузка в Qdrant
-│   ├── load_to_vector_store.py  # Управление векторным хранилищем
+│   ├── test_vector_store.py    # Тестирование векторного хранилища
 │   ├── evaluate.py              # Оценка качества retrieval
 │   ├── rag_engine.py            # RAG-пайплайн для общения
 │   └── utils/
@@ -20,192 +20,139 @@ lab2/
 │       └── qdrant.py            # Утилиты для работы с Qdrant
 ├── data/
 │   ├── raw/                     # Исходные документы
-│   ├── md_parsed/               # Распарсенные Markdown файлы
-│   └── chunks/                  # Чанки документов
+│   │   └── docs/                # Markdown файлы документации
+│   ├── chunks/                  # Чанки документов (JSONL)
+│   └── ground_truth.json        # Ground truth данные для оценки
 ├── configs/                     # Конфигурационные файлы
-└── requirements.txt             # Зависимости проекта
+└── README.md                    # Этот файл
 ```
 
-## Установка
+## Использованные технологии
 
-1. Установите зависимости:
+### LLM и модели эмбеддингов:
+- **nomic-embed-text** - модель для создания эмбеддингов текстов (через Ollama)
+- **qwen3:0.6b** - языковая модель для генерации ответов (через Ollama)
+
+### Фреймворки и библиотеки:
+- **Ollama** - локальный сервер для запуска LLM и моделей эмбеддингов
+- **Qdrant** - векторная база данных для хранения и поиска эмбеддингов
+- **qdrant-client** - Python-клиент для работы с Qdrant
+- **langchain-text-splitters** - библиотека для разбиения текста на чанки с учетом структуры Markdown
+- **numpy**, **tqdm**, **requests** - вспомогательные библиотеки
+
+## Архитектура системы
+
+Система реализует классический пайплайн RAG:
+
+1. **Подготовка данных**: Markdown-файлы разбиваются на чанки с учетом иерархии заголовков (H1-H3). Каждый чанк содержит метаданные: путь к файлу, заголовок секции, уровень вложенности.
+
+2. **Векторизация**: Текстовые чанки преобразуются в эмбеддинги с помощью модели `nomic-embed-text` и сохраняются в Qdrant с метаданными.
+
+3. **Retrieval**: При запросе создается эмбеддинг запроса, выполняется поиск по косинусному расстоянию, возвращаются top-k наиболее релевантных документов.
+
+4. **Generation**: Найденные документы используются как контекст для LLM, которая генерирует ответ на основе предоставленной информации.
+
+### Особенности реализации
+
+1. **Умное разбиение на чанки**: используется двухуровневое разбиение:
+   - Сначала по заголовкам (MarkdownHeaderTextSplitter)
+   - Затем на чанки фиксированного размера с перекрытием (MarkdownTextSplitter)
+
+2. **Сохранение структуры**: каждый чанк содержит информацию о пути в иерархии документа (например, "Getting Started/Installation/GPU/CUDA").
+
+3. **Нормализация путей**: пути файлов нормализуются (используются прямые слеши) для консистентности между операционными системами.
+
+4. **Оценка качества**: метрики вычисляются на уровне файлов, а не отдельных чанков, что обеспечивает корректную оценку retrieval-системы.
+
+## Инструкция по запуску
+
+### Предварительные требования
+
+1. Установить и запустить **Ollama**:
 ```bash
-pip install -r requirements.txt
+curl -fsSL https://ollama.com/install.sh | sh
+ollama serve
+
+ollama pull nomic-embed-text
+ollama pull qwen3:0.6b
 ```
 
-2. Убедитесь, что запущены:
-   - **Ollama** сервер (для эмбеддингов и LLM)
-   - **Qdrant** сервер (для векторного хранилища)
+2. Установить и запустить **Qdrant**:
+```bash
+docker run -p 6333:6333 qdrant/qdrant
+```
 
-## Использование
+3. Установить зависимости Python:
+```bash
+pip install langchain-text-splitters qdrant-client requests numpy tqdm
+```
 
-### 1. Подготовка данных
+### Пошаговая инструкция
 
-Поместите исходные документы в `data/raw/`. Поддерживаемые форматы:
-- Markdown (`.md`)
-- PDF (`.pdf`)
-- Word (`.docx`, `.doc`)
-- PowerPoint (`.pptx`)
-- HTML (`.html`, `.htm`)
+#### Шаг 1: парсинг Markdown-файлов и преобразование документации в структурированный датасет:
+```bash
+python scripts/build_index.py
+  --input_dir data/raw/docs/
+  --output_jsonl data/chunks/chunks.jsonl
+  --levels 1,2,3
+  --chunk_size 512
+  --overlap 64
+```
 
-### 2. Парсинг и разбиение на чанки
+
+#### Шаг 2: построение эмбеддингов и загрузка в Qdrant
+```bash
+python scripts/build_embeddings.py
+  --input_jsonl data/chunks/chunks.jsonl
+  --ollama_host http://localhost:11434
+  --embed_model nomic-embed-text
+  --qdrant_host localhost
+  --qdrant_port 6333
+  --collection vllm_docs
+  --distance cosine
+  --recreate
+```
+
+#### Шаг 3: тестирование поиска
+```bash
+python scripts/test_vector_store.py
+  --query "How to install vLLM?"
+  --ollama_host http://localhost:11434
+  --embed_model nomic-embed-text
+  --qdrant_host localhost
+  --qdrant_port 6333
+  --collection vllm_docs
+  --top_k 5
+```
+
+**Результат**: выводятся top-5 наиболее релевантных документов с оценками схожести.
+
+#### Шаг 4: RAG-запрос к LLM - генерация ответа на вопрос с использованием найденного контекста:
 
 ```bash
-python scripts/build_index.py \
-    --raw data/raw \
-    --md_out data/md_parsed \
-    --chunks_out data/chunks \
-    --chunk_size 500 \
-    --overlap 100 \
-    --splitter recursive \
-    --include_headers \
-    --rebuild
+python scripts/rag_engine.py
+  --question "How to use multiple GPUs to inference a model?"
+  --ollama_host http://localhost:11434
+  --embed_model nomic-embed-text
+  --llm_model qwen3:0.6b
+  --qdrant_host localhost
+  --qdrant_port 6333
+  --collection vllm_docs
+  --top_k 5
 ```
 
-**Параметры:**
-- `--raw`: Директория с исходными файлами
-- `--md_out`: Директория для Markdown файлов
-- `--chunks_out`: Директория для чанков
-- `--chunk_size`: Размер чанка в токенах (100-1000)
-- `--overlap`: Перекрытие между чанками
-- `--splitter`: Стратегия разбиения (`simple`, `markdown`, `recursive`)
-- `--include_headers`: Включать заголовки в чанки (для markdown splitter)
-- `--rebuild`: Пересобрать индекс
+**Результат**: LLM генерирует ответ на основе найденных документов и выводит список использованных источников.
 
-**Стратегии разбиения:**
-- `simple`: Простое разбиение по токенам
-- `markdown`: Разбиение с учетом заголовков (h1-h3)
-- `recursive`: Рекурсивное разбиение с учетом структуры документа
-
-### 3. Построение эмбеддингов
-
+#### Шаг 5: оценка качества retrieval
 ```bash
-python scripts/build_embeddings.py \
-    --input_jsonl data/chunks/chunks.jsonl \
-    --ollama_host http://localhost:11434 \
-    --embed_model nomic-embed-text \
-    --qdrant_host localhost \
-    --qdrant_port 6333 \
-    --collection vllm_docs \
-    --distance cosine \
-    --embedding_type dense \
-    --recreate \
-    --hnsw_m 16 \
-    --hnsw_ef_construction 100 \
-    --hnsw_ef_search 50
+python scripts/evaluate.py
+  --ground_truth_file data/ground_truth.json
+  --ollama_host http://localhost:11434
+  --embed_model nomic-embed-text
+  --qdrant_host localhost
+  --qdrant_port 6333
+  --collection vllm_docs
+  --top_k 10
 ```
 
-**Параметры:**
-- `--input_jsonl`: Путь к JSONL файлу с чанками
-- `--embed_model`: Модель для эмбеддингов (Ollama)
-- `--collection`: Название коллекции в Qdrant
-- `--embedding_type`: Тип эмбеддингов (`dense`, `sparse`, `hybrid`)
-- `--recreate`: Пересоздать коллекцию
-- `--hnsw_*`: Параметры HNSW индекса
-
-### 4. Управление векторным хранилищем
-
-```bash
-python scripts/load_to_vector_store.py \
-    --qdrant_host localhost \
-    --qdrant_port 6333 \
-    --collection vllm_docs \
-    --drop-and-reindex \
-    --vec_size 768 \
-    --distance cosine \
-    --hnsw_m 16
-```
-
-### 5. Оценка качества
-
-Создайте файл с ground truth данными (`ground_truth.json`):
-```json
-[
-  {
-    "question": "Ваш вопрос",
-    "relevant_file_paths": ["path/to/relevant/file1", "path/to/relevant/file2"],
-    "description": "Описание того, что ищем"
-  }
-]
-```
-
-Запустите оценку:
-```bash
-python scripts/evaluate.py \
-    --ollama_host http://localhost:11434 \
-    --embed_model nomic-embed-text \
-    --qdrant_host localhost \
-    --qdrant_port 6333 \
-    --collection vllm_docs \
-    --top_k 10 \
-    --ground_truth_file ground_truth.json
-```
-
-### 6. RAG-пайплайн для общения
-
-**Интерактивный режим:**
-```bash
-python scripts/rag_engine.py \
-    --ollama_host http://localhost:11434 \
-    --embed_model nomic-embed-text \
-    --llm_model llama3.2 \
-    --qdrant_host localhost \
-    --qdrant_port 6333 \
-    --collection vllm_docs \
-    --top_k 5
-```
-
-**Одиночный вопрос:**
-```bash
-python scripts/rag_engine.py \
-    --question "Ваш вопрос" \
-    --llm_model llama3.2 \
-    --output_json answer.json
-```
-
-## Конфигурация
-
-Все параметры можно настроить через CLI аргументы. Для удобства можно создать конфигурационные файлы в `configs/` и использовать их через скрипты-обертки.
-
-## Особенности реализации
-
-1. **Парсинг документов:**
-   - Поддержка множества форматов (PDF, DOCX, PPTX, HTML, MD)
-   - Сохранение метаданных (источник, страница, слайд, дата)
-   - Нормализация в Markdown
-
-2. **Разбиение на чанки:**
-   - Три стратегии: simple, markdown, recursive
-   - Настраиваемый размер и overlap
-   - Сохранение структуры документа
-
-3. **Эмбеддинги:**
-   - Dense эмбеддинги через Ollama
-   - Поддержка sparse (BM25) и hybrid подходов
-   - Конфигурируемые параметры
-
-4. **Векторное хранилище:**
-   - Qdrant с настраиваемыми HNSW параметрами
-   - Поддержка пересборки и переиндексации
-   - Идемпотентные операции
-
-5. **RAG-пайплайн:**
-   - Векторизация запроса
-   - Поиск релевантных чанков
-   - Сборка промпта с контекстом
-   - Генерация ответа с цитатами
-
-## Метрики качества
-
-Система оценивает качество retrieval по следующим метрикам:
-- **Recall@k**: Доля релевантных документов среди найденных
-- **Precision@k**: Доля релевантных среди первых k результатов
-- **MRR**: Mean Reciprocal Rank
-
-## Примечания
-
-- Убедитесь, что Ollama сервер запущен и модели загружены
-- Qdrant должен быть запущен локально или доступен по сети
-- Для больших корпусов документов может потребоваться настройка параметров HNSW
-- Рекомендуется экспериментировать с различными стратегиями разбиения и параметрами для оптимизации качества
-
+**Результат**: выводятся средние значения метрик - Mean Recall@5, Recall@10; Mean Precision@5, Precision@10; Mean MRR

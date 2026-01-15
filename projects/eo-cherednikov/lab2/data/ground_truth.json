@@ -1,0 +1,99 @@
+[
+  {
+    "question": "How to install VLLM?",
+    "relevant_file_paths": [
+      "getting_started/installation/README.md",
+      "getting_started/quickstart.md",
+      "getting_started/installation/cpu.md",
+      "getting_started/installation/google_tpu.md",
+      "getting_started/installation/gpu/cuda.md"
+    ]
+  },
+  {
+    "question": "How to install vLLM on GPU with CUDA?",
+    "relevant_file_paths": [
+      "getting_started/installation/gpu/cuda.md",
+      "getting_started/installation/README.md"
+    ]
+  },
+  {
+    "question": "What is PagedAttention and how does it work?",
+    "relevant_file_paths": [
+      "design/paged_attention.md"
+    ]
+  },
+  {
+    "question": "How to serve a model on multiple GPU cards?",
+    "relevant_file_paths": [
+      "serving/parallelism_scaling.md",
+      "serving/distributed_troubleshooting.md"
+    ]
+  },
+  {
+    "question": "How is multi-modal data processed in VLLM?",
+    "relevant_file_paths": [
+      "design/mm_processing.md"
+    ]
+  },
+  {
+    "question": "What performance metrics are tracked by VLLM?",
+    "relevant_file_paths": [
+      "usage/metrics.md",
+      "design/metrics.md"
+    ]
+  },
+  {
+    "question": "How do I create an instance of a server using vLLM?",
+    "relevant_file_paths": [
+      "getting_started/quickstart.md",
+      "configuration/serve_args.md",
+      "deployment/frameworks/bentoml.md"
+    ]
+  },
+  {
+    "question": "Can vLLM be used with Hugging Face Transformers?",
+    "relevant_file_paths": [
+      "design/huggingface_integration.md"
+    ]
+  },
+  {
+    "question": "Explain the KV caching mechanism.",
+    "relevant_file_paths": [
+      "design/hybrid_kv_cache_manager.md",
+      "features/quantization/quantized_kvcache.md"
+    ]
+  },
+  {
+    "question": "What steps are required to quantize models for better efficiency?",
+    "relevant_file_paths": [
+      "features/quantization/gptqmodel.md",
+      "configuration/conserving_memory.md",
+      "features/quantization/fp8.md",
+      "features/quantization/int4.md"
+    ]
+  },
+  {
+    "question": "How to monitor and debug the deployed model in VLLM?",
+    "relevant_file_paths": [
+      "usage/troubleshooting.md",
+      "usage/metrics.md"
+    ]
+  },
+  {
+    "question": "How to deploy VLLM in large-scale production systems?",
+    "relevant_file_paths": [
+      "deployment/integrations/production-stack.md",
+      "deployment/k8s.md",
+      "deployment/frameworks/bentoml.md"
+    ]
+  },
+  {
+    "question": "How to deploy vllm on Kubernetes?",
+    "relevant_file_paths": [
+      "deployment/k8s.md",
+      "deployment/integrations/kserve.md",
+      "deployment/integrations/kuberay.md",
+      "deployment/frameworks/helm.md"
+    ]
+  }
+]

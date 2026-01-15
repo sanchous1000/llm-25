@@ -26,6 +26,7 @@ def calculate_recall_at_k(retrieved_ids: List[str], relevant_ids: List[str], k: 
     relevant_retrieved = len(set(retrieved_at_k) & set(relevant_ids))
     return relevant_retrieved / len(relevant_ids)
 
+
 def calculate_precision_at_k(retrieved_ids: List[str], relevant_ids: List[str], k: int) -> float:
     """Вычисление Precision@k без потери порядка и учёта повторяющихся документов."""
     retrieved_at_k = retrieved_ids[:k]
@@ -33,6 +34,7 @@ def calculate_precision_at_k(retrieved_ids: List[str], relevant_ids: List[str], 
         return 0.0
     relevant_retrieved = sum(1 for id in retrieved_at_k if id in relevant_ids)
     return relevant_retrieved / len(retrieved_at_k)
+
 
 def calculate_mrr(retrieved_ids: List[str], relevant_ids: List[str]) -> float:
     """Вычисление Mean Reciprocal Rank (MRR)"""
@@ -44,28 +46,14 @@ def calculate_mrr(retrieved_ids: List[str], relevant_ids: List[str]) -> float:
             return 1.0 / (i + 1)
     return 0.0
 
-def get_doc_id_to_path_mapping(qdrant_host: str, qdrant_port: int, collection: str) -> Dict[str, str]:
-    """Получение соответствия между ID документа и путем к файлу"""
-    client = QdrantClient(host=qdrant_host, port=qdrant_port)
-
-    # Получаем все документы из коллекции
-    all_docs = client.scroll(collection_name=collection, limit=10000)[0]
-
-    mapping = {}
-    for doc in all_docs:
-        doc_id = doc.payload.get("id", "")
-        file_path = doc.payload.get("file_path", "")
-        if doc_id and file_path:
-            mapping[doc_id] = file_path
-
-    return mapping
 
 def evaluate_query(
-    query: EvaluationQuery,
-    embed_model: str,
-    ollama_host: str,
-    qdrant: QdrantCollection,
-    top_k: int
+        query: EvaluationQuery,
+        embed_model: str,
+        ollama_host: str,
+        qdrant: QdrantCollection,
+        top_k: int,
+        relevant_file_paths: List[str]
 ) -> Dict[str, Any]:
     """Оценка одного запроса"""
 
@@ -75,30 +63,40 @@ def evaluate_query(
     # Поиск в Qdrant
     results = qdrant.search(query_vector=query_vec, top_k=top_k)
 
-    # Извлекаем ID найденных документов
-    retrieved_ids = [r.payload.get("id", "") for r in results]
+    # Извлекаем пути найденных файлов (нормализуем для сравнения)
+    retrieved_file_paths = []
+    seen_paths = set()
+    for r in results:
+        file_path = r.payload.get("file_path", "")
+        # Нормализуем путь (конвертируем обратные слеши в прямые)
+        normalized_path = file_path.replace('\\', '/')
+        # Убираем дубликаты (один файл может иметь несколько чанков)
+        if normalized_path not in seen_paths:
+            retrieved_file_paths.append(normalized_path)
+            seen_paths.add(normalized_path)
 
-    # Вычисляем метрики по ID документов
-    recall_5 = calculate_recall_at_k(retrieved_ids, query.relevant_doc_ids, 5)
-    recall_10 = calculate_recall_at_k(retrieved_ids, query.relevant_doc_ids, 10)
-    precision_5 = calculate_precision_at_k(retrieved_ids, query.relevant_doc_ids, 5)
-    precision_10 = calculate_precision_at_k(retrieved_ids, query.relevant_doc_ids, 10)
-    mrr = calculate_mrr(retrieved_ids, query.relevant_doc_ids)
+    # Нормализуем релевантные пути
+    normalized_relevant_paths = [p.replace('\\', '/') for p in relevant_file_paths]
+
+    # Вычисляем метрики по путям файлов (не по ID!)
+    recall_5 = calculate_recall_at_k(retrieved_file_paths, normalized_relevant_paths, 5)
+    recall_10 = calculate_recall_at_k(retrieved_file_paths, normalized_relevant_paths, 10)
+    precision_5 = calculate_precision_at_k(retrieved_file_paths, normalized_relevant_paths, 5)
+    precision_10 = calculate_precision_at_k(retrieved_file_paths, normalized_relevant_paths, 10)
+    mrr = calculate_mrr(retrieved_file_paths, normalized_relevant_paths)
 
     return {
         "question": query.question,
         "description": query.description,
-        "retrieved_ids": retrieved_ids,
-        "retrieved_file_paths": [r.payload.get("file_path", "") for r in results],
-        "relevant_ids": query.relevant_doc_ids,
+        "retrieved_file_paths": retrieved_file_paths,
+        "relevant_file_paths": normalized_relevant_paths,
         "recall_at_5": recall_5,
         "recall_at_10": recall_10,
         "precision_at_5": precision_5,
         "precision_at_10": precision_10,
         "mrr": mrr,
-        "retrieved_headings": [r.payload.get("heading", "") for r in results],
+        "retrieved_headings": [r.payload.get("heading", "") for r in results[:len(retrieved_file_paths)]],
     }
-
 
 
 def load_ground_truth(ground_truth_file: str) -> List[EvaluationQuery]:
@@ -117,6 +115,7 @@ def load_ground_truth(ground_truth_file: str) -> List[EvaluationQuery]:
 
     return queries
 
+
 def main():
     ap = argparse.ArgumentParser(description="Оценка качества retrieval системы")
     ap.add_argument("--ollama_host", default="http://localhost:11434")
@@ -131,27 +130,46 @@ def main():
     assert args.ground_truth_file, "GT file not specified"
     queries = load_ground_truth(args.ground_truth_file)
 
-    id_to_path_mapping = get_doc_id_to_path_mapping(args.qdrant_host, args.qdrant_port, args.collection)
-    path_to_id_mapping = {path: doc_id for doc_id, path in id_to_path_mapping.items()}
-
-    for query in tqdm(queries, desc="Forming GT"):
-        file_path_ids = []
+    # Получаем все уникальные пути из коллекции для проверки
+    client = QdrantClient(host=args.qdrant_host, port=args.qdrant_port)
+    all_docs = client.scroll(collection_name=args.collection, limit=10000)[0]
+    collection_paths = set()
+    for doc in all_docs:
+        file_path = doc.payload.get("file_path", "")
+        if file_path:
+            # Нормализуем путь
+            normalized = file_path.replace('\\', '/')
+            collection_paths.add(normalized)
+    
+    print(f"\nTotal unique file paths in collection: {len(collection_paths)}")
+    
+    # Проверяем наличие файлов из ground truth
+    missing_files = []
+    for query in queries:
         for file_path in query.relevant_file_paths:
-            if file_path in path_to_id_mapping:
-                file_path_ids.append(path_to_id_mapping[file_path])
-            else:
-                print(f"Warning {file_path} not found in the collection")
-
-        query.relevant_doc_ids = file_path_ids
+            normalized_path = file_path.replace('\\', '/')
+            if normalized_path not in collection_paths:
+                if normalized_path not in missing_files:
+                    missing_files.append(normalized_path)
+                    print(f"Warning: {file_path} not found in the collection")
+                    # Показываем похожие пути для отладки
+                    filename = file_path.split('/')[-1]
+                    similar = [p for p in collection_paths if filename in p or p.endswith(filename)]
+                    if similar:
+                        print(f"  Similar paths found: {similar[:3]}")
+    
+    if missing_files:
+        print(f"\nTotal missing files: {len(missing_files)}")
+        print("These files may not exist in the source data or were not indexed.")
 
     results = []
     qdrant = QdrantCollection(name=args.collection, host=args.qdrant_host, port=args.qdrant_port)
 
     progress_bar = tqdm(queries, desc="RAG Validation", total=len(queries))
     for i, query in enumerate(progress_bar):
-        progress_bar.set_description(f"{i+1}/{len(queries)}")
+        progress_bar.set_description(f"{i + 1}/{len(queries)}")
         result = evaluate_query(
-            query, args.embed_model, args.ollama_host, qdrant, args.top_k
+            query, args.embed_model, args.ollama_host, qdrant, args.top_k, query.relevant_file_paths
         )
         results.append(result)
 
@@ -167,6 +185,7 @@ def main():
     print(f"Mean Precision@5:  {avg_precision_5:.3f}")
     print(f"Mean Precision@10: {avg_precision_10:.3f}")
     print(f"Mean MRR: {avg_mrr:.3f}")
+
 
 if __name__ == "__main__":
     main()
