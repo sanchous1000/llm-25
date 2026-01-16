@@ -1,0 +1,14 @@
+{
+  "P1_Generation": {
+    "product": "NeuroLink Analytics Pro Suite",
+    "performance": "47% improvement in real-time data processing speed under peak enterprise workloads"
+  },
+  "P2_Classification": {
+    "labels": "[Diffusion, RNN, CNN, Ensemble, Transformer]",
+    "text": "Which type of algorithm does the ResNet (Residual Network) architecture belong to?"
+  },
+  "P3_Extraction": {
+    "text": "On March 22, 2026, GlobalTech Solutions signed a three-year software licensing agreement for 250 seats of the Orion CRM Enterprise Edition at a total contract value of $187,500 USD, billed annually, with the first payment due April 5, 2026.",
+    "format": "{'company': '...', 'product': '...', 'license_type': '...', 'seats': ..., 'contract_duration_years': ..., 'total_value': ..., 'currency': '...', 'billing_cycle': '...', 'start_date': '...', 'first_payment_due': '...'}"
+  }
+}
