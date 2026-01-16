@@ -97,21 +97,21 @@ pip install langfuse python-dotenv
 
 #### Шаг 1: Создание датасета в Langfuse
 ```bash
-python scripts/prepare_data.py --collection vllm_docs
+python scripts/prepare_data.py --collection dnd_2024_docs
 ```
 
 #### Шаг 2: Трейсинг простого запроса к Ollama
 ```bash
-python scripts/trace_ollama.py --query "What is machine learning?" --model qwen3:1.7b
+python scripts/trace_ollama.py --query "Can you give me a monk class description?" --model qwen3:1.7b
 ```
 
 #### Шаг 3: Трейсинг RAG-запроса
 ```bash
 python scripts/trace_request.py 
-  --question "How to install vLLM?" 
+  --question "Which spells can wizard use on 1-st level?" 
   --embed_model nomic-embed-text 
   --llm_model qwen3:1.7b 
-  --collection vllm_docs 
+  --collection dnd_2024_docs 
   --top_k 5
 ```
 
