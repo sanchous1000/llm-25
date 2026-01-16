@@ -1,0 +1,20 @@
+{"question": "What is the minimum Python version required for verl?", "answer": "Version >= 3.10"}
+{"question": "What is the minimum recommended CUDA version for the latest verl installation?", "answer": "Version >= 12.8"}
+{"question": "Which specific vLLM version is noted as tested for stability in the inference guide?", "answer": "vllm 0.8.3"}
+{"question": "What environment variable should be set to 1 for optimal performance when using vLLM for rollout?", "answer": "VLLM_USE_V1=1"}
+{"question": "What paper is verl an open-source implementation of?", "answer": "The HybridFlow paper"}
+{"question": "Write the bash command to pull the pre-built verl docker image for verl+vLLM 0.8.3.", "answer": "docker pull hiyouga/verl:ngc-th2.6.0-cu126-vllm0.8.3-flashinfer0.2.2-cxx11abi0"}
+{"question": "Which two backends are recommended for training in verl?", "answer": "FSDP and Megatron-LM"}
+{"question": "Which Megatron-LM version is currently supported by verl?", "answer": "Megatron-LM v0.13.1"}
+{"question": "What is the recommended tool to manage the environment when installing from a custom environment?", "answer": "conda"}
+{"question": "Write the command to install the nightly version of verl from source without dependencies.", "answer": "pip3 install --no-deps -e ."}
+{"question": "Which specific framework is recommended for 'better scalability' compared to FSDP?", "answer": "Megatron-LM"}
+{"question": "In the PPO training example for GSM8K, what is the first step after installation?", "answer": "Step 1: Prepare the dataset"}
+{"question": "What library is recommended for Megatron-LM training but not required for the FSDP backend?", "answer": "NVIDIA Apex"}
+{"question": "Name the three engines supported by verl for rollout generation (inference).", "answer": "SGLang, vLLM, and TGI"}
+{"question": "What command is used to initialize pre-commit hooks for verl development?", "answer": "pre-commit install"}
+{"question": "Which environment variable should be set to 0 when running the install script if you only need the FSDP backend?", "answer": "USE_MEGATRON=0"}
+{"question": "What is the name of the internal engine that eliminates memory redundancy during transitions between training and generation?", "answer": "3D-HybridEngine"}
+{"question": "Which base docker images does verl use starting from version 0.6.0?", "answer": "vLLM and SGLang release images"}
+{"question": "What is the name of the Dockerfile used for building verl with AMD ROCm support?", "answer": "docker/Dockerfile.rocm"}
+{"question": "What license is the verl software distributed under?", "answer": "Apache License 2.0"}

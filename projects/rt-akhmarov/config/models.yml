@@ -1,0 +1,9 @@
+models:
+  Base:
+    temperature: 1.0
+  Tuned:
+    temperature: 0.1
+    max_tokens: 150
+    top_p: 0.9
+    presence_penalty: 1.1
+    seed: 42

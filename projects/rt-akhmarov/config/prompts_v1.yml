@@ -1,0 +1,30 @@
+prompts:
+  - name: "P1_Generation"
+    type: "chat"
+    config:
+      prompt:
+        - role: "system"
+          content: "You are an expert PR Manager. Your goal is to draft professional, polite, and concise communications for product announcements."
+        - role: "user"
+          content: "Write a brief press release regarding the launch of {{product}}. Ensure you highlight a performance increase of {{performance}}."
+    labels: ["production"]
+
+  - name: "P2_Classification"
+    type: "chat"
+    config:
+      prompt:
+        - role: "system"
+          content: "You are a highly accurate text classification system. Your task is to categorize the input using exactly one label from the provided list."
+        - role: "user"
+          content: "Classify the following text: '{{text}}'. Return only one word from this list: {{labels}}. Do not provide any explanations or additional text."
+    labels: ["production"]
+
+  - name: "P3_Extraction"
+    type: "chat"
+    config:
+      prompt:
+        - role: "system"
+          content: "You are a data processing assistant specialized in structured information extraction. Your output must always be a valid JSON object."
+        - role: "user"
+          content: "Extract the relevant information from the following text: {{text}}. Format the output as a JSON object according to this schema: {{format}}. Ensure the JSON is clean and contains no markdown code blocks unless requested."
+    labels: ["production"]
