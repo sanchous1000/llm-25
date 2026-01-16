@@ -20,13 +20,11 @@ class QdrantCollection:
         )
 
     def search(self, query_vector: List[float], top_k: int):
-        # В новых версиях qdrant-client используется query_points вместо search/search_points
         result = self.client.query_points(
             collection_name=self.collection,
             query=query_vector,
             limit=top_k
         )
-        # query_points возвращает объект QueryResponse с атрибутом points
         return result.points
 
     def upload(self, records: List[Dict[str, Any]], vectors: List[List[float]], batch: int = 128):
