@@ -1,0 +1,26 @@
+# Langfuse
+langfuse>=2.0.0,<3.0.0
+
+# RAG dependencies (same as lab2)
+python-docx
+python-pptx
+pypdf
+beautifulsoup4
+markdown
+langchain
+langchain-community
+langchain-text-splitters
+sentence-transformers
+qdrant-client
+nltk
+scikit-learn
+pandas
+numpy
+pyyaml
+python-dotenv
+ollama
+rank-bm25
+
+# Utilities
+tqdm>=4.65.0
+requests>=2.31.0
