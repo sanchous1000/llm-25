@@ -1,0 +1,8 @@
+langchain
+langchain-community
+langchain-huggingface
+qdrant-client
+markitdown
+sentence-transformers
+python-dotenv
+tiktoken
