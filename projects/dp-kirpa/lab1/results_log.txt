@@ -1,0 +1,513 @@
+=== qwen2.5:1.5b | Default | P1 (Генерация) ===
+Params: {}
+Time: 11.20s
+OUTPUT:
+Уважаемый [Имя клиента],
+
+С уважением,
+[Ваше имя]
+
+Приносим свои глубочайшие извинения за неудобства, но мы должны сообщить вам о сложностях с передачей вашего заказа.
+
+Ситуация подразумевает то, что доставка была затянута на 3 дня из-за ливня и при этом более плотной погоды. Мы полностью понимаем ваши проблемы и радуем вас сообщить вам о новом решении этой ситуации.
+
+Вам будет сделано бесплатное доставление из этого дня, что превентивно выгода за наше нежелание возобновлять доставку в эту сутки. Кроме того, мы предлагаем вам скидку 5% на ваш следующий заказ - это возврат качества услуг и упрощение вашего покупательского опыта.
+
+Бережное отношением к нам будет крайне appreciate.
+
+Мы очень призываем вас поддержать нас с помощью любых удобства, которые вы предлагаете и ждем возможности встретиться на низких предложенных цен.
+
+Надеемся знать об этом в скором времени и будем рады увидеть вас снова!
+
+С уважением,
+[Ваше имя]
+[Для своей организации]
+----------------------------------------
+=== qwen2.5:1.5b | Tuned | P1 (Генерация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 5.95s
+OUTPUT:
+Конечно! Вот примерное письмо:
+
+---
+
+[Ваше имя]  
+[Адрес, город]  
+[Телефон]
+
+Дорогой [Имя клиента],
+
+Я хотел бы сообщить вам о том, что доставка вашего заказа была задержана на 3 дня из-за плохих погодных условий. Мы проявляем максимальную осторожность при перевозке и надеемся, что это не повлияет на качество обслуживания.
+
+Ваш заказ будет готов к выдаче в [день] с [часами]. Если у вас возникнут какие-либо вопросы или проблемы, пожалуйста, свяжитесь со мной по телефону: [телефон].
+
+Кроме того, мы хотели предложить вам скидку 5% на следующий заказ. Это будет отличным способом признать ваше доверие
+----------------------------------------
+=== qwen2.5:1.5b | Default | P2 (Классификация) ===
+Params: {}
+Time: 0.82s
+OUTPUT:
+[Billing]
+----------------------------------------
+=== qwen2.5:1.5b | Tuned | P2 (Классификация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 0.24s
+OUTPUT:
+"Billing"
+----------------------------------------
+=== qwen2.5:1.5b | Default | P3 (Извлечение) ===
+Params: {}
+Time: 1.70s
+OUTPUT:
+```json
+{
+   "name": "Nike Air",
+   "price": "15000 рублей",
+   "color": "красный"
+}
+```
+----------------------------------------
+=== qwen2.5:1.5b | Tuned | P3 (Извлечение) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 1.12s
+OUTPUT:
+```json
+{
+   "name": "Nike Air",
+   "price": "15000 рублей",
+   "color": "красный"
+}
+```
+----------------------------------------
+=== llama3 | Default | P1 (Генерация) ===
+Params: {}
+Time: 35.33s
+OUTPUT:
+Here is a polite letter to the client:
+
+Dear [Client's Name],
+
+I hope this letter finds you well. I am writing to inform you that, due to unforeseen circumstances caused by unfavorable weather conditions, there may be a slight delay in delivering your recent order. Our team has been working diligently to ensure prompt delivery, but unfortunately, the inclement weather has slowed down our usual logistics process.
+
+As a result, we expect the delivery of your order to be delayed by three days. We understand that this may cause some inconvenience, and I want to assure you that we are doing everything in our power to get your package to you as soon as possible.
+
+To make up for the delay, we would like to offer you a 5% discount on all future orders with us. This way, you can enjoy the same high-quality products and services while earning a small reward for your understanding of unforeseen circumstances.
+
+Your understanding and cooperation are greatly appreciated in this matter. If you have any questions or concerns, please do not hesitate to contact me directly. I am always here to help and address any issues that may arise.
+
+Thank you for choosing our company, and we look forward to serving you better in the future.
+
+Best regards,
+
+[Your Name]
+[Company Name] Customer Service Team
+----------------------------------------
+=== llama3 | Tuned | P1 (Генерация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 23.13s
+OUTPUT:
+[Your Company Logo]
+
+[Date]
+
+Dear [Client's Name],
+
+I hope this letter finds you well. I am writing to inform you that, due to unforeseen circumstances caused by the recent poor weather conditions, there will be a delay in delivering your order.
+
+Unfortunately, our delivery team is facing challenges in navigating through the heavy rain and strong winds, which has resulted in an estimated 3-day delay in getting your package to you. I want to assure you that we are doing everything possible to ensure the safe and timely arrival of your goods as soon as the weather improves.
+
+I understand how frustrating this must be for you, and I apologize for any inconvenience this may cause. Please rest assured that we are working diligently to get your order to you as quickly as possible once the weather clears up.
+
+As a token of our apology and appreciation for your understanding, we would like to offer you a 5% discount on your next purchase with us. This is our way of showing that we value your
+----------------------------------------
+=== llama3 | Default | P2 (Классификация) ===
+Params: {}
+Time: 2.65s
+OUTPUT:
+" Billing"
+----------------------------------------
+=== llama3 | Tuned | P2 (Классификация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 0.61s
+OUTPUT:
+"Billing"
+----------------------------------------
+=== llama3 | Default | P3 (Извлечение) ===
+Params: {}
+Time: 4.55s
+OUTPUT:
+{
+"name": "Nike Air",
+"price": 15000,
+"color": "red"
+}
+----------------------------------------
+=== llama3 | Tuned | P3 (Извлечение) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 2.86s
+OUTPUT:
+{
+"name": "Nike Air",
+"price": 15000,
+"color": "красный"
+}
+----------------------------------------
+=== mistral | Default | P1 (Генерация) ===
+Params: {}
+Time: 87.83s
+OUTPUT:
+ В Dear [Заказчик],
+
+Для начала я хочу выразить искреннее предание благодарности всем нашим клиентам, включая Вас, за непрестанную поддержку в течение многих лет. Мы с нашей командой усиленно работаем над улучшением качества и доступностью наших услуг и предложений.
+
+Я хотел бы заявить, что мы столкнулись с непредвиденными обстоятельствами, связанными с внезапной погодой, которая помешала нам доставлять заказы во времени, которым Вы ожидали. Мы находимся в эстестве социальных ответственности и хотим извиниться перед Вами за какое-то неудобство, которое могло вызвать такая обстановка.
+
+В рамках нашей попытки улучшить опыт клиента мы предлагаем 5% скидку на следующий заказ. Мы вернем Вам сильное чувство доверия и безобидности, обещая всегда быть предельно прозрачными в отношении любого обстоятельства, которые могут помешать нас выполнять работу по срокам, для которых Вы планируете.
+
+Я надеюсь, что Вам этот знак довольствия поможет загладить невзгоды и будет достаточно комфортно для выполнения событий запланированных на ближайший период. После длительного препросвещения у нас наконец появился прорыв в области доставки, который обеспечивает мы моментальную доставку вашего заказа 24/7.
+
+Я думаю, что Вы согласитесь, что этот крок отражает наш комментарий о том, как значим любые препятствия для Вас и что мы не пренебрегаем Вашими потребованиями. Мы собираемся непрерывно трудиться над улучшением доставки, надеясь, что это поможет Вам не только в определенные периоды времени, но и в долгосрочной перспективе.
+
+Спасибо за избыточное внимание, которое Вы уделяете нашему делу и не переставая быть нашим клиентом. Ищу новые возможности повышения качества доставки и приветствую Вас перед новой эпохой, благодаря которой мы сможем вводить более преемственные изменения для удовлетворения Ваших целей.
+
+Моля прощения за любые неточности и надеюсь, что я показал своих усилий по оптимальной доставке Вашего товара. Чтобы получить более подробную информацию о Вашем будущем заказе, если Вы хотите продолжить сотрудничество с нашим сервисом, пожалуйста, свяжиться с одним из наших менеджеров.
+
+Спасибо и приветствия.
+
+[Ваше имя]
+[Название компании/сервиса]
+----------------------------------------
+=== mistral | Tuned | P1 (Генерация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 19.96s
+OUTPUT:
+ Господа Клиент!
+
+Желаю Вам приветствовать и выражая своё благодарность за доверие, которое Вы мне показывали в прошлом, я хочу сообщить Вам о некоторых изменениях в планах нашей компании.
+
+В связи с тем, что сегодняшний день характеризуется плохой погодой и это может повлиять на доставку Вашего заказа, мы вынуждены отложить его на три дня. Мы осознаем, что такая ситуация может представлять неудобство для Вас, но уверены, что это временное исключение будет оправдано в ближайшее время.
+
+В каче
+----------------------------------------
+=== mistral | Default | P2 (Классификация) ===
+Params: {}
+Time: 3.73s
+OUTPUT:
+ Billing
+----------------------------------------
+=== mistral | Tuned | P2 (Классификация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 0.33s
+OUTPUT:
+ Billing
+----------------------------------------
+=== mistral | Default | P3 (Извлечение) ===
+Params: {}
+Time: 6.70s
+OUTPUT:
+ {
+  "name": "Nike Air",
+  "price": 15000,
+  "color": "красный"
+}
+----------------------------------------
+=== mistral | Tuned | P3 (Извлечение) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 3.50s
+OUTPUT:
+ {
+  "name": "Nike Air",
+  "color": "красный",
+  "price": 15000
+}
+----------------------------------------
+=== qwen2.5:1.5b | Default | P1 (Генерация) ===
+Params: {}
+Time: 16.67s
+OUTPUT:
+Представитель магазина:
+
+Здравствуйте,
+
+В этом письме я хотел бы оставить вам запись в связи с приостановкой доставки вашего заказа, и хочу предложить заменить вас на грузчика с меньшим весом.
+
+Мы понимаем, что это вызывает беспокойство у вас. Дорогой (Ваше) клиент, мы поздравляем Вас с таким интересным событием, но на мое сожаление, с 23.06 по 27.06 из-за нерегулируемых колебаний в гелио-полюсах магнитида произошло задержание доставки заказа Вам.
+
+Наши менеджеры стараются уменьшить такие случаи, но как вам известно, ситуация в этом ненадежном регионае постоянно меняется. Мы уже попытались провести доставку раньше, но не получилось.
+
+Пожалуста прошу Вас разрешения подарить Вам скидку в размере 5% на следующий заказ от нашей линии (включая любой товар и уведомления о складской задержке).
+
+Глубоко считаю это очень большее, чем то, что происходило ранее. Надеюсь, мы сможем выполнить все необходимые нам шаги для того чтобы решить эту проблему в скором будущем.
+
+Спасибо Вам заранее за понимание и сотрудничество!
+
+Адрес вашего заказа: (Введите адрес)
+Код товара: (Введите код товара)
+
+Для корректировки ситуации рекомендуется обращаться с нашей службой поддержки. Мы всегда открыты для обсуждения возможностей и вносим изменяющиеся меры в ответ на предложения и просьбы.
+
+Ваше рады быть в лучшем ожидании, что все не станет хуже и более сложна ситуация может появляться снова!
+
+С уважением,
+[Ваше имя]
+Корпоративный менеджер [Марка или компания]
+----------------------------------------
+=== qwen2.5:1.5b | Tuned | P1 (Генерация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 6.08s
+OUTPUT:
+Замечание: Мы понимаем ваше беспокойство по поводу задержки доставки вашего заказа, и мы хотели бы сообщить вам о том, что это произошло из-за плохих погодных условий.
+
+Спасибо за терпение. Наша компания всегда стремится обеспечивать лучшую скорость доставки для наших клиентов. Мы надеемся на вашу понимание и продолжаем работать над улучшением процессов, чтобы миновать подобные проблемы в будущем.
+
+Теперь о скидке: В знак нашего сочувствия к ситуации, мы хотели бы предложить вам 5% скидку на следующий заказ. Мы уверены, что это будет полезным шагом для улучшения вашего опыта покупок и намерены продолжить работать над тем, чтобы сделать все возможное,
+----------------------------------------
+=== qwen2.5:1.5b | Default | P2 (Классификация) ===
+Params: {}
+Time: 0.82s
+OUTPUT:
+"Billing"
+----------------------------------------
+=== qwen2.5:1.5b | Tuned | P2 (Классификация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 0.24s
+OUTPUT:
+"Billing"
+----------------------------------------
+=== qwen2.5:1.5b | Default | P3 (Извлечение) ===
+Params: {}
+Time: 1.84s
+OUTPUT:
+```json
+{
+  "name": "Kроссовки Nike Air",
+  "price": "15000 рублей",
+  "color": "красный"
+}
+```
+----------------------------------------
+=== qwen2.5:1.5b | Tuned | P3 (Извлечение) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 1.14s
+OUTPUT:
+```json
+{
+   "name": "Nike Air",
+   "price": "15000 рублей",
+   "color": "красный"
+}
+```
+----------------------------------------
+=== llama3 | Default | P1 (Генерация) ===
+Params: {}
+Time: 36.53s
+OUTPUT:
+Here is a polite letter to the client:
+
+Dear [Client's Name],
+
+I hope this email finds you well. I am writing to inform you that, due to unfortunate weather conditions, there may be a slight delay in the delivery of your order. Unfortunately, our delivery team is facing some challenges in navigating through the inclement weather, which may result in a 3-day delay compared to our usual delivery schedule.
+
+I want to assure you that we are doing everything possible to ensure that your order arrives as soon as possible and in the same great condition you expect from us. Our team is working diligently to overcome these challenges, and I am confident that we will successfully deliver your order to you shortly.
+
+In recognition of this unexpected delay, I would like to offer you a 5% discount on your next order. We value your business and appreciate your understanding in this matter. Please know that we are committed to providing the highest level of service and quality products, and we apologize for any inconvenience this may cause.
+
+If you have any questions or concerns, please do not hesitate to reach out to us. Your satisfaction is our top priority, and we are here to support you throughout your shopping experience with us.
+
+Thank you for your patience and understanding. We look forward to delivering your order shortly.
+
+Best regards,
+
+[Your Name]
+
+[Company Name]
+----------------------------------------
+=== llama3 | Tuned | P1 (Генерация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 23.07s
+OUTPUT:
+[Your Company Logo]
+
+[Date]
+
+Dear [Client's Name],
+
+I hope this letter finds you well. I am writing to inform you that, due to unforeseen circumstances caused by the current weather conditions, there will be a slight delay in delivering your recent order.
+
+Unfortunately, the inclement weather has affected our logistics and transportation systems, resulting in an estimated 3-day delay in the delivery of your package. We understand how frustrating this may be for you, and we want to assure you that we are doing everything possible to get your order to you as soon as possible.
+
+In light of these circumstances, I would like to offer you a special gesture of goodwill. As a valued customer, we would like to extend a 5% discount on your next purchase with us. This is our way of apologizing for the inconvenience and showing appreciation for your understanding during this challenging time.
+
+Please be assured that we are working diligently to get your order delivered as soon as possible. We will keep you updated
+----------------------------------------
+=== llama3 | Default | P2 (Классификация) ===
+Params: {}
+Time: 2.65s
+OUTPUT:
+"Billing"
+----------------------------------------
+=== llama3 | Tuned | P2 (Классификация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 0.60s
+OUTPUT:
+"Billing"
+----------------------------------------
+=== llama3 | Default | P3 (Извлечение) ===
+Params: {}
+Time: 4.70s
+OUTPUT:
+{"name": "Nike Air", "price": 15000, "color": "красный"}
+----------------------------------------
+=== llama3 | Tuned | P3 (Извлечение) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 2.88s
+OUTPUT:
+{
+"name": "Nike Air",
+"price": 15000,
+"color": "красный"
+}
+----------------------------------------
+=== mistral | Default | P1 (Генерация) ===
+Params: {}
+Time: 89.11s
+OUTPUT:
+ Деар Почётный Клиент,
+
+С возвращением всем пожеланий мира и успехов! Мы обращаемся к Вам в связи с тем, что ваш предварительно заказанный товар отправляется не на сегодня, но лишь через несколько дней из-за неблагоприятных погодных условий, которые сильно влияют на доставку товаров.
+
+Мы сознаем, что таким образом может возникнуть неудобство для Вас. Несмотря на это, мы установим доставку наиболее быстро и безразличия к погодным условиям, чтобы Ваш заказанный товар пришёл намного опередив предполагаемое время прибытия.
+
+Разбираясь над некоторыми решениями для компенсирования конвенцией, которую Вы испытываете из-за задержки вашей партии товаров, решили предоставить Вам скидку в размере 5% на следующий заказ. Этот знакомый вам дисконт доступен для использования в будущем, когда Вы пересматриваете свою баллонную колонку или хотите добавить что-либо новые, к тому же удобное применение скидки для того, чтобы очень долгожданые вещи пришли намного более дешёвыми!
+
+Пожалуйста, не думайте несколько раз, и когда кажется правильным время, воспользуйтесь этой скидкой, которую мы привыкли к Вам предлагать. Вот некоторые информация о способах использования данного скидки:
+
+1. Использовав ваш верифицированный баллонный код (когда в процессе оформления заказа будете вводить код), он будет автоматически снят с суммы за каждый товар, находящийся в корзине.
+
+2. Если вы применяете код скидки лично у менеджера в магазине, вам необходимо просто продемонстрировать своих благополучных куплений и встретить счастливого, улыбающегося курьера со своим товаром.
+
+Надеемся, что этот шаг даст Вам не только возможность приобрести новые вещи в ближайшее время, но и продемонстрирует наши охотные действия для упрощения положения потребителей в трудных ситуациях. Если Вы имеете какие-либо вопросы или сомнения по этому поводу, не стесняйтесь никогда задавать их мне: [ваш контактный номер].
+
+Спасибо Вам ещё раз больше за веру в наших слов и преданность нашей команды!
+
+Всего хорошего дня, и успехов со всей командой!
+
+С уважением,
+[Ваша Имя]
+[Ваш Титул]
+[Имя компании]
+----------------------------------------
+=== mistral | Tuned | P1 (Генерация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 20.29s
+OUTPUT:
+ Господа Клиент!
+
+С уважением обращаюсь к Вам сообщить, что в связи с неблагоприятными погодными условиями доставка Вашего заказа может быть отложена на 3 дня. Мы очень извиняемся за возникшие трудности и стараемся обеспечить Высочайший Уровень Сервиса, для которого мы известны.
+
+В качестве компенсации Вам предлагается скидка в 5% на следующий заказ. Мы понимаем, что такой шаг не может полностью восполнить временные расстройства, но мы хотим подчеркнуть свое преданное отношение к Вашему удовле
+----------------------------------------
+=== mistral | Default | P2 (Классификация) ===
+Params: {}
+Time: 3.89s
+OUTPUT:
+ Billing
+----------------------------------------
+=== mistral | Tuned | P2 (Классификация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 0.34s
+OUTPUT:
+ Billing
+----------------------------------------
+=== mistral | Default | P3 (Извлечение) ===
+Params: {}
+Time: 6.94s
+OUTPUT:
+ {
+  "name": "Nike Air",
+  "color": "красный",
+  "price": 15000
+}
+----------------------------------------
+=== mistral | Tuned | P3 (Извлечение) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 3.68s
+OUTPUT:
+ {
+  "name": "Nike Air",
+  "color": "красный",
+  "price": 15000
+}
+----------------------------------------
+=== qwen2.5:1.5b | Default | P1 (Генерация) ===
+Params: {}
+Time: 10.13s
+OUTPUT:
+Заместитель директора:  
+
+Я напоминаю вам об одном неисправном факте, которое вы могли бы учесть при оформлении покупок в ближайшие будни или праздники. Мы останавливаем доставку из-за плохой погоды с самого утра понедельника.
+
+Мы полностью объективно признаем свои неудачи и готовы предложить вам скидку 5% на следующий заказ в ответ за это неприкосновенное обстоятельство. Будь это покупка, такая как заказ по приглашению или по заказу другого человека.
+
+Наши менеджеры будут рады оказать вам помощь в корректировке ближайшей доставки от вас. Ждем с нетерпением ваших отзывов и просьб, и убеждаемся, что вы полностью с нашими позиций.
+
+Наилучшие Деньги всегда для вас - БЕСКОНЦЕНТИМЫ. Мы постараемся достичь более благоприятных условий в ближайшее время!
+----------------------------------------
+=== qwen2.5:1.5b | Tuned | P1 (Генерация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 6.07s
+OUTPUT:
+Конечно! Вот примерное письмо:
+
+---
+
+[Ваше имя]  
+[Адрес, город]  
+[Телефон]
+
+Дорогой [Имя клиента],
+
+Я хотел бы сообщить вам об ожидаемом задержании доставки вашего заказа. В связи с плохими погодными условиями в регионе доставки, ваш товар будет прибыть на склад за 3 дня.
+
+Мы хотели предложить вам скидку 5% на следующий заказ, чтобы компенсировать возможные затраты. Мы надеемся, что это решение поможет уменьшить ваши ожидания и обеспечит лучший опыт приобретения товаров от нас.
+
+Благодарим вас за понимание ситуации и будем рады видеть вас снова в ближайшие дни!
+
+С наилучшими пож
+----------------------------------------
+=== qwen2.5:1.5b | Default | P2 (Классификация) ===
+Params: {}
+Time: 0.82s
+OUTPUT:
+"Billing"
+----------------------------------------
+=== qwen2.5:1.5b | Tuned | P2 (Классификация) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 0.25s
+OUTPUT:
+"Billing"
+----------------------------------------
+=== qwen2.5:1.5b | Default | P3 (Извлечение) ===
+Params: {}
+Time: 1.86s
+OUTPUT:
+```json
+{
+    "name": "кроссовки Nike Air",
+    "price": "15000 рублей",
+    "color": "красный"
+}
+```
+----------------------------------------
+=== qwen2.5:1.5b | Tuned | P3 (Извлечение) ===
+Params: {'temperature': 0.1, 'max_tokens': 200, 'presence_penalty': 1.1}
+Time: 1.18s
+OUTPUT:
+```json
+{
+   "name": "Nike Air",
+   "price": "15000 рублей",
+   "color": "красный"
+}
+```
+----------------------------------------
