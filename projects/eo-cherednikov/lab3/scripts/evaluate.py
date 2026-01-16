@@ -36,24 +36,17 @@ def _normalize_item_match(retrieved_item: str, expected_item: str) -> bool:
     return False
 
 
-def recall_evaluator(*args, **kwargs):
-    if 'output' in kwargs:
-        output = kwargs['output']
-    elif len(args) > 0:
-        output = args[0]
-    else:
-        output = []
-    
-    if 'expected_output' in kwargs:
-        expected_output = kwargs['expected_output']
-    elif len(args) > 1:
-        expected_output = args[1]
-    else:
-        expected_output = []
-    
+def recall_evaluator(*, input, output, expected_output, **kwargs):
     k_values = kwargs.get('k_values', [5, 10])
+    
 
-    retrieved_items = output if isinstance(output, list) else []
+    if isinstance(output, dict):
+        retrieved_items = output.get("retrieved_items", [])
+    elif isinstance(output, list):
+        retrieved_items = output
+    else:
+        retrieved_items = []
+    
     expected_items = expected_output if expected_output else []
     
     evals = []
@@ -77,24 +70,16 @@ def recall_evaluator(*args, **kwargs):
     return evals
 
 
-def precision_evaluator(*args, **kwargs):
-    if 'output' in kwargs:
-        output = kwargs['output']
-    elif len(args) > 0:
-        output = args[0]
-    else:
-        output = []
-    
-    if 'expected_output' in kwargs:
-        expected_output = kwargs['expected_output']
-    elif len(args) > 1:
-        expected_output = args[1]
-    else:
-        expected_output = []
-    
+def precision_evaluator(*, input, output, expected_output, **kwargs):
     k_values = kwargs.get('k_values', [5, 10])
-
-    retrieved_items = output if isinstance(output, list) else []
+    
+    if isinstance(output, dict):
+        retrieved_items = output.get("retrieved_items", [])
+    elif isinstance(output, list):
+        retrieved_items = output
+    else:
+        retrieved_items = []
+    
     expected_items = expected_output if expected_output else []
     
     evals = []
@@ -117,22 +102,14 @@ def precision_evaluator(*args, **kwargs):
     return evals
 
 
-def mrr_evaluator(*args, **kwargs):
-    if 'output' in kwargs:
-        output = kwargs['output']
-    elif len(args) > 0:
-        output = args[0]
+def mrr_evaluator(*, input, output, expected_output, **kwargs):
+    if isinstance(output, dict):
+        retrieved_items = output.get("retrieved_items", [])
+    elif isinstance(output, list):
+        retrieved_items = output
     else:
-        output = []
+        retrieved_items = []
     
-    if 'expected_output' in kwargs:
-        expected_output = kwargs['expected_output']
-    elif len(args) > 1:
-        expected_output = args[1]
-    else:
-        expected_output = []
-
-    retrieved_items = output if isinstance(output, list) else []
     expected_items = expected_output if expected_output else []
 
     for rank, retrieved_item in enumerate(retrieved_items, 1):
@@ -152,44 +129,59 @@ def mrr_evaluator(*args, **kwargs):
     )]
 
 
-def task(item,
-         embed_model: str = "nomic-embed-text",
-         ollama_host: str = "http://localhost:11434",
-         top_k: int = 10):
-    question = item.input  # `run_experiment` passes a `DatasetItemClient` to the task function. The input of the dataset item is available as `item.input`.
-
+def task(*, item, **kwargs):
+    embed_model = kwargs.get("embed_model", "nomic-embed-text")
+    ollama_host = kwargs.get("ollama_host", "http://localhost:11434")
+    top_k = kwargs.get("top_k", 10)
+    
+    if isinstance(item.input, dict):
+        question = item.input.get("query", item.input.get("question", ""))
+    else:
+        question = str(item.input)
+    
     query_vec = embed_query(question, model=embed_model, host=ollama_host)
-
+    
     results = qdrant.search(query_vector=query_vec, top_k=top_k)
     
-    # Формируем идентификаторы с учетом страниц
     retrieved_items = []
+    retrieved_chunks = []
     seen_items = set()
+    
     for r in results:
         doc_id = r.payload.get("id", "")
         page_number = r.payload.get("page_number")
+        file_path = r.payload.get("file_path", "")
+        heading = r.payload.get("heading", "")
+        text = r.payload.get("text", "")
         
         if page_number is not None:
-            # Для PDF с указанием страницы используем формат "doc_id:page_number"
             item_id = f"{doc_id}:{page_number}"
         else:
-            # Для документов без страниц используем только doc_id
             item_id = doc_id
         
-        # Убираем дубликаты
         if item_id not in seen_items:
             retrieved_items.append(item_id)
             seen_items.add(item_id)
-
-    return retrieved_items
+            
+            retrieved_chunks.append({
+                "id": item_id,
+                "document": file_path,
+                "page_number": page_number,
+                "heading": heading,
+                "text": text[:200] if text else ""  # Первые 200 символов для отладки
+            })
+    
+    return {
+        "retrieved_items": retrieved_items,
+        "retrieved_chunks": retrieved_chunks
+    }
 
 
 dataset = langfuse.get_dataset("dnd_2024_questions")
 
-# Определяем k_values для метрик
 k_values = [5, 10]
 
-# Создаем обёртки для evaluator функций с k_values
+# Обкртки для evaluator функций с k_values
 def recall_eval(*args, **kwargs):
     kwargs['k_values'] = k_values
     return recall_evaluator(*args, **kwargs)
