@@ -1,0 +1,33 @@
+{
+  "splitter": {
+    "type": "hybrid",
+    "chunk_size": 500,
+    "chunk_overlap": 50,
+    "include_headers": true,
+    "headers_to_split_on": [
+      ["#", "Header 1"],
+      ["##", "Header 2"],
+      ["###", "Header 3"]
+    ]
+  },
+  "embeddings": {
+    "type": "hybrid",
+    "dense": {
+      "model": "intfloat/multilingual-e5-large",
+      "device": "mps"
+    },
+    "sparse": {
+      "type": "bm25"
+    }
+  },
+  "input_dir": "parsed_docs",
+  "output_dir": "chunks",
+  "versioning": true,
+  "index": {
+    "M": 32,
+    "ef_construction": 200,
+    "ef_search": 50,
+    "type": "HNSW"
+  }
+}
+
