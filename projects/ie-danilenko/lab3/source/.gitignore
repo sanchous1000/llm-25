@@ -1,0 +1,6 @@
+parsed_docs
+**/.env
+chunks/
+faiss_index/
+**__pycache__
+**.DS_Store
