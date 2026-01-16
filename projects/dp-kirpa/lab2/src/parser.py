@@ -1,5 +1,5 @@
 import os
-from markitdown import MarkItDown # (или аналоги, например, docling)
+from markitdown import MarkItDown
 
 def convert_to_markdown(input_dir: str, output_dir: str):
     """Конвертирует DOCX/PDF в Markdown с сохранением структуры"""
@@ -15,8 +15,6 @@ def convert_to_markdown(input_dir: str, output_dir: str):
             try:
                 result = md_converter.convert(file_path)
                 
-                # Добавляем метаданные в начало файла (Frontmatter-like)
-                # Это поможет сплиттеру понять контекст
                 meta_header = f"# METADATA\nSource: {filename}\nType: Document\n\n"
                 full_content = meta_header + result.text_content
                 

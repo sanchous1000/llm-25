@@ -16,12 +16,10 @@ def evaluate_retrieval(config: IndexConfig, eval_file="data/eval_dataset.json"):
     
     for item in qa_pairs:
         query = item['question']
-        target = item['expected_source_substring'] # Упрощенно ищем подстроку
+        target = item['expected_source_substring']
         
-        # Для e5 моделей запросы должны иметь префикс "query: "
         query_vec = embeddings.embed_query(f"query: {query}")
         
-        # Use the correct method - it's 'search' but may need proper parameters
         try:
             search_result = client.search(
                 collection_name=config.collection_name,
@@ -29,7 +27,6 @@ def evaluate_retrieval(config: IndexConfig, eval_file="data/eval_dataset.json"):
                 limit=k
             )
         except AttributeError:
-            # Fallback for older versions that might use different method names
             search_result = client.query_points(
                 collection_name=config.collection_name,
                 query=query_vec,
@@ -38,7 +35,6 @@ def evaluate_retrieval(config: IndexConfig, eval_file="data/eval_dataset.json"):
         
         found = False
         for rank, hit in enumerate(search_result):
-            # Проверяем, содержит ли найденный чанк эталонный ответ
             if target.lower() in hit.payload['text'].lower():
                 hits += 1
                 mrr_sum += 1 / (rank + 1)

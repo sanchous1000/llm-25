@@ -1,12 +1,33 @@
 from qdrant_client import QdrantClient
 from langchain_huggingface import HuggingFaceEmbeddings
 from src.config import IndexConfig
+import requests
+import os
 
-# Заглушка для LLM из Лабораторной 1
-def call_llm_lab1(prompt):
-    # import openai
-    # return openai.ChatCompletion.create(...)
-    return f"Simulated LLM Answer based on prompt length: {len(prompt)}"
+def call_llm(prompt: str):
+    headers = {
+        "Authorization": f"Api-Key {os.getenv('YANDEXGPT_APIKEY')}",
+        "Content-Type": "application/json"
+    }
+    data = {
+        "modelUri": f"gpt://{os.getenv('YANDEX_FOLDERID')}/yandexgpt-lite",
+        "completionOptions": {
+            "stream": False,
+            "temperature": float(os.getenv("MODEL_TEMP"))
+        },
+        "messages": [
+            {
+                "role": "user",
+                "text": prompt
+            }
+        ]
+    }
+    answer = requests.post(
+        "https://llm.api.cloud.yandex.net/foundationModels/v1/completion",
+        headers=headers,
+        json=data
+    )
+    return answer
 
 class RAGService:
     def __init__(self, config: IndexConfig):
@@ -48,8 +69,9 @@ class RAGService:
         print(user_prompt)
         print("------------------")
         
-        response = call_llm_lab1(f"{system_prompt}\n{user_prompt}")
-        return response
+        response = call_llm(f"{system_prompt}\n{user_prompt}")
+        result = response.json()
+        return result["result"]["alternatives"][0]["message"]["text"]
 
 if __name__ == "__main__":
     rag = RAGService(IndexConfig())
