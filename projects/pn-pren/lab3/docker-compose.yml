@@ -1,0 +1,90 @@
+services:
+  # PostgreSQL database for Langfuse
+  langfuse-db:
+    image: postgres:15-alpine
+    container_name: langfuse-db-lab3
+    environment:
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: langfuse
+      POSTGRES_DB: langfuse
+    volumes:
+      - langfuse-db-data:/var/lib/postgresql/data
+    networks:
+      - langfuse-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U langfuse"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Langfuse server (v2)
+  langfuse:
+    image: langfuse/langfuse:2
+    container_name: langfuse-lab3
+    depends_on:
+      langfuse-db:
+        condition: service_healthy
+    ports:
+      - "3001:3000"
+    environment:
+      DATABASE_URL: postgresql://langfuse:langfuse@langfuse-db:5432/langfuse
+      NEXTAUTH_SECRET: changeme-nextauth-secret-lab3
+      NEXTAUTH_URL: http://localhost:3001
+      SALT: changeme-salt-lab3
+      TELEMETRY_ENABLED: "false"
+      LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES: "true"
+    networks:
+      - langfuse-network
+    restart: unless-stopped
+
+  # Test application for Langfuse integration
+  app:
+    image: python:3.11-slim
+    container_name: test-app-lab3
+    depends_on:
+      - langfuse
+    working_dir: /app
+    environment:
+      LANGFUSE_HOST: http://langfuse:3000
+      LANGFUSE_PUBLIC_KEY: pk-lf-4db74ad3-2f75-4309-a420-1a4e8f592c57
+      LANGFUSE_SECRET_KEY: sk-lf-83c12ae5-396d-4bfd-87c2-0af691372220
+    volumes:
+      - ./test_app:/app
+    networks:
+      - langfuse-network
+    restart: unless-stopped
+    command: >
+      bash -c "pip install --no-cache-dir 'langfuse>=2.0.0,<3.0.0' requests && 
+               tail -f /dev/null"
+
+  # RAG application with Langfuse integration
+  rag-app:
+    build: .
+    container_name: rag-app-lab3
+    depends_on:
+      - langfuse
+    working_dir: /app
+    environment:
+      LANGFUSE_HOST: http://langfuse:3000
+      LANGFUSE_PUBLIC_KEY: pk-lf-4db74ad3-2f75-4309-a420-1a4e8f592c57
+      LANGFUSE_SECRET_KEY: sk-lf-83c12ae5-396d-4bfd-87c2-0af691372220
+      QDRANT_HOST: host.docker.internal
+      QDRANT_PORT: 6333
+      OLLAMA_HOST: host.docker.internal
+      OLLAMA_PORT: 11434
+      PYTHONPATH: /app
+    volumes:
+      - ./:/app
+    networks:
+      - langfuse-network
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  langfuse-network:
+    driver: bridge
+
+volumes:
+  langfuse-db-data:

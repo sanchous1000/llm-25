@@ -1,0 +1,82 @@
+[
+    {
+        "query": "What is artificial intelligence?",
+        "relevant_chunks": [29, 33, 34]
+    },
+    {
+        "query": "What are the key components of AI?",
+        "relevant_chunks": [64, 65]
+    },
+    {
+        "query": "What is human intelligence?",
+        "relevant_chunks": [30, 31, 32]
+    },
+    {
+        "query": "What are the applications of AI?",
+        "relevant_chunks": [48, 49, 50, 51, 52, 53, 56, 57]
+    },
+    {
+        "query": "How do humans learn?",
+        "relevant_chunks": [75, 76, 77, 78, 79, 80]
+    },
+    {
+        "query": "What is machine learning?",
+        "relevant_chunks": [81, 82, 83, 84, 85]
+    },
+    {
+        "query": "What is computer vision?",
+        "relevant_chunks": [60, 61, 62]
+    },
+    {
+        "query": "What is speech recognition?",
+        "relevant_chunks": [60]
+    },
+    {
+        "query": "Why do we need artificial intelligence?",
+        "relevant_chunks": [43, 44, 45, 46, 47, 48, 49]
+    },
+    {
+        "query": "What are the future applications of AI?",
+        "relevant_chunks": [67, 68, 69]
+    },
+    {
+        "query": "What is natural language processing?",
+        "relevant_chunks": [51, 56]
+    },
+    {
+        "query": "What are intelligent robots?",
+        "relevant_chunks": [60, 61]
+    },
+    {
+        "query": "How can AI recognize images?",
+        "relevant_chunks": [81, 82, 83]
+    },
+    {
+        "query": "What is the learning process in computers?",
+        "relevant_chunks": [81, 82, 85, 86, 87]
+    },
+    {
+        "query": "What are the ethical considerations in AI?",
+        "relevant_chunks": [42]
+    },
+    {
+        "query": "What is the difference between human and artificial intelligence?",
+        "relevant_chunks": [30, 31, 33, 34]
+    },
+    {
+        "query": "What are sensors in AI systems?",
+        "relevant_chunks": [89, 90]
+    },
+    {
+        "query": "What role does data play in machine learning?",
+        "relevant_chunks": [81, 95, 96, 97, 98]
+    },
+    {
+        "query": "What is augmented intelligence?",
+        "relevant_chunks": [42, 43]
+    },
+    {
+        "query": "How does AI improve decision making?",
+        "relevant_chunks": [43, 44, 48, 49]
+    }
+]
