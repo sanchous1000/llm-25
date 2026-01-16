@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "question": "Во сколько начинается рабочий день?",
+        "expected_source_substring": "начинается в 09:00",
+        "filename": "company_regulations.docx"
+    },
+    {
+        "id": 2,
+        "question": "Какой длины должен быть пароль?",
+        "expected_source_substring": "минимум 12 символов",
+        "filename": "security_policy.pdf"
+    },
+    {
+        "id": 3,
+        "question": "При каких условиях выплачивается квартальный бонус?",
+        "expected_source_substring": "Выполнение плана продаж на 100%",
+        "filename": "bonus_system.pptx"
+    },
+    {
+        "id": 4,
+        "question": "Можно ли приходить на работу в джинсах?",
+        "expected_source_substring": "допускается свободная форма одежды",
+        "filename": "company_regulations.docx"
+    }
+]
