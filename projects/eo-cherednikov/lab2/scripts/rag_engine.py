@@ -12,7 +12,16 @@ def build_prompt(question: str, contexts: List[Dict[str, Any]]) -> str:
         level = c.payload.get("level", "")
         text = c.payload.get("text", "")
         file_path = c.payload.get("file_path", "")
-        blocks.append(f"[{i}] heading={heading} (h{level}) file={file_path}\n{text}")
+        page_number = c.payload.get("page_number")
+        
+        # Формируем строку источника с учетом типа документа
+        source_info = f"file={file_path}"
+        if page_number is not None:
+            source_info += f" page={page_number}"
+        if level:
+            source_info += f" (h{level})"
+        
+        blocks.append(f"[{i}] heading={heading} {source_info}\n{text}")
     context_str = "\n\n".join(blocks)
     instr = (
         "You are an assistant. Answer strictly based on the contexts below.\n"
@@ -47,7 +56,13 @@ def main():
     for i, r in enumerate(results, 1):
         heading = r.payload.get("heading", "")
         file_path = r.payload.get("file_path", "")
-        print(f"[{i}] heading={heading} file={file_path}")
+        page_number = r.payload.get("page_number")
+        
+        source_info = f"file={file_path}"
+        if page_number is not None:
+            source_info += f" page={page_number}"
+        
+        print(f"[{i}] heading={heading} {source_info}")
 
 if __name__ == "__main__":
     main()

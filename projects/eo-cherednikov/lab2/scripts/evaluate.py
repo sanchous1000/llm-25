@@ -13,9 +13,10 @@ from utils.qdrant import QdrantCollection
 @dataclass
 class EvaluationQuery:
     question: str
-    relevant_file_paths: List[str]  # ID релевантных документов
+    relevant_file_paths: List[str]
     description: str  # Описание того, что ищем
     relevant_doc_ids: List[str] = None
+    relevant_pages: Dict[str, List[int]] = None  
 
 
 def calculate_recall_at_k(retrieved_ids: List[str], relevant_ids: List[str], k: int) -> float:
@@ -63,53 +64,108 @@ def evaluate_query(
     # Поиск в Qdrant
     results = qdrant.search(query_vector=query_vec, top_k=top_k)
 
-    # Извлекаем пути найденных файлов (нормализуем для сравнения)
-    retrieved_file_paths = []
-    seen_paths = set()
-    for r in results:
-        file_path = r.payload.get("file_path", "")
-        # Нормализуем путь (конвертируем обратные слеши в прямые)
-        normalized_path = file_path.replace('\\', '/')
-        # Убираем дубликаты (один файл может иметь несколько чанков)
-        if normalized_path not in seen_paths:
-            retrieved_file_paths.append(normalized_path)
-            seen_paths.add(normalized_path)
-
-    # Нормализуем релевантные пути
     normalized_relevant_paths = [p.replace('\\', '/') for p in relevant_file_paths]
+    
+    if query.relevant_pages:
+        normalized_relevant_pages = {}
+        for file_path, pages in query.relevant_pages.items():
+            normalized_path = file_path.replace('\\', '/')
+            normalized_relevant_pages[normalized_path] = pages
+        
+        retrieved_items = []  
+        seen_items = set()
+        for r in results:
+            file_path = r.payload.get("file_path", "")
+            normalized_path = file_path.replace('\\', '/')
+            page_number = r.payload.get("page_number")
+            
+            if normalized_path in normalized_relevant_pages:
+                if page_number is not None:
+                    item_id = f"{normalized_path}:{page_number}"
+                    if item_id not in seen_items:
+                        retrieved_items.append(item_id)
+                        seen_items.add(item_id)
+                else:
+                    if normalized_path not in seen_items:
+                        retrieved_items.append(normalized_path)
+                        seen_items.add(normalized_path)
+            else:
+                if normalized_path not in seen_items:
+                    retrieved_items.append(normalized_path)
+                    seen_items.add(normalized_path)
+        
+        relevant_items = []
+        for file_path in normalized_relevant_paths:
+            if file_path in normalized_relevant_pages:
+                for page in normalized_relevant_pages[file_path]:
+                    relevant_items.append(f"{file_path}:{page}")
+            else:
+                relevant_items.append(file_path)
+    else:
+        retrieved_items = []
+        seen_paths = set()
+        for r in results:
+            file_path = r.payload.get("file_path", "")
+            normalized_path = file_path.replace('\\', '/')
+            if normalized_path not in seen_paths:
+                retrieved_items.append(normalized_path)
+                seen_paths.add(normalized_path)
+        
+        relevant_items = normalized_relevant_paths
 
-    # Вычисляем метрики по путям файлов (не по ID!)
-    recall_5 = calculate_recall_at_k(retrieved_file_paths, normalized_relevant_paths, 5)
-    recall_10 = calculate_recall_at_k(retrieved_file_paths, normalized_relevant_paths, 10)
-    precision_5 = calculate_precision_at_k(retrieved_file_paths, normalized_relevant_paths, 5)
-    precision_10 = calculate_precision_at_k(retrieved_file_paths, normalized_relevant_paths, 10)
-    mrr = calculate_mrr(retrieved_file_paths, normalized_relevant_paths)
+    # Вычисляем метрики
+    recall_5 = calculate_recall_at_k(retrieved_items, relevant_items, 5)
+    recall_10 = calculate_recall_at_k(retrieved_items, relevant_items, 10)
+    precision_5 = calculate_precision_at_k(retrieved_items, relevant_items, 5)
+    precision_10 = calculate_precision_at_k(retrieved_items, relevant_items, 10)
+    mrr = calculate_mrr(retrieved_items, relevant_items)
+
+    # Собираем информацию о найденных страницах для отчета
+    retrieved_info = []
+    for r in results[:len(retrieved_items)]:
+        file_path = r.payload.get("file_path", "")
+        page_number = r.payload.get("page_number")
+        info = file_path.replace('\\', '/')
+        if page_number is not None:
+            info += f" (page {page_number})"
+        retrieved_info.append(info)
 
     return {
         "question": query.question,
         "description": query.description,
-        "retrieved_file_paths": retrieved_file_paths,
-        "relevant_file_paths": normalized_relevant_paths,
+        "retrieved_file_paths": retrieved_items,
+        "relevant_file_paths": relevant_items,
         "recall_at_5": recall_5,
         "recall_at_10": recall_10,
         "precision_at_5": precision_5,
         "precision_at_10": precision_10,
         "mrr": mrr,
-        "retrieved_headings": [r.payload.get("heading", "") for r in results[:len(retrieved_file_paths)]],
+        "retrieved_info": retrieved_info,
     }
 
 
 def load_ground_truth(ground_truth_file: str) -> List[EvaluationQuery]:
-    """Загрузка ground truth данных из файла"""
     with open(ground_truth_file, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     queries = []
     for item in data:
+        # Нормализуем пути страниц если они указаны
+        relevant_pages = None
+        if "relevant_pages" in item and item["relevant_pages"]:
+            relevant_pages = {}
+            for file_path, pages in item["relevant_pages"].items():
+                normalized_path = file_path.replace('\\', '/')
+                # Убеждаемся, что pages - это список
+                if isinstance(pages, int):
+                    pages = [pages]
+                relevant_pages[normalized_path] = pages
+        
         query = EvaluationQuery(
             question=item["question"],
             relevant_file_paths=item["relevant_file_paths"],
-            description=item.get("description", "")
+            description=item.get("description", ""),
+            relevant_pages=relevant_pages
         )
         queries.append(query)
 

@@ -35,16 +35,21 @@ class QdrantCollection:
     def upload(self,  records: List[Dict[str, Any]], vectors: List[List[float]], batch: int = 128):
         buf=[]
         for i,(rec,vec) in enumerate(zip(records,vectors)):
+            payload = {
+                "id": rec["id"], 
+                "heading": rec["heading"], 
+                "level": rec["level"], 
+                "text": rec["text"], 
+                "file_path": rec.get("file_path", "")
+            }
+            # Добавляем page_number если есть (для PDF файлов)
+            if "page_number" in rec:
+                payload["page_number"] = rec["page_number"]
+            
             buf.append(PointStruct(
                 id=i,
                 vector=vec,
-                payload={
-                    "id": rec["id"], 
-                    "heading": rec["heading"], 
-                    "level": rec["level"], 
-                    "text": rec["text"], 
-                    "file_path": rec.get("file_path", "")
-                }
+                payload=payload
             ))
             if len(buf)>=batch:
                 self.client.upsert(collection_name=self.collection, points=buf)
