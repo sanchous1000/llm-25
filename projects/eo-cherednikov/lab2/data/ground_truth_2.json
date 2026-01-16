@@ -1,0 +1,159 @@
+[
+  {
+    "question": "What are the basic ability scores in D&D 2024 and how do they work?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "relevant_pages": {
+      "DnD_2024.pdf": [10, 11, 12]
+    },
+    "description": "Основная информация о характеристиках персонажа (Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma). Укажите реальные номера страниц из PDF."
+  },
+  {
+    "question": "How do I create a character in D&D 2024?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "relevant_pages": {
+      "DnD_2024.pdf": [5, 6, 7, 8, 9]
+    },
+    "description": "Процесс создания персонажа, выбор расы, класса, фона. Укажите реальные номера страниц из PDF."
+  },
+  {
+    "question": "What are the different classes available in D&D 2024?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Описание всех классов персонажей и их особенностей"
+  },
+  {
+    "question": "How does combat work in D&D 2024?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "relevant_pages": {
+      "DnD_2024.pdf": [70, 71, 72, 73, 74, 75]
+    },
+    "description": "Правила боевой системы, инициатива, атаки, урон, спасброски. Укажите реальные номера страниц из PDF."
+  },
+  {
+    "question": "What are the rules for spellcasting in D&D 2024?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Правила использования заклинаний, слоты заклинаний, подготовка заклинаний"
+  },
+  {
+    "question": "How do skill checks and saving throws work?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Механика проверок навыков и спасбросков, модификаторы"
+  },
+  {
+    "question": "What are the different races available for characters?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Описание всех рас персонажей и их расовых особенностей"
+  },
+  {
+    "question": "How does leveling up work in D&D 2024?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Процесс получения опыта, повышения уровня, улучшения характеристик"
+  },
+  {
+    "question": "What are the rules for equipment and weapons?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Правила использования оружия, брони, снаряжения, их характеристики"
+  },
+  {
+    "question": "How do magic items work in D&D 2024?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Правила использования магических предметов, их типы и свойства"
+  },
+  {
+    "question": "What are the rules for resting and recovery?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Правила короткого и длительного отдыха, восстановление хитов и слотов заклинаний"
+  },
+  {
+    "question": "How does multiclassing work in D&D 2024?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Правила создания многоклассовых персонажей, требования и ограничения"
+  },
+  {
+    "question": "What are the rules for death and dying?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Правила смерти персонажа, спасброски от смерти, стабилизация"
+  },
+  {
+    "question": "How do conditions work in D&D 2024?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Описание всех состояний персонажа (отравлен, очарован, испуган и т.д.)"
+  },
+  {
+    "question": "What are the rules for movement and positioning in combat?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Правила перемещения, дистанции, позиционирования на поле боя"
+  },
+  {
+    "question": "How do opportunity attacks work?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Правила атак возможности, когда они происходят и как работают"
+  },
+  {
+    "question": "What are the rules for stealth and hiding?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Правила скрытности, проверки скрытности, обнаружение скрытых существ"
+  },
+  {
+    "question": "How does the advantage and disadvantage system work?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Механика преимущества и недостатка, когда они применяются"
+  },
+  {
+    "question": "What are the rules for environmental hazards and traps?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Правила работы с ловушками, опасностями окружающей среды"
+  },
+  {
+    "question": "How do followers and companions work?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Правила использования спутников, фамильяров, прислужников"
+  },
+  {
+    "question": "What are the rules for social interactions and roleplaying?",
+    "relevant_file_paths": [
+      "DnD_2024.pdf"
+    ],
+    "description": "Правила социальных взаимодействий, убеждения, обмана, запугивания"
+  }
+]
+
