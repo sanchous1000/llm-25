@@ -1,0 +1,232 @@
+{
+  "questions": [
+    "Что такое FastAPI?",
+    "Как работать с зависимостями в FastAPI?"
+  ],
+  "experiments": [
+    {
+      "name": "baseline_recursive_1024",
+      "version": "4530f7569b81",
+      "index_name": "fastapi_docs_baseline_recursive_1024",
+      "description": "Recursive splitter, chunk_size=1024, 371 chunks",
+      "answers": [
+        {
+          "question": "Что такое FastAPI?",
+          "answer": "FastAPI — это инструмент для быстрого создания RESTful API на Python с использованием структурированного подхода к написанию кода. Он основан на стандартах и является открытым исходным кодом, что позволяет развертывать приложения FastAPI на любом облачном провайдере по выбору пользователя.\n\nОсновные преимущества FastAPI включают:\n\n1. **Импорт `FastAPI`:** Это первое действие при создании нового API с использованием FastAPI.\n2. **Создание экземпляра `app`:** Создается объект, который будет содержать все маршруты и функции операций пути для вашего API.\n3. **Декораторы операции пути:** Вы можете использовать декораторы, такие как `@app.get(\"/\")`, чтобы определить различные методы доступа к вашему API (например, GET-запросы).\n4. **Функции операций пути:** Эти функции содержат логику вашего API и выполняются при соответствующих запросах.\n5. **Запуск сервера разработки:** Вы можете запустить сервер разработки с помощью команды `fastapi dev`.\n6. **Развертывание приложения:** При желании можно развернуть приложение с помощью команды `fastapi deploy`, которая автоматически создает и деплоит ваш API в облаке.\n\nДля безопасности FastAPI предоставляет инструменты из модуля `fastapi.security` для защиты вашего API, таких как авторизация и аутентификация. Также он автоматически интегрируется с системой интерактивной документации.\n\nFastAPI Cloud — это дополнительный сервис от создателей FastAPI, который позволяет развернуть приложения в облаке одной командой, что упрощает процесс развертывания и управления API.",
+          "sources": [
+            {
+              "index": 1,
+              "chunk_id": "58b52f4b04dd86c9",
+              "source_path": "docs\\tutorial\\first-steps.md",
+              "title": "Первые шаги",
+              "header": "",
+              "relevance_score": 1.8888662,
+              "snippet": "и друзья». \n\n#### Развертывание у других облачных провайдеров { #deploy-to-other-cloud-providers }\n\nFastAPI — open-source и основан на стандартах. Вы "
+            },
+            {
+              "index": 2,
+              "chunk_id": "603626c235ff8539",
+              "source_path": "docs\\tutorial\\security\\index.md",
+              "title": "Настройка авторизации",
+              "header": "",
+              "relevance_score": 1.8823633,
+              "snippet": "за вас.\n\n///\n\n## Преимущества **FastAPI** { #fastapi-utilities }\n\nFast API предоставляет несколько инструментов для каждой из этих схем безопасности в"
+            },
+            {
+              "index": 3,
+              "chunk_id": "3f3d210c4bde42f9",
+              "source_path": "docs\\learn\\index.md",
+              "title": "Обучение",
+              "header": "",
+              "relevance_score": 1.8748206,
+              "snippet": "# Обучение { #learn }\n\nЗдесь представлены вводные разделы и учебные пособия для изучения **FastAPI**.\n\nВы можете считать это **книгой**, **курсом**, *"
+            },
+            {
+              "index": 4,
+              "chunk_id": "710755eafba7793e",
+              "source_path": "docs\\deployment\\fastapicloud.md",
+              "title": "FastAPI Cloud",
+              "header": "",
+              "relevance_score": 1.8740655,
+              "snippet": "# FastAPI Cloud { #fastapi-cloud }\n\nВы можете развернуть своё приложение FastAPI в <a href=\"https://fastapicloud.com\" class=\"external-link\" target=\"_b"
+            },
+            {
+              "index": 5,
+              "chunk_id": "f28d747afcf5982b",
+              "source_path": "docs\\about\\index.md",
+              "title": "О проекте",
+              "header": "",
+              "relevance_score": 1.8729478,
+              "snippet": "# О проекте { #about }\n\nО FastAPI, его дизайне, источниках вдохновения и многом другом."
+            }
+          ],
+          "num_sources": 5
+        },
+        {
+          "question": "Как работать с зависимостями в FastAPI?",
+          "answer": "Работать с зависимостями в FastAPI можно следующим образом:\n\n1. Создание зависимости: Вы можете создать зависимость, которая будет выполняться перед выполнением функции обработчика пути. Например:\n   ```python\n   from fastapi import Depends, HTTPException\n\n   async def query_or_cookie_extractor(q: str = None, last_query: str | None = Depends(None)):\n       if q is not None:\n           return {\"q\": q}\n       elif last_query is not None:\n           return {\"q\": last_query}\n       else:\n           raise HTTPException(status_code=400, detail=\"Query or cookie parameter is required\")\n   ```\n\n2. Использование зависимости: Вы можете использовать созданную зависимость в функции обработчика пути.\n   ```python\n   async def read_items(q: str = Depends(query_or_cookie_extractor)):\n       return {\"items\": [i for i in range(10) if q in (str(i))]}\n   ```\n\n3. Подзависимости: Вы можете создать подзависимости, которые будут вызваны перед выполнением основной зависимости.\n   ```python\n   async def query_extractor(q: str = None):\n       return {\"q\": q}\n\n   async def query_or_cookie_extractor(q: str | None = Depends(query_extractor)):\n       if q is not None:\n           return {\"q\": q}\n       elif last_query is not None:\n           return {\"q\": last_query}\n       else:\n           raise HTTPException(status_code=400, detail=\"Query or cookie parameter is required\")\n   ```\n\n4. Использование одной и той же зависимости несколько раз: Если одна зависимость используется несколько раз для одной и той же функции обработчика пути, **FastAPI** будет знать, что вызывать эту подзависимость нужно только один раз за запрос.\n\nИсточники информации:\n1. [Документ 1] (docs\\tutorial\\dependencies\\global-dependencies.md)\n2. [Документ 2] (docs\\tutorial\\dependencies\\dependencies-in-path-operation-decorators.md)\n3. [Документ 3] (docs/tutorial/dependencies/index.md)\n4. [Документ 5] (docs/tutorial/dependencies/sub-dependencies.md)\n\nЭти инструкции основаны на информации из предоставленного контекста, но могут требовать дополнительной настройки в зависимости от конкретных потребностей вашего приложения.",
+          "sources": [
+            {
+              "index": 1,
+              "chunk_id": "a795d22cf3d0f18e",
+              "source_path": "docs\\tutorial\\dependencies\\global-dependencies.md",
+              "title": "Глобальные зависимости",
+              "header": "",
+              "relevance_score": 1.8932211,
+              "snippet": "# Глобальные зависимости { #global-dependencies }\n\nДля некоторых типов приложений может потребоваться добавить зависимости ко всему приложению.\n\nПодоб"
+            },
+            {
+              "index": 2,
+              "chunk_id": "282b1770609bb18e",
+              "source_path": "docs\\tutorial\\dependencies\\dependencies-in-path-operation-decorators.md",
+              "title": "Зависимости в декораторах операции пути",
+              "header": "",
+              "relevance_score": 1.8911881,
+              "snippet": "нет, эти значения использоваться не будут.\n\nТаким образом, вы можете переиспользовать обычную зависимость (возвращающую значение), которую вы уже испо"
+            },
+            {
+              "index": 3,
+              "chunk_id": "a8adab76f0c06eae",
+              "source_path": "docs\\tutorial\\dependencies\\index.md",
+              "title": "Зависимости",
+              "header": "",
+              "relevance_score": 1.8901918,
+              "snippet": "# Зависимости { #dependencies }\n\n**FastAPI** имеет очень мощную, но интуитивную систему **<abbr title=\"также известно как: компоненты, ресурсы, провай"
+            },
+            {
+              "index": 4,
+              "chunk_id": "4b0150c154d1e0f7",
+              "source_path": "docs\\advanced\\advanced-dependencies.md",
+              "title": "Продвинутые зависимости",
+              "header": "",
+              "relevance_score": 1.8893974,
+              "snippet": "ом.\n\nЕсли вы поняли всё выше, вы уже знаете, как «под капотом» работают эти утилиты для безопасности.\n\n///\n\n## Зависимости с `yield`, `HTTPException`,"
+            },
+            {
+              "index": 5,
+              "chunk_id": "d4b79e49b237fcb5",
+              "source_path": "docs\\tutorial\\dependencies\\sub-dependencies.md",
+              "title": "Подзависимости",
+              "header": "",
+              "relevance_score": 1.8878152,
+              "snippet": "# Подзависимости { #sub-dependencies }\n\nВы можете создавать зависимости, которые имеют **подзависимости**.\n\nИх **вложенность** может быть любой глубин"
+            }
+          ],
+          "num_sources": 5
+        }
+      ]
+    },
+    {
+      "name": "markdown_512",
+      "version": "e6233de3342d",
+      "index_name": "fastapi_docs_markdown_512",
+      "description": "Markdown splitter, chunk_size=512, 991 chunks",
+      "answers": [
+        {
+          "question": "Что такое FastAPI?",
+          "answer": "FastAPI — это open source фреймворк на Python, который предоставляет всю функциональность для создания API (включая интерактивные системы документирования). Он основан на спецификации OpenAPI (ранее известной как Swagger), что позволяет использовать автоматические инструменты генерации кода и интерактивные системы документирования. FastAPI наследует функциональность от библиотеки Starlette, предоставляя пользователям возможность использования большого количества стандартных инструментов.\n\nИсточники информации:\n1. [Документ 3] (docs\\tutorial\\first-steps.md#Шаг 1: импортируйте `FastAPI`)\n2. [Документ 4] (docs\\deployment\\versions.md#О версиях FastAPI)\n\n[Документ 5] (docs\\index.md#Разверните приложение (опционально)) предоставляет дополнительную информацию о том, что FastAPI может разворачиваться на любом облачном провайдере.",
+          "sources": [
+            {
+              "index": 1,
+              "chunk_id": "9457270e018829d1",
+              "source_path": "docs\\deployment\\fastapicloud.md",
+              "title": "FastAPI Cloud",
+              "header": "Развертывание у других облачных провайдеров",
+              "relevance_score": 1.9046804,
+              "snippet": "## Развертывание у других облачных провайдеров { #deploy-to-other-cloud-providers }\n\nFastAPI — проект с открытым исходным кодом и основан на стандарта"
+            },
+            {
+              "index": 2,
+              "chunk_id": "fa5b852591d657e4",
+              "source_path": "docs\\tutorial\\security\\index.md",
+              "title": "Настройка авторизации",
+              "header": "OpenAPI",
+              "relevance_score": 1.9023378,
+              "snippet": "## OpenAPI { #openapi }\n\nOpenAPI (ранее известный как Swagger) - это открытая спецификация для создания API (в настоящее время является частью Linux F"
+            },
+            {
+              "index": 3,
+              "chunk_id": "53cfbc0e45f26931",
+              "source_path": "docs\\tutorial\\first-steps.md",
+              "title": "Первые шаги",
+              "header": "Шаг 1: импортируйте `FastAPI`",
+              "relevance_score": 1.8907194,
+              "snippet": "### Шаг 1: импортируйте `FastAPI` { #step-1-import-fastapi }\n\n{* ../../docs_src/first_steps/tutorial001_py39.py hl[1] *}\n\n`FastAPI` — это класс на Pyt"
+            },
+            {
+              "index": 4,
+              "chunk_id": "c3aeb28f18ee66cb",
+              "source_path": "docs\\deployment\\versions.md",
+              "title": "О версиях FastAPI",
+              "header": "О версиях FastAPI",
+              "relevance_score": 1.8858459,
+              "snippet": "# О версиях FastAPI { #about-fastapi-versions }\n\n**FastAPI** уже используется в продакшене во многих приложениях и системах. Покрытие тестами поддержи"
+            },
+            {
+              "index": 5,
+              "chunk_id": "d7202fa05c28e8a2",
+              "source_path": "docs\\index.md",
+              "title": "FastAPI",
+              "header": "Разверните приложение (опционально)",
+              "relevance_score": 1.8855715,
+              "snippet": "**развертывание** в облаке. \n\nFastAPI Cloud — основной спонсор и источник финансирования для проектов с открытым исходным кодом из экосистемы *FastAPI"
+            }
+          ],
+          "num_sources": 5
+        },
+        {
+          "question": "Как работать с зависимостями в FastAPI?",
+          "answer": "Работа с зависимостями в FastAPI осуществляется через использование различных типов зависимостей, таких как глобальные зависимости, подзависимости и зависимостей с `yield` и `scope`. \n\nДля создания и объявления глобальных зависимостей используется класс `FastAPI`, который можно импортировать из модуля `fastapi`. Это позволяет объединить зависимости для каждого отдельного маршрутизатора.\n\nПодзависимости позволяют создавать иерархии или \"графы\" зависимостей, что делает систему управления зависимостями в FastAPI очень мощной. Поддерживаются как глубины вложенности, так и различные типы зависимостей, включая зависимости с `yield` и `scope`.\n\nFastAPI автоматически управляет всеми зависимостями, включая проверку параметров операций пути и поддержку сложных систем аутентификации пользователей, соединений с базами данных и т.д.\n\nДля использования зависимостей необходимо импортировать класс `FastAPI` и объявить глобальные зависимости, которые будут применены ко всем маршрутам приложения. Это можно сделать через параметр `include_in_schema`, который включает эти зависимости в документацию API.\n\nТакже стоит отметить поддержку зависимостей с `yield` и `scope`. В версии 0.121.0 FastAPI добавил поддержку `Depends(scope=\"function\")`, которая позволяет выполнить код после завершения функции-обработчика пути, но до отправки ответа клиенту. Это может быть полезно для определенных сценариев.\n\nИсточники информации:\n1. [Документ 1] (docs\\tutorial\\dependencies\\sub-dependencies.md#Подзависимости)\n2. [Документ 2] (docs\\features.md#Внедрение зависимостей)\n3. [Документ 3] (docs\\tutorial\\bigger-applications.md#Импорт `FastAPI`)\n4. [Документ 5] (docs\\advanced\\advanced-dependencies.md#Зависимости с `yield` и `scope`)",
+          "sources": [
+            {
+              "index": 1,
+              "chunk_id": "d4b79e49b237fcb5",
+              "source_path": "docs\\tutorial\\dependencies\\sub-dependencies.md",
+              "title": "Подзависимости",
+              "header": "Подзависимости",
+              "relevance_score": 1.9104671,
+              "snippet": "# Подзависимости { #sub-dependencies }\n\nВы можете создавать зависимости, которые имеют **подзависимости**.\n\nИх **вложенность** может быть любой глубин"
+            },
+            {
+              "index": 2,
+              "chunk_id": "9d821a248718d91c",
+              "source_path": "docs\\features.md",
+              "title": "Возможности",
+              "header": "Внедрение зависимостей",
+              "relevance_score": 1.9075711,
+              "snippet": "### Внедрение зависимостей { #dependency-injection }\n\nFastAPI включает в себя чрезвычайно простую в использовании, но чрезвычайно мощную систему <abbr"
+            },
+            {
+              "index": 3,
+              "chunk_id": "8ce479e8738c8765",
+              "source_path": "docs\\tutorial\\bigger-applications.md",
+              "title": "Большие приложения, в которых много файлов",
+              "header": "Импорт `FastAPI`",
+              "relevance_score": 1.9022467,
+              "snippet": "### Импорт `FastAPI` { #import-fastapi }\n\nВы импортируете и создаете класс `FastAPI` как обычно.\n\nМы даже можем объявить [глобальные зависимости](depe"
+            },
+            {
+              "index": 4,
+              "chunk_id": "557930387b9371bf",
+              "source_path": "docs\\tutorial\\index.md",
+              "title": "Учебник - Руководство пользователя",
+              "header": "Установка FastAPI",
+              "relevance_score": 1.901538,
+              "snippet": "## Установка FastAPI { #install-fastapi }\n\nПервый шаг — установить FastAPI.\n\nУбедитесь, что вы создали [виртуальное окружение](../virtual-environments"
+            },
+            {
+              "index": 5,
+              "chunk_id": "15eb710115361ba2",
+              "source_path": "docs\\advanced\\advanced-dependencies.md",
+              "title": "Продвинутые зависимости",
+              "header": "Зависимости с `yield` и `scope`",
+              "relevance_score": 1.9005214,
+              "snippet": "### Зависимости с `yield` и `scope` { #dependencies-with-yield-and-scope }\n\nВ версии 0.121.0 FastAPI добавил поддержку `Depends(scope=\"function\")` для"
+            }
+          ],
+          "num_sources": 5
+        }
+      ]
+    }
+  ]
+}

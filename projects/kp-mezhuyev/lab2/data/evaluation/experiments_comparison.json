@@ -1,0 +1,135 @@
+{
+  "timestamp": "2026-01-17T22:05:28.147834",
+  "experiments": [
+    {
+      "name": "baseline_recursive_1024",
+      "version": "4530f7569b81",
+      "expected_chunks_file": "data/evaluation/expected_chunks_4530f7569b81.json",
+      "timestamp": "2026-01-17T22:04:27.923451",
+      "success": true,
+      "index_name": "fastapi_docs_baseline_recursive_1024",
+      "metrics": {
+        "recall@5": {
+          "mean": 0.1767857142857143,
+          "std": 0.2516393247750491,
+          "values": [
+            0.0,
+            0.14285714285714285,
+            0.8333333333333334,
+            0.25,
+            0.0,
+            0.375,
+            0.0,
+            0.0,
+            0.0,
+            0.16666666666666666
+          ]
+        },
+        "precision@5": {
+          "mean": 0.22000000000000003,
+          "std": 0.31559467676119,
+          "values": [
+            0.0,
+            0.2,
+            1.0,
+            0.2,
+            0.0,
+            0.6,
+            0.0,
+            0.0,
+            0.0,
+            0.2
+          ]
+        },
+        "mrr": {
+          "mean": 0.35,
+          "std": 0.43588989435406733,
+          "values": [
+            0.0,
+            1.0,
+            1.0,
+            0.25,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.25
+          ]
+        }
+      }
+    },
+    {
+      "name": "markdown_512",
+      "version": "e6233de3342d",
+      "expected_chunks_file": "data/evaluation/expected_chunks_e6233de3342d.json",
+      "timestamp": "2026-01-17T22:04:57.552622",
+      "success": true,
+      "index_name": "fastapi_docs_markdown_512",
+      "metrics": {
+        "recall@5": {
+          "mean": 0.11357142857142857,
+          "std": 0.1828473769713586,
+          "values": [
+            0.0,
+            0.14285714285714285,
+            0.6,
+            0.0,
+            0.0,
+            0.25,
+            0.0,
+            0.0,
+            0.14285714285714285,
+            0.0
+          ]
+        },
+        "precision@5": {
+          "mean": 0.14,
+          "std": 0.2009975124224178,
+          "values": [
+            0.0,
+            0.2,
+            0.6,
+            0.0,
+            0.0,
+            0.4,
+            0.0,
+            0.0,
+            0.2,
+            0.0
+          ]
+        },
+        "mrr": {
+          "mean": 0.2533333333333333,
+          "std": 0.38850139424889235,
+          "values": [
+            0.0,
+            0.3333333333333333,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.2,
+            0.0
+          ]
+        }
+      }
+    }
+  ],
+  "comparison": {
+    "recall@5": {
+      "baseline_recursive_1024": 0.1767857142857143,
+      "markdown_512": 0.11357142857142857
+    },
+    "precision@5": {
+      "baseline_recursive_1024": 0.22000000000000003,
+      "markdown_512": 0.14
+    },
+    "mrr": {
+      "baseline_recursive_1024": 0.35,
+      "markdown_512": 0.2533333333333333
+    }
+  }
+}

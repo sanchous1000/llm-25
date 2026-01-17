@@ -1,0 +1,497 @@
+{
+  "version_source": "4530f7569b81",
+  "version_target": "e6233de3342d",
+  "timestamp": "expected_chunks_4530f7569b81.json",
+  "statistics": {
+    "total_questions": 10,
+    "total_expected_chunks": 69,
+    "found_by_text": 69,
+    "not_found": 0
+  },
+  "details": [
+    {
+      "question": "Какие существуют варианты и этапы развертывания FastAPI приложений, включая FastAPI Cloud, Docker контейнеризацию, настройку Uvicorn воркеров и основные концепции продакшен-деплоя?",
+      "source_expected_count": 9,
+      "target_found_count": 8,
+      "transfers": [
+        {
+          "source_chunk_id": "61ccf398e4b84515",
+          "target_chunk_id": "ebbd003b6c3d3d1e",
+          "similarity": 0.9779433608055115,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "a1fb697aca307723",
+          "target_chunk_id": "a1fb697aca307723",
+          "similarity": 0.9686897993087769,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "43bd1295fddc5190",
+          "target_chunk_id": "5ac3090161c3232c",
+          "similarity": 0.9529438018798828,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "605fa00c1ed16c08",
+          "target_chunk_id": "605fa00c1ed16c08",
+          "similarity": 0.9792516231536865,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "0da58613dc5e4ba7",
+          "target_chunk_id": "18824cdd08d67f0a",
+          "similarity": 0.9425191879272461,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "e548999b51d8e52b",
+          "target_chunk_id": "e15c8b1a1b5bd3bc",
+          "similarity": 0.938267707824707,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "18824cdd08d67f0a",
+          "target_chunk_id": "0da58613dc5e4ba7",
+          "similarity": 0.9578255414962769,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "127dace191ca9db0",
+          "target_chunk_id": "0da58613dc5e4ba7",
+          "similarity": 0.961150050163269,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "c72fa3007b9a0a8c",
+          "target_chunk_id": "4bfd2e2135d56297",
+          "similarity": 0.941468358039856,
+          "status": "found"
+        }
+      ]
+    },
+    {
+      "question": "Что такое зависимости в контексте FastAPI?",
+      "source_expected_count": 7,
+      "target_found_count": 7,
+      "transfers": [
+        {
+          "source_chunk_id": "b5ab154702003e71",
+          "target_chunk_id": "02701967a4842869",
+          "similarity": 0.9600428342819214,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "dd86b078cd0b8d5e",
+          "target_chunk_id": "7552fc2821bce5f3",
+          "similarity": 0.9530137777328491,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "b70711b58700f501",
+          "target_chunk_id": "d173989f58a6fafd",
+          "similarity": 0.942166805267334,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "c4054daf0fe7bfd7",
+          "target_chunk_id": "c7c6bc77c0fca799",
+          "similarity": 0.995489239692688,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "dc3c32a156ba0d4f",
+          "target_chunk_id": "42e40b82a971ee16",
+          "similarity": 0.9367544054985046,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "4b0150c154d1e0f7",
+          "target_chunk_id": "15eb710115361ba2",
+          "similarity": 0.9650129079818726,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "cf3f871259e1dd4c",
+          "target_chunk_id": "4b0150c154d1e0f7",
+          "similarity": 0.9841712117195129,
+          "status": "found"
+        }
+      ]
+    },
+    {
+      "question": "Как работать с callbacks и webhooks?",
+      "source_expected_count": 6,
+      "target_found_count": 5,
+      "transfers": [
+        {
+          "source_chunk_id": "13fa035d5f3c24e0",
+          "target_chunk_id": "ea14bf3ceeeecafc",
+          "similarity": 0.9645339250564575,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "ea14bf3ceeeecafc",
+          "target_chunk_id": "722ea1384edf0d4a",
+          "similarity": 0.9829431772232056,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "6439f82fd6005ce3",
+          "target_chunk_id": "03798118bd96937b",
+          "similarity": 0.9848124980926514,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "722ea1384edf0d4a",
+          "target_chunk_id": "9539605f5f548358",
+          "similarity": 0.9758751392364502,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "735bd4e078cd9aa6",
+          "target_chunk_id": "bd21db178c4f2247",
+          "similarity": 0.9564635753631592,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "ec0b81cac56cf074",
+          "target_chunk_id": "bd21db178c4f2247",
+          "similarity": 0.9458606243133545,
+          "status": "found"
+        }
+      ]
+    },
+    {
+      "question": "Как работает Pydantic в FastAPI? Как использовать Pydantic модели для определения структуры тела запроса (request body) и ответа (response model)?",
+      "source_expected_count": 4,
+      "target_found_count": 4,
+      "transfers": [
+        {
+          "source_chunk_id": "a4512580df001c5f",
+          "target_chunk_id": "d5dfbdc699e18c09",
+          "similarity": 0.9482398629188538,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "b70711b58700f501",
+          "target_chunk_id": "d173989f58a6fafd",
+          "similarity": 0.942166805267334,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "d5dfbdc699e18c09",
+          "target_chunk_id": "c8a576eabcc53f5a",
+          "similarity": 0.9703549146652222,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "91bdaae93cf9df6f",
+          "target_chunk_id": "45184fde4728cc69",
+          "similarity": 0.9954606890678406,
+          "status": "found"
+        }
+      ]
+    },
+    {
+      "question": "Как FastAPI автоматически проверяет входящие данные и преобразует (сериализует) исходящие данные в JSON? Что происходит, если данные не проходят валидацию?",
+      "source_expected_count": 8,
+      "target_found_count": 8,
+      "transfers": [
+        {
+          "source_chunk_id": "b89cb77618936866",
+          "target_chunk_id": "0e6cbe719d6511aa",
+          "similarity": 0.935019850730896,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "615f7b753dff5e6a",
+          "target_chunk_id": "615f7b753dff5e6a",
+          "similarity": 0.972221851348877,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "bdfb8357d8f70c9e",
+          "target_chunk_id": "bdfb8357d8f70c9e",
+          "similarity": 0.9939275979995728,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "6183ebcfce3190d7",
+          "target_chunk_id": "6183ebcfce3190d7",
+          "similarity": 0.9845116138458252,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "acace34fc412931f",
+          "target_chunk_id": "d7202fa05c28e8a2",
+          "similarity": 0.9824784398078918,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "c72fa3007b9a0a8c",
+          "target_chunk_id": "4bfd2e2135d56297",
+          "similarity": 0.941468358039856,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "d6911119f0339cab",
+          "target_chunk_id": "c0ad209131d910e1",
+          "similarity": 0.9507707357406616,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "5e8abc9fe2623190",
+          "target_chunk_id": "5e8abc9fe2623190",
+          "similarity": 0.9909235239028931,
+          "status": "found"
+        }
+      ]
+    },
+    {
+      "question": "Преимущества ASGI над WSGI?",
+      "source_expected_count": 8,
+      "target_found_count": 8,
+      "transfers": [
+        {
+          "source_chunk_id": "b5ab154702003e71",
+          "target_chunk_id": "02701967a4842869",
+          "similarity": 0.9600428342819214,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "a7647da5e70f4924",
+          "target_chunk_id": "bee16194ea8648ab",
+          "similarity": 0.9495992660522461,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "7535ba386c046ecb",
+          "target_chunk_id": "5a7a71ae2fa06250",
+          "similarity": 0.9771884083747864,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "b3f814160a920f9e",
+          "target_chunk_id": "b3f814160a920f9e",
+          "similarity": 0.9726307392120361,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "5e8abc9fe2623190",
+          "target_chunk_id": "5e8abc9fe2623190",
+          "similarity": 0.9909235239028931,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "eff27aac06ea8d76",
+          "target_chunk_id": "bcd254236572ea51",
+          "similarity": 0.9635210037231445,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "fb4cec1c24f1303c",
+          "target_chunk_id": "0bc043ac02217ea0",
+          "similarity": 0.9784810543060303,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "63312a4ae101aae6",
+          "target_chunk_id": "ad5b7dfa00d94266",
+          "similarity": 0.9362473487854004,
+          "status": "found"
+        }
+      ]
+    },
+    {
+      "question": "Как кастомизировать документацию FastAPI и обработку запросов?",
+      "source_expected_count": 5,
+      "target_found_count": 5,
+      "transfers": [
+        {
+          "source_chunk_id": "6183ebcfce3190d7",
+          "target_chunk_id": "6183ebcfce3190d7",
+          "similarity": 0.9845116138458252,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "b61576003a66e4f9",
+          "target_chunk_id": "c4a00de55f73e244",
+          "similarity": 0.9595348834991455,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "5e604cb771801750",
+          "target_chunk_id": "9f9c277c8d68407b",
+          "similarity": 0.9513381123542786,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "bdfb8357d8f70c9e",
+          "target_chunk_id": "bdfb8357d8f70c9e",
+          "similarity": 0.9939275979995728,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "615f7b753dff5e6a",
+          "target_chunk_id": "615f7b753dff5e6a",
+          "similarity": 0.972221851348877,
+          "status": "found"
+        }
+      ]
+    },
+    {
+      "question": "Как настроить безопасность и конфигурацию в FastAPI?",
+      "source_expected_count": 8,
+      "target_found_count": 7,
+      "transfers": [
+        {
+          "source_chunk_id": "68857fea257435ac",
+          "target_chunk_id": "8fbb0d29d774b8e8",
+          "similarity": 0.9452121257781982,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "8fbb0d29d774b8e8",
+          "target_chunk_id": "8fbb0d29d774b8e8",
+          "similarity": 0.9724297523498535,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "bb737298833922c2",
+          "target_chunk_id": "c4d402eb16274e94",
+          "similarity": 0.9635122418403625,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "129ab07419015e16",
+          "target_chunk_id": "129ab07419015e16",
+          "similarity": 0.9874868392944336,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "11c330cb4143e4cf",
+          "target_chunk_id": "de2b6283e5436818",
+          "similarity": 0.9520305395126343,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "d53e2cc55486001c",
+          "target_chunk_id": "d53e2cc55486001c",
+          "similarity": 1.0,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "d36dd4c5c9756029",
+          "target_chunk_id": "d36dd4c5c9756029",
+          "similarity": 0.991969883441925,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "94eb7f7d076ac846",
+          "target_chunk_id": "94eb7f7d076ac846",
+          "similarity": 0.9702849388122559,
+          "status": "found"
+        }
+      ]
+    },
+    {
+      "question": "Как управлять OpenAPI документацией в FastAPI?",
+      "source_expected_count": 7,
+      "target_found_count": 7,
+      "transfers": [
+        {
+          "source_chunk_id": "bdfb8357d8f70c9e",
+          "target_chunk_id": "bdfb8357d8f70c9e",
+          "similarity": 0.9939275979995728,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "bee16194ea8648ab",
+          "target_chunk_id": "31ce98705b50d0aa",
+          "similarity": 0.9787091612815857,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "869d2157f37818ee",
+          "target_chunk_id": "869d2157f37818ee",
+          "similarity": 0.9667782783508301,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "be181a049a465b0d",
+          "target_chunk_id": "d2492c8fb5b6cff1",
+          "similarity": 0.9812874794006348,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "59d4886c438cc85a",
+          "target_chunk_id": "c77f3855eecbc991",
+          "similarity": 0.9546953439712524,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "612ae48c0dcfaf2d",
+          "target_chunk_id": "3aff31f723c3d241",
+          "similarity": 0.9686641693115234,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "d4a1e64df7104421",
+          "target_chunk_id": "843bb8def92d00fa",
+          "similarity": 0.9435664415359497,
+          "status": "found"
+        }
+      ]
+    },
+    {
+      "question": "Как работать с базами данных в FastAPI?",
+      "source_expected_count": 7,
+      "target_found_count": 5,
+      "transfers": [
+        {
+          "source_chunk_id": "7933cd1b67cfd069",
+          "target_chunk_id": "7933cd1b67cfd069",
+          "similarity": 0.9852888584136963,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "c72fa3007b9a0a8c",
+          "target_chunk_id": "4bfd2e2135d56297",
+          "similarity": 0.941468358039856,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "2d9f85dc956ae993",
+          "target_chunk_id": "715accd7daa3b1b2",
+          "similarity": 0.978733241558075,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "715accd7daa3b1b2",
+          "target_chunk_id": "9c2df921806f05ba",
+          "similarity": 0.9723519086837769,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "7933cd1b67cfd069",
+          "target_chunk_id": "7933cd1b67cfd069",
+          "similarity": 0.9852888584136963,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "d9e65ccf4aa04a2c",
+          "target_chunk_id": "7933cd1b67cfd069",
+          "similarity": 0.9890931248664856,
+          "status": "found"
+        },
+        {
+          "source_chunk_id": "9456ced2a88006ea",
+          "target_chunk_id": "096aa10265ca94e9",
+          "similarity": 0.9636998176574707,
+          "status": "found"
+        }
+      ]
+    }
+  ]
+}
