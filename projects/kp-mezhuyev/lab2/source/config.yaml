@@ -1,0 +1,104 @@
+# Конфигурация для построения индекса чанков и эмбеддингов
+
+chunking:
+  # Тип сплиттера: 'recursive', 'markdown', 'hybrid'
+  splitter_type: 'recursive'  # Изменено с 'markdown' для более крупных контекстных чанков
+  
+  # Размер чанка в токенах (100-1000)
+  chunk_size: 1024  # Увеличено с 256 для большего контекста
+  
+  # Overlap между чанками в токенах
+  chunk_overlap: 128  # Увеличено с 40 для лучшего покрытия
+  
+  # Включать заголовки в текст чанка (true) или только в метаданные (false)
+  include_headers_in_text: true  # Включено для сохранения контекста
+  
+  # Уровни заголовков для markdown сплиттера
+  header_levels: ['h1', 'h2', 'h3']  # Уменьшено до h3 (было h4)
+  
+  # Минимальный размер чанка (в токенах) - чанки меньше будут объединены со следующим
+  min_chunk_size: 200  # Увеличено с 80
+
+embeddings:
+  # Тип векторизации: только 'dense'
+  vectorization_type: 'dense'
+  
+  dense:
+    # Модель для dense embeddings
+    # Многоязычная модель e5-base (поддерживает русский и английский)
+    model: 'intfloat/multilingual-e5-base'
+    batch_size: 32
+    device: 'cpu'  # 'cpu' или 'cuda'
+    
+    # Для OpenAI embeddings (опционально)
+    openai_api_key: null  # Установить через .env или переменную окружения
+    openai_base_url: null
+
+paths:
+  # Директория с обработанными markdown файлами
+  processed_dir: 'data/processed'
+  
+  # Директория для сохранения чанков
+  chunks_dir: 'data/chunks'
+  
+  # Директория для сохранения эмбеддингов
+  embeddings_dir: 'data/embeddings'
+  
+  # Директория для метаданных и версий
+  index_dir: 'data/index'
+
+versioning:
+  # Автоматическое создание версий при изменении параметров
+  auto_version: true
+  
+  # Формат версии: 'hash' (хеш параметров) или 'timestamp' (временная метка)
+  version_format: 'hash'
+  
+  # Сохранять историю версий
+  keep_history: true
+
+elasticsearch:
+  # Настройки подключения к Elasticsearch
+  host: 'localhost'
+  port: 9200
+  # Для облачного Elasticsearch используйте cloud_id и api_key
+  # cloud_id: null
+  # api_key: null
+  # Для локального Elasticsearch с логином/паролем
+  username: 'elastic'
+  password: '9vWntLf-h4+xQrwfqUaP'
+  # Для самоподписанных сертификатов можно указать путь:
+  # ca_certs: 'path/to/http_ca.crt'
+  # use_ssl: true  # Раскомментируйте, если Elasticsearch использует HTTPS
+  # verify_certs: false  # Установите false для самоподписанных сертификатов
+  use_ssl: null  # null = автоопределение (сначала пробует HTTPS, потом HTTP)
+  verify_certs: false
+  request_timeout: 10
+  
+  # Имя индекса
+  index_name: 'fastapi_docs'
+  
+  # HNSW параметры для векторного поиска
+  hnsw:
+    m: 16  # Количество двунаправленных связей
+    ef_construction: 100  # Количество соседей при построении
+    ef_search: 50  # Количество соседей при поиске
+  
+  # Размер батча для загрузки
+  batch_size: 100
+
+rag:
+  # Параметры для RAG пайплайна
+  top_k: 5  # Количество релевантных чанков для контекста
+  
+  # LLM настройки (из lab1)
+  llm_base_url: 'http://localhost:11434/v1'  # Ollama по умолчанию
+  llm_model: 'qwen2.5:3b'  # Модель для генерации ответов
+  llm_temperature: 0.3
+  llm_max_tokens: 512
+
+evaluation:
+  # Параметры для оценки качества
+  questions_file: 'source/questions.txt'
+  k_values: [5]  # Значения k для Recall@k и Precision@k
+  expected_chunks_file: 'data/evaluation/expected_chunks.json'
