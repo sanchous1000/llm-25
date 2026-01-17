@@ -1,0 +1,416 @@
+[
+  {
+    "model_family": "llama",
+    "model": "llama3.1:8b-instruct-q4_0",
+    "mode": "baseline",
+    "prompt_id": "P1_generation",
+    "prompt_task": "Генерация пресс-релиза",
+    "prompt_text": "Напиши вежливое письмо клиенту, который хочет впервые воспользоваться нашим ИИ-сервисом для генерации рекламных объявлений под Яндекс Директ. Подчеркни выгоды для малого бизнеса, установи доверительные отношения и предложи бесплатную демо-сессию.",
+    "hyperparameters": {},
+    "response": "Здравствуйте!\n\nНам приятно получить сообщение от потенциального клиента! С нами Вы получите качественную поддержку и возможности развития бизнеса.\n\nМы рады, что Вы интересуетесь сервисом generation рекламных объявлений для Яндекс Директ. Напомним про преимущества этого продукта:\n\n1.  Более эффективные бюджеты рекламного заказчика;\n2.  Снижение затрат на формирование текстов и дизайнов под рекламные платформы;\n3.  Возможность легко тестирования рекламных стратегий.\n\nХотим предложить Вам бесплатную сессию для первого подключения к нашему сервису ИИ и показать Вам возможное потенциальное внедрение продукта!",
+    "timing_sec": 23.955,
+    "usage": {
+      "prompt_tokens": 88,
+      "completion_tokens": 181,
+      "total_tokens": 269
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 7.56,
+      "total_throughput_tokens_per_sec": 11.23,
+      "time_per_completion_token_sec": 0.1323
+    }
+  },
+  {
+    "model_family": "llama",
+    "model": "llama3.1:8b-instruct-q4_0",
+    "mode": "tuned",
+    "prompt_id": "P1_generation",
+    "prompt_task": "Генерация пресс-релиза",
+    "prompt_text": "Напиши вежливое письмо клиенту, который хочет впервые воспользоваться нашим ИИ-сервисом для генерации рекламных объявлений под Яндекс Директ. Подчеркни выгоды для малого бизнеса, установи доверительные отношения и предложи бесплатную демо-сессию.",
+    "hyperparameters": {
+      "temperature": 0.2,
+      "top_p": 0.8,
+      "max_tokens": 400
+    },
+    "response": "Уважаемый [имя клиента],\n\nДобро пожаловать в нашу команду! Мы рады видеть вас среди наших клиентов и готовы помочь вам с созданием эффективных рекламных кампаний под Яндекс Директ.\n\nНаша платформа предназначена специально для малого бизнеса, чтобы помочь вам достичь своих целей в онлайн-маркетинге. Мы понимаем, что каждый из вас уникален и имеет свои собственные потребности и проблемы. Поэтому мы разработали наш сервис так, чтобы он был гибким и адаптируемым под индивидуальные нужды каждого клиента.\n\nНаша платформа предлагает ряд преимуществ для малого бизнеса:\n\n*   **Упрощенная настройка**: легко создавать эффективные рекламные кампании без необходимости иметь специальных знаний в области онлайн-маркетинга.\n*   **Соответствие бюджету**: мы можем помочь вам с оптимизацией вашего бюджета, чтобы вы могли получить максимальную пользу от своих инвестиций.\n*   **Постоянный мониторинг и анализ**: наша платформа предоставляет подробные отчеты о выполнении рекламных кампаний, что позволяет вам принимать обоснованные решения.\n\nМы хотим, чтобы вы чувствовали себя комфортно с нами. Поэтому мы предлагаем бесплатную демо-сессию, где наши специалисты помогут вам понять, как работает наш сервис и как он может помочь вашему бизнесу.\n\nНа этой бесплатной демо-сессии вы сможете:\n\n*   **Получить личный доступ** к нашей платформе.\n*   **Создать свою первую рекламную кампанию** под Я",
+    "timing_sec": 47.924,
+    "usage": {
+      "prompt_tokens": 88,
+      "completion_tokens": 400,
+      "total_tokens": 488
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 8.35,
+      "total_throughput_tokens_per_sec": 10.18,
+      "time_per_completion_token_sec": 0.1198
+    }
+  },
+  {
+    "model_family": "llama",
+    "model": "llama3.1:8b-instruct-q4_0",
+    "mode": "baseline",
+    "prompt_id": "P2_classification",
+    "prompt_task": "Классификация обращения",
+    "prompt_text": "Проанализируй обращение клиента и классифицируй его одной категорией из списка ['Billing','Tech support','Sales']. Ответ должен содержать только метку класса.\n\nОбращение клиента: «У меня не работает вход в личный кабинет, постоянно выдает ошибку 404. Помогите решить проблему.»",
+    "hyperparameters": {},
+    "response": "Отвечать не могу, но я могу посоветовать, вам нужно обратиться к специалистам по техподдержке, у них будут необходимые знания для решения этой проблемы.\n\nПоэтому ответ:\n\n*Tech support.*",
+    "timing_sec": 11.403,
+    "usage": {
+      "prompt_tokens": 87,
+      "completion_tokens": 49,
+      "total_tokens": 136
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 4.3,
+      "total_throughput_tokens_per_sec": 11.93,
+      "time_per_completion_token_sec": 0.2327
+    }
+  },
+  {
+    "model_family": "llama",
+    "model": "llama3.1:8b-instruct-q4_0",
+    "mode": "tuned",
+    "prompt_id": "P2_classification",
+    "prompt_task": "Классификация обращения",
+    "prompt_text": "Проанализируй обращение клиента и классифицируй его одной категорией из списка ['Billing','Tech support','Sales']. Ответ должен содержать только метку класса.\n\nОбращение клиента: «У меня не работает вход в личный кабинет, постоянно выдает ошибку 404. Помогите решить проблему.»",
+    "hyperparameters": {
+      "temperature": 0.2,
+      "top_p": 0.8,
+      "max_tokens": 400
+    },
+    "response": "Отвечать не могу, но я могу подсказать, что это обращение клиента можно классифицировать как 'Tech support'.",
+    "timing_sec": 4.138,
+    "usage": {
+      "prompt_tokens": 87,
+      "completion_tokens": 32,
+      "total_tokens": 119
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 7.73,
+      "total_throughput_tokens_per_sec": 28.76,
+      "time_per_completion_token_sec": 0.1293
+    }
+  },
+  {
+    "model_family": "llama",
+    "model": "llama3.1:8b-instruct-q4_0",
+    "mode": "baseline",
+    "prompt_id": "P3_summarization",
+    "prompt_task": "Извлечение/суммаризация",
+    "prompt_text": "Из описания товара извлеки название и ключевые характеристики и сделай краткое резюме в 2–3 предложениях. Описание: «Смарт-лампа LuxLight X2 поддерживает Wi‑Fi, регулируемую температуру цвета 2700–6500K, голосовое управление и расписания. Потребление 9 Вт, яркость 900 лм, цоколь E27, работает с Алиса/Google Home.»",
+    "hyperparameters": {},
+    "response": "Название - смарт-лампа LuxLight X2.\n\nРегулируемая температура цвета: 2700 – 6500 K. Голосовое управление и расписние поддерживаются.\nПотребление: 9 Вт.\nЦоколь: E27. Работает с Алиса/Google Home.",
+    "timing_sec": 16.399,
+    "usage": {
+      "prompt_tokens": 116,
+      "completion_tokens": 74,
+      "total_tokens": 190
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 4.51,
+      "total_throughput_tokens_per_sec": 11.59,
+      "time_per_completion_token_sec": 0.2216
+    }
+  },
+  {
+    "model_family": "llama",
+    "model": "llama3.1:8b-instruct-q4_0",
+    "mode": "tuned",
+    "prompt_id": "P3_summarization",
+    "prompt_task": "Извлечение/суммаризация",
+    "prompt_text": "Из описания товара извлеки название и ключевые характеристики и сделай краткое резюме в 2–3 предложениях. Описание: «Смарт-лампа LuxLight X2 поддерживает Wi‑Fi, регулируемую температуру цвета 2700–6500K, голосовое управление и расписания. Потребление 9 Вт, яркость 900 лм, цоколь E27, работает с Алиса/Google Home.»",
+    "hyperparameters": {
+      "temperature": 0.2,
+      "top_p": 0.8,
+      "max_tokens": 400
+    },
+    "response": "Название: LuxLight X2.\n\nКлючевые характеристики:\n\n* Поддержка Wi-Fi\n* Регулируемая температура цвета (2700–6500K)\n* Голосовое управление и расписания\n* Потребление 9 Вт, яркость 900 лм, цоколь E27\n\nРезюме: LuxLight X2 — смарт-лампа с функциями Wi-Fi, регулируемой температуры цвета и голосового управления. Она имеет низкий уровень потребления энергии (9 Вт) и высокую яркость (900 лм). Подходит для использования в комнатах и офисах.",
+    "timing_sec": 17.633,
+    "usage": {
+      "prompt_tokens": 116,
+      "completion_tokens": 142,
+      "total_tokens": 258
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 8.05,
+      "total_throughput_tokens_per_sec": 14.63,
+      "time_per_completion_token_sec": 0.1242
+    }
+  },
+  {
+    "model_family": "mistral",
+    "model": "mistral:7b-instruct",
+    "mode": "baseline",
+    "prompt_id": "P1_generation",
+    "prompt_task": "Генерация пресс-релиза",
+    "prompt_text": "Напиши вежливое письмо клиенту, который хочет впервые воспользоваться нашим ИИ-сервисом для генерации рекламных объявлений под Яндекс Директ. Подчеркни выгоды для малого бизнеса, установи доверительные отношения и предложи бесплатную демо-сессию.",
+    "hyperparameters": {},
+    "response": " Dear [Client's Name],\n\nI hope this message finds you well. I am writing to introduce our innovative Artificial Intelligence (AI) service specifically designed for generating advertising campaigns under Yandex Direct.\n\nAs a small business owner, we understand that every dollar spent in marketing should deliver maximum returns. Our AI-driven platform is tailored to maximize the effectiveness of your advertising budget, ensuring that your business reaches its target audience more efficiently and effectively than traditional methods.\n\nOur service offers several unique advantages for small businesses:\n\n1. **Cost-effective**: By automating the process of creating, optimizing, and managing ads, our AI service reduces labor costs and increases efficiency, enabling you to reach more customers at a lower cost.\n\n2. **Data-driven decisions**: Our platform uses advanced algorithms to analyze vast amounts of data, allowing us to make data-driven decisions that increase the likelihood of successful ad placements.\n\n3. **Continuous optimization**: The AI continuously learns and improves based on the performance of your ads, ensuring that they are always at their best for maximum results.\n\n4. **Saves time**: Instead of spending hours managing ads manually, you can focus on other essential aspects of your business while our platform takes care of your advertising needs.\n\nTo help you experience the benefits of our AI service firsthand, we would like to offer a complimentary demo session where we will guide you through the platform and answer any questions you might have. This is an excellent opportunity to see how our service can help take your business to the next level.\n\nWe believe that building strong relationships with our clients is crucial for mutual success, and we are looking forward to establishing a fruitful collaboration with you. Please let me know a convenient time for you to schedule the demo session, and I will ensure that all arrangements are made accordingly.\n\nThank you for considering our AI-driven advertising service, and we look forward to your positive response.\n\nBest Regards,\n\n[Your Name]\n[Your Position]\n[Your Contact Information]",
+    "timing_sec": 58.995,
+    "usage": {
+      "prompt_tokens": 104,
+      "completion_tokens": 433,
+      "total_tokens": 537
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 7.34,
+      "total_throughput_tokens_per_sec": 9.1,
+      "time_per_completion_token_sec": 0.1362
+    }
+  },
+  {
+    "model_family": "mistral",
+    "model": "mistral:7b-instruct",
+    "mode": "tuned",
+    "prompt_id": "P1_generation",
+    "prompt_task": "Генерация пресс-релиза",
+    "prompt_text": "Напиши вежливое письмо клиенту, который хочет впервые воспользоваться нашим ИИ-сервисом для генерации рекламных объявлений под Яндекс Директ. Подчеркни выгоды для малого бизнеса, установи доверительные отношения и предложи бесплатную демо-сессию.",
+    "hyperparameters": {
+      "temperature": 0.2,
+      "top_p": 0.8,
+      "max_tokens": 400
+    },
+    "response": " Господа клиент!\n\nСпасибо за ваш интерес к нашим услугам по созданию рекламных объявлений под Яндекс Директ. Мы рады, что выбрали нашу компанию для реализации своих маркетинговых целей и готовы предложить вам наилучшие условия сотрудничества.\n\nНаш ИИ-сервис является идеальным решением для малого бизнеса, который стремится повысить свою видимость в сети Интернет и привлечь новых клиентов. Мы предоставляем полный спектр услуг по созданию рекламных кампаний под Яндекс Директ, от написания текстов объявлений до оптимизации и анализа результатов работы кампании.\n\nВажно отметить, что наш ИИ-сервис позволяет создавать рекламные объявления с минимальными затратами времени и усилий со стороны клиента. Мы используем современные технологии машинного обучения для автоматического анализа данных о вашем бизнесе и создания рекламных объявлений, которые будут нацелены на потенциальных клиентов с максимальной вероятностью.\n\nКроме того, мы предлагаем бесплатную демо-сессию для ознакомления с нашими услугами и продемонстрирования",
+    "timing_sec": 45.178,
+    "usage": {
+      "prompt_tokens": 104,
+      "completion_tokens": 400,
+      "total_tokens": 504
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 8.85,
+      "total_throughput_tokens_per_sec": 11.16,
+      "time_per_completion_token_sec": 0.1129
+    }
+  },
+  {
+    "model_family": "mistral",
+    "model": "mistral:7b-instruct",
+    "mode": "baseline",
+    "prompt_id": "P2_classification",
+    "prompt_task": "Классификация обращения",
+    "prompt_text": "Проанализируй обращение клиента и классифицируй его одной категорией из списка ['Billing','Tech support','Sales']. Ответ должен содержать только метку класса.\n\nОбращение клиента: «У меня не работает вход в личный кабинет, постоянно выдает ошибку 404. Помогите решить проблему.»",
+    "hyperparameters": {},
+    "response": " Sales (получение технической поддержки)",
+    "timing_sec": 8.281,
+    "usage": {
+      "prompt_tokens": 120,
+      "completion_tokens": 14,
+      "total_tokens": 134
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 1.69,
+      "total_throughput_tokens_per_sec": 16.18,
+      "time_per_completion_token_sec": 0.5915
+    }
+  },
+  {
+    "model_family": "mistral",
+    "model": "mistral:7b-instruct",
+    "mode": "tuned",
+    "prompt_id": "P2_classification",
+    "prompt_task": "Классификация обращения",
+    "prompt_text": "Проанализируй обращение клиента и классифицируй его одной категорией из списка ['Billing','Tech support','Sales']. Ответ должен содержать только метку класса.\n\nОбращение клиента: «У меня не работает вход в личный кабинет, постоянно выдает ошибку 404. Помогите решить проблему.»",
+    "hyperparameters": {
+      "temperature": 0.2,
+      "top_p": 0.8,
+      "max_tokens": 400
+    },
+    "response": " Tech support",
+    "timing_sec": 0.468,
+    "usage": {
+      "prompt_tokens": 120,
+      "completion_tokens": 3,
+      "total_tokens": 123
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 6.4,
+      "total_throughput_tokens_per_sec": 262.56,
+      "time_per_completion_token_sec": 0.1562
+    }
+  },
+  {
+    "model_family": "mistral",
+    "model": "mistral:7b-instruct",
+    "mode": "baseline",
+    "prompt_id": "P3_summarization",
+    "prompt_task": "Извлечение/суммаризация",
+    "prompt_text": "Из описания товара извлеки название и ключевые характеристики и сделай краткое резюме в 2–3 предложениях. Описание: «Смарт-лампа LuxLight X2 поддерживает Wi‑Fi, регулируемую температуру цвета 2700–6500K, голосовое управление и расписания. Потребление 9 Вт, яркость 900 лм, цоколь E27, работает с Алиса/Google Home.»",
+    "hyperparameters": {},
+    "response": " Название: LuxLight X2\n\nКлючевые характеристики: Эта смарт-лампа поддерживает Wi-Fi для удаленного управления и регулирования яркости и температуры цвета (от 2700 до 6500К). С током потребления в 9 Вт, лампа имеет яркость до 900 лм. Она также оснащена голосовым управлением и функцией расписаний и совместима с Алиса/Google Home.",
+    "timing_sec": 23.916,
+    "usage": {
+      "prompt_tokens": 146,
+      "completion_tokens": 139,
+      "total_tokens": 285
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 5.81,
+      "total_throughput_tokens_per_sec": 11.92,
+      "time_per_completion_token_sec": 0.1721
+    }
+  },
+  {
+    "model_family": "mistral",
+    "model": "mistral:7b-instruct",
+    "mode": "tuned",
+    "prompt_id": "P3_summarization",
+    "prompt_task": "Извлечение/суммаризация",
+    "prompt_text": "Из описания товара извлеки название и ключевые характеристики и сделай краткое резюме в 2–3 предложениях. Описание: «Смарт-лампа LuxLight X2 поддерживает Wi‑Fi, регулируемую температуру цвета 2700–6500K, голосовое управление и расписания. Потребление 9 Вт, яркость 900 лм, цоколь E27, работает с Алиса/Google Home.»",
+    "hyperparameters": {
+      "temperature": 0.2,
+      "top_p": 0.8,
+      "max_tokens": 400
+    },
+    "response": " Название товара: LuxLight X2\n\nКлючевые характеристики: Смарт-лампа поддерживает Wi-Fi и голосовое управление, имеет регулируемую температуру цвета от 2700 до 6500K, потребляет 9 Вт энергии и имеет яркость 900 лм. Лампа работает с Алиса/Google Home и имеет стандартный цоколь E27.",
+    "timing_sec": 14.533,
+    "usage": {
+      "prompt_tokens": 146,
+      "completion_tokens": 127,
+      "total_tokens": 273
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 8.74,
+      "total_throughput_tokens_per_sec": 18.79,
+      "time_per_completion_token_sec": 0.1144
+    }
+  },
+  {
+    "model_family": "qwen",
+    "model": "qwen2.5:3b",
+    "mode": "baseline",
+    "prompt_id": "P1_generation",
+    "prompt_task": "Генерация пресс-релиза",
+    "prompt_text": "Напиши вежливое письмо клиенту, который хочет впервые воспользоваться нашим ИИ-сервисом для генерации рекламных объявлений под Яндекс Директ. Подчеркни выгоды для малого бизнеса, установи доверительные отношения и предложи бесплатную демо-сессию.",
+    "hyperparameters": {},
+    "response": "Уважаемый клиент!\n\nЯ с удовольствием отвечу на свои вопросы о возможности использования нашим ИИ-сервисом для генерации рекламных объявлений под Яндекс Директ.\n\nЗнавая по вашему бизнесу, я уверен, что впервые познакомившись с нашим ИИ-сервисом, вы получаете уникальную возможность существенно повысить эффективность и результаты своего маркетинга!\n\n1. **Ускорение процесса рекламной кампании**: Создание трафика на основе запросов пользователя можно автоматизировать через наш сервис, позволяющий вам быстро формировать несколько объявлений на основе одного запроса, что существенно ускоряет процесс создания рекламных кампаний.\n \n2. **Оптимизация эффективности**: ИИ анализирует множество аспектов рекламного объявления и отдает предпочтение лучшим в контексте поведения пользователя, что позволяет создавать наилучшие для вашей целевой аудитории предложения.\n\n3. **Выгодное решение для бизнеса малого размера**: Для бизнеса с ограниченными ресурсами - такой инструмент как наш ИИ-сервис - становится отличным помощником, который значительно экономит время и усилия в разработке и поддерживании рекламных кампаний.\n\nЭто всего лишь немногие преимущества. Поэтому хочу предложить вам воспользоваться нашей бесплатной демонстрационной сессией нашего ИИ-сервиса для создания рекламного объявления, чтобы оценить весь потенциал этого инструмента. Мы гарантируем, что это будет полезным опытом для вас.\n\nВ заключение хочу отметить, надеюсь на ваше участие в этой бесплатной демократической сессии и предвижу удовольствие предоставления нам дополнительного вашего времени и усилий для ваших рекламных кампаний.\n\nБлагодарим за внимание к нашему предложению!\n\nС уважением,\n[Ваше имя]\n[Имя компании]",
+    "timing_sec": 35.103,
+    "usage": {
+      "prompt_tokens": 108,
+      "completion_tokens": 467,
+      "total_tokens": 575
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 13.3,
+      "total_throughput_tokens_per_sec": 16.38,
+      "time_per_completion_token_sec": 0.0752
+    }
+  },
+  {
+    "model_family": "qwen",
+    "model": "qwen2.5:3b",
+    "mode": "tuned",
+    "prompt_id": "P1_generation",
+    "prompt_task": "Генерация пресс-релиза",
+    "prompt_text": "Напиши вежливое письмо клиенту, который хочет впервые воспользоваться нашим ИИ-сервисом для генерации рекламных объявлений под Яндекс Директ. Подчеркни выгоды для малого бизнеса, установи доверительные отношения и предложи бесплатную демо-сессию.",
+    "hyperparameters": {
+      "temperature": 0.2,
+      "top_p": 0.8,
+      "max_tokens": 400
+    },
+    "response": "[Ваше Имя]  \n[Ваша компания]  \nАдрес компании  \nГород, ZIP-код  \n\n[Дата]\n\n[Клиентское имя]  \n[Контактная информация клиента: адрес электронной почты или телефонный номер]  \n\nУважаемый [Имя клиента],\n\nЯ надеюсь, что вы хорошо провели время в последние дни. Я хотел бы поделиться с вами нашим новым ИИ-сервисом для генерации рекламных объявлений под Яндекс Директ и как он может помочь вашему малому бизнесу.\n\nВаша компания, вероятно, уже знает о том, что рекламные кампании на Яндекс.Директ могут быть очень эффективными инструментами для привлечения клиентов и увеличения продаж. Однако создание качественных объявлений требует времени и опыта. Ваши специалисты могут потратить много времени на разработку рекламных объявлений, которые будут эффективно работать в вашем бизнесе.\n\nС нашим новым ИИ-сервисом для генерации рекламных объявлений под Яндекс Директ мы можем значительно ускорить процесс создания и оптимизации рекламных объявлений. Мы используем машинное обучение, чтобы создавать объявления, которые точно соответствуют вашей целевой аудитории и могут привести к увеличению продаж.\n\nВаша компания может воспользоваться нашим бесплатным предложением для демонстрации нашего сервиса. Это будет отличной возможностью увидеть, как наши инструменты могут помочь вашему бизнесу. Мы предоставляем вам возможность провести бесплатную демо-сессию, где мы создадим несколько рекламных объявл",
+    "timing_sec": 23.238,
+    "usage": {
+      "prompt_tokens": 108,
+      "completion_tokens": 400,
+      "total_tokens": 508
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 17.21,
+      "total_throughput_tokens_per_sec": 21.86,
+      "time_per_completion_token_sec": 0.0581
+    }
+  },
+  {
+    "model_family": "qwen",
+    "model": "qwen2.5:3b",
+    "mode": "baseline",
+    "prompt_id": "P2_classification",
+    "prompt_task": "Классификация обращения",
+    "prompt_text": "Проанализируй обращение клиента и классифицируй его одной категорией из списка ['Billing','Tech support','Sales']. Ответ должен содержать только метку класса.\n\nОбращение клиента: «У меня не работает вход в личный кабинет, постоянно выдает ошибку 404. Помогите решить проблему.»",
+    "hyperparameters": {},
+    "response": "Tech support",
+    "timing_sec": 2.53,
+    "usage": {
+      "prompt_tokens": 112,
+      "completion_tokens": 3,
+      "total_tokens": 115
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 1.19,
+      "total_throughput_tokens_per_sec": 45.46,
+      "time_per_completion_token_sec": 0.8432
+    }
+  },
+  {
+    "model_family": "qwen",
+    "model": "qwen2.5:3b",
+    "mode": "tuned",
+    "prompt_id": "P2_classification",
+    "prompt_task": "Классификация обращения",
+    "prompt_text": "Проанализируй обращение клиента и классифицируй его одной категорией из списка ['Billing','Tech support','Sales']. Ответ должен содержать только метку класса.\n\nОбращение клиента: «У меня не работает вход в личный кабинет, постоянно выдает ошибку 404. Помогите решить проблему.»",
+    "hyperparameters": {
+      "temperature": 0.2,
+      "top_p": 0.8,
+      "max_tokens": 400
+    },
+    "response": "Tech support",
+    "timing_sec": 0.5,
+    "usage": {
+      "prompt_tokens": 112,
+      "completion_tokens": 3,
+      "total_tokens": 115
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 6.0,
+      "total_throughput_tokens_per_sec": 229.91,
+      "time_per_completion_token_sec": 0.1667
+    }
+  },
+  {
+    "model_family": "qwen",
+    "model": "qwen2.5:3b",
+    "mode": "baseline",
+    "prompt_id": "P3_summarization",
+    "prompt_task": "Извлечение/суммаризация",
+    "prompt_text": "Из описания товара извлеки название и ключевые характеристики и сделай краткое резюме в 2–3 предложениях. Описание: «Смарт-лампа LuxLight X2 поддерживает Wi‑Fi, регулируемую температуру цвета 2700–6500K, голосовое управление и расписания. Потребление 9 Вт, яркость 900 лм, цоколь E27, работает с Алиса/Google Home.»",
+    "hyperparameters": {},
+    "response": "Название товара: Смарт-лампа LuxLight X2\n\nКлючевые характеристики:\n- Поддерживает Wi-Fi и голосовое управление\n- Регулируемая температура цвета (2700–6500K)\n- Потребляемое энергополное: 9 Вт\n- Яркость: 900 Лампы-лоупонд (Лм)\n- Цоколь: E27\n- Подходит для гарнитуры Alexa/Google Home\n\nРезюме: Светодиодная смарт-лампа LuxLight X2 обладает функциональностью голосового управления и поддерживает управление по расписанию. Ее световой диапазон от 2700 до 6500K, а потребление энергии составляет всего 9 Вт при яркости 900 Лм. Она рассчитана на цоколь E27 и совместима с системами Alexa или Google Home для автоматического управления освещением в доме.",
+    "timing_sec": 17.288,
+    "usage": {
+      "prompt_tokens": 157,
+      "completion_tokens": 247,
+      "total_tokens": 404
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 14.29,
+      "total_throughput_tokens_per_sec": 23.37,
+      "time_per_completion_token_sec": 0.07
+    }
+  },
+  {
+    "model_family": "qwen",
+    "model": "qwen2.5:3b",
+    "mode": "tuned",
+    "prompt_id": "P3_summarization",
+    "prompt_task": "Извлечение/суммаризация",
+    "prompt_text": "Из описания товара извлеки название и ключевые характеристики и сделай краткое резюме в 2–3 предложениях. Описание: «Смарт-лампа LuxLight X2 поддерживает Wi‑Fi, регулируемую температуру цвета 2700–6500K, голосовое управление и расписания. Потребление 9 Вт, яркость 900 лм, цоколь E27, работает с Алиса/Google Home.»",
+    "hyperparameters": {
+      "temperature": 0.2,
+      "top_p": 0.8,
+      "max_tokens": 400
+    },
+    "response": "Название товара: Смарт-лампа LuxLight X2\n\nКлючевые характеристики:\n1. Поддерживает Wi-Fi и голосовое управление.\n2. Регулируемая температура цвета от 2700K до 6500K.\n3. Возможность настроек по расписанию.\n4. Потребление энергии: 9 Вт.\n5. Яркость: 900 лм.\n6. Цоколь: E27.\n7. Поддерживает голосовые помощники Алиса и Google Home.\n\nРезюме:\nСмарт-лампа LuxLight X2 предлагает Wi-Fi подключение, регулирование цветовой температности, возможность настроек по расписанию, а также совместимость с голосовыми помощниками. Она потребляет 9 Вт и обеспечивает яркость в 900 лм, используя цоколь E27.",
+    "timing_sec": 13.217,
+    "usage": {
+      "prompt_tokens": 157,
+      "completion_tokens": 225,
+      "total_tokens": 382
+    },
+    "performance": {
+      "generation_speed_tokens_per_sec": 17.02,
+      "total_throughput_tokens_per_sec": 28.9,
+      "time_per_completion_token_sec": 0.0587
+    }
+  }
+]
