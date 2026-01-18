@@ -1,0 +1,24 @@
+# Конфигурация для Lab3
+# Используется для RAG pipeline с Langfuse
+
+elasticsearch:
+  host: localhost
+  port: 9200
+  index_name: fastapi_docs_exp_baseline_recursive_1024
+  use_ssl: true  # Автоопределение: пробует HTTPS, потом HTTP
+  verify_certs: false  # Отключаем проверку сертификата для локального ES
+  username: ${ELASTICSEARCH_USER}  # Из .env
+  password: ${ELASTICSEARCH_PASSWORD}  # Из .env
+
+embeddings:
+  dense:
+    model: intfloat/multilingual-e5-base
+    device: cpu  # или cuda если есть GPU
+
+rag:
+  top_k: 5
+  llm_base_url: http://localhost:11434/v1
+  llm_api_key: ollama
+  llm_model: qwen2.5:3b
+  llm_temperature: 0.3
+  llm_max_tokens: 512

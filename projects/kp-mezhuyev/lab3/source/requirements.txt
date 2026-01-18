@@ -1,0 +1,21 @@
+# Langfuse интеграция (СТРОГО версия 2.x для совместимости с Docker образом langfuse:2)
+langfuse>=2.0.0,<3.0.0
+openai>=1.12.0
+
+# Elasticsearch (совместимо с версией из lab2)
+elasticsearch>=8.0.0
+
+# Embeddings (из lab2)
+sentence-transformers>=2.2.2
+torch>=2.0.0
+transformers>=4.35.0
+
+# Утилиты
+python-dotenv>=1.0.0
+pyyaml>=6.0
+tqdm>=4.66.0
+numpy>=1.24.0
+
+# Дополнительные зависимости (для совместимости с lab2)
+requests>=2.31.0
+tiktoken>=0.5.1

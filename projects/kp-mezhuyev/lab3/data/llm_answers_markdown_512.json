@@ -1,0 +1,576 @@
+[
+  {
+    "question": "Как работать с базами данных в FastAPI?",
+    "expected_chunk_ids": [
+      "9c2df921806f05ba",
+      "7933cd1b67cfd069",
+      "715accd7daa3b1b2",
+      "096aa10265ca94e9",
+      "4bfd2e2135d56297"
+    ],
+    "num_expected_chunks": 5,
+    "answer": "Работать с базами данных в FastAPI можно благодаря совместимости **FastAPI** с Pydantic, что позволяет автоматически проверять и преобразовывать данные перед их отправкой в базу данных или обратно клиенту. \n\nОсновные шаги для работы с базами данных в FastAPI:\n\n1. Используйте модели Pydantic для описания структуры объектов данных.\n2. Создайте экземпляр вашего SQLAlchemy-драйвера (или другого подходящего драйвера) и подключите его к вашему приложению FastAPI.\n\nПример использования SQLAlchemy:\n\n[Документ 4] показывает, как создать базовый код для FastAPI. Вы можете добавить подключение к базе данных в файл `main.py` следующим образом:\n\n```Python\nfrom typing import Optional\nimport sqlalchemy as sa\n\napp = FastAPI()\n\nDATABASE_URL = \"sqlite:///./test.db\"  # или ваша база данных\n\nengine = sa.create_engine(DATABASE_URL, connect_args={\"check_same_thread\": False})\n\n# Создание таблицы в базе данных (если они еще не созданы)\nsa.MetaData().reflect(engine)\n\n# Подключение моделей к базе данных\nfrom app.models import User  # Импортируйте вашу модель\n\n@app.on_event(\"startup\")\nasync def startup():\n    async with engine.begin() as conn:\n        await conn.run_sync(sa.MetaData().create_all)\n\n\n@app.get(\"/\")\ndef read_root():\n    return {\"Hello\": \"World\"}\n\n# Добавьте маршруты для работы с пользователями\n```\n\n[Документ 5] упоминает, что **FastAPI** полностью совместим с Pydantic. Это означает, что вы можете использовать модели Pydantic для представления объектов данных в базе данных и передачи их клиенту.\n\nТакже важно отметить, что [Документ 3] предоставляет дополнительную информацию о преимуществах использования моделей Pydantic, таких как автозавершение кода, преобразование данных и валидация. Это позволяет упростить процесс работы с базами данных и сделать код более чистым и понятным.\n\nИсточники информации:\n1. [Документ 4]\n2. [Документ 5]",
+    "retrieved_chunk_ids": [
+      "410f3c0b627c5584",
+      "19c9c3139898339e",
+      "9a611ff7c3818bf2",
+      "ec3852f5eecef381",
+      "a4512580df001c5f"
+    ],
+    "metrics": {
+      "mrr": 0,
+      "recall@5": 0,
+      "precision@5": 0
+    },
+    "sources": [
+      {
+        "score": 1.8895891,
+        "title": "Зависимости",
+        "chunk_id": "410f3c0b627c5584",
+        "source_path": "docs\\tutorial\\dependencies\\index.md"
+      },
+      {
+        "score": 1.8848873,
+        "title": "Расширенное руководство пользователя",
+        "chunk_id": "19c9c3139898339e",
+        "source_path": "docs\\advanced\\index.md"
+      },
+      {
+        "score": 1.8833705,
+        "title": "Body - Вложенные модели",
+        "chunk_id": "9a611ff7c3818bf2",
+        "source_path": "docs\\tutorial\\body-nested-models.md"
+      },
+      {
+        "score": 1.882634,
+        "title": "FastAPI в контейнерах — Docker",
+        "chunk_id": "ec3852f5eecef381",
+        "source_path": "docs\\deployment\\docker.md"
+      },
+      {
+        "score": 1.8786874,
+        "title": "Возможности",
+        "chunk_id": "a4512580df001c5f",
+        "source_path": "docs\\features.md"
+      }
+    ]
+  },
+  {
+    "question": "Как управлять OpenAPI документацией в FastAPI?",
+    "expected_chunk_ids": [
+      "31ce98705b50d0aa",
+      "843bb8def92d00fa",
+      "c77f3855eecbc991",
+      "869d2157f37818ee",
+      "d2492c8fb5b6cff1",
+      "bdfb8357d8f70c9e",
+      "3aff31f723c3d241"
+    ],
+    "num_expected_chunks": 7,
+    "answer": "Управлять OpenAPI документацией в FastAPI можно несколькими способами, основанными на предоставленной информации из документов:\n\n1. **Настройка схемы OpenAPI**: Вы можете задокументировать дополнительные статус-коды и ответы напрямую в ваш код, используя спецификацию [additional-responses.md](docs\\advanced\\additional-status-codes.md#additional-responses). Это позволяет добавить информацию о новых ответах к схеме OpenAPI.\n\n2. **Использование настроек Pydantic**: Вы можете использовать те же настройки, которые используются для других параметров приложения FastAPI, чтобы задокументировать и настроить сгенерированный OpenAPI и интерфейсы документации. Это можно сделать путем объявления настроек `openapi_url` в переменных окружения или при создании приложения.\n\n3. **Условный режим отключения**: Вы можете отключать OpenAPI (и, следовательно, интерфейсы документации) с помощью переменной окружения `OPENAPI_URL`. Если переменная окружения установлена в пустую строку, FastAPI не будет генерировать и предоставлять эти ресурсы.\n\nИсточники информации:\n1. [Документ 1](docs\\advanced\\additional-status-codes.md#openapi-and-api-docs)\n2. [Документ 2](docs\\tutorial\\security\\index.md#OpenAPI)\n3. [Документ 4](docs\\how-to\\conditional-openapi.md#Условный OpenAPI из настроек и переменных окружения)\n4. [Документ 5](docs\\tutorial\\dependencies\\index.md#Интегрировано с **OpenAPI**)\n\nЭти методы позволяют вам настраивать и управлять документацией API, включая OpenAPI, в соответствии с вашими потребностями.",
+    "retrieved_chunk_ids": [
+      "fbe2c1f3520b1841",
+      "fa5b852591d657e4",
+      "81b6aaa763c1ad28",
+      "3b7693dc981d8646",
+      "843bb8def92d00fa"
+    ],
+    "metrics": {
+      "mrr": 0.2,
+      "recall@5": 0.1428571428571428,
+      "precision@5": 0.2
+    },
+    "sources": [
+      {
+        "score": 1.8969564,
+        "title": "Дополнительные статус-коды",
+        "chunk_id": "fbe2c1f3520b1841",
+        "source_path": "docs\\advanced\\additional-status-codes.md"
+      },
+      {
+        "score": 1.8957819,
+        "title": "Настройка авторизации",
+        "chunk_id": "fa5b852591d657e4",
+        "source_path": "docs\\tutorial\\security\\index.md"
+      },
+      {
+        "score": 1.8953775,
+        "title": "Расширение OpenAPI",
+        "chunk_id": "81b6aaa763c1ad28",
+        "source_path": "docs\\how-to\\extending-openapi.md"
+      },
+      {
+        "score": 1.893132,
+        "title": "Условный OpenAPI",
+        "chunk_id": "3b7693dc981d8646",
+        "source_path": "docs\\how-to\\conditional-openapi.md"
+      },
+      {
+        "score": 1.8925228,
+        "title": "Зависимости",
+        "chunk_id": "843bb8def92d00fa",
+        "source_path": "docs\\tutorial\\dependencies\\index.md"
+      }
+    ]
+  },
+  {
+    "question": "Как настроить безопасность и конфигурацию в FastAPI?",
+    "expected_chunk_ids": [
+      "de2b6283e5436818",
+      "c4d402eb16274e94",
+      "d53e2cc55486001c",
+      "8fbb0d29d774b8e8",
+      "94eb7f7d076ac846",
+      "129ab07419015e16",
+      "d36dd4c5c9756029"
+    ],
+    "num_expected_chunks": 7,
+    "answer": "Чтобы настроить безопасность и конфигурацию в FastAPI, вам нужно использовать инструменты безопасности, предоставляемые модулем `fastapi.security`. Вот основные шаги:\n\n1. **Использование OAuth2 с JWT**: Вы можете использовать класс `OAuth2PasswordBearer` из зависимости `fastapi.security.oauth2`, который наследуется от `SecurityBase`. Это позволяет вам использовать стандартные протоколы безопасности, такие как OAuth2 и JWT.\n\n   Пример использования:\n   ```python\n   from fastapi import FastAPI, Depends\n   from fastapi.security.oauth2 import OAuth2PasswordBearer\n\n   app = FastAPI()\n\n   oauth2_scheme = OAuth2PasswordBearer(tokenUrl=\"token\")\n\n   @app.get(\"/items/\")\n   def read_items(current_user: str = Depends(oauth2_scheme)):\n       return {\"current_user\": current_user}\n   ```\n\n2. **Интеграция с OpenAPI**: FastAPI интегрируется автоматически с OpenAPI, что позволяет использовать различные \"схемы\" безопасности, включая OAuth2 и JWT.\n\n3. **Управление зависимостями**: Если вы хотите установить только стандартные зависимости без `fastapi-cloud-cli`, можно установить пакет следующим образом:\n   ```console\n   $ pip install fastapi[standard-no-fastapi-cloud-cli]\n   ```\n\nДля более подробного описания и примеров работы с безопасностью в FastAPI, рекомендуется обратиться к [документации по безопасности](docs/tutorial/security/index.md) и [OpenAPI](docs/tutorial/security/openapi.md).\n\nИсточники информации:\n1. [Документ 2] (docs\\tutorial\\security\\oauth2-jwt.md#Резюме)\n2. [Документ 3] (docs\\tutorial\\security\\first-steps.md#Использование)\n3. [Документ 4] (docs/tutorial/security/index.md#Преимущества **FastAPI**)\n\nЭти ресурсы содержат детали и примеры кода, которые помогут вам лучше понять настройку безопасности в FastAPI.",
+    "retrieved_chunk_ids": [
+      "557930387b9371bf",
+      "dcf34938ea5567f8",
+      "14570a60fb8bb843",
+      "5d80166d2c8523cc",
+      "fa5b852591d657e4"
+    ],
+    "metrics": {
+      "mrr": 0,
+      "recall@5": 0,
+      "precision@5": 0
+    },
+    "sources": [
+      {
+        "score": 1.8900518,
+        "title": "Учебник - Руководство пользователя",
+        "chunk_id": "557930387b9371bf",
+        "source_path": "docs\\tutorial\\index.md"
+      },
+      {
+        "score": 1.8883492,
+        "title": "OAuth2 с паролем (и хешированием), Bearer с JWT-токенами",
+        "chunk_id": "dcf34938ea5567f8",
+        "source_path": "docs\\tutorial\\security\\oauth2-jwt.md"
+      },
+      {
+        "score": 1.8870039,
+        "title": "Безопасность — первые шаги",
+        "chunk_id": "14570a60fb8bb843",
+        "source_path": "docs\\tutorial\\security\\first-steps.md"
+      },
+      {
+        "score": 1.8853815,
+        "title": "Настройка авторизации",
+        "chunk_id": "5d80166d2c8523cc",
+        "source_path": "docs\\tutorial\\security\\index.md"
+      },
+      {
+        "score": 1.885098,
+        "title": "Настройка авторизации",
+        "chunk_id": "fa5b852591d657e4",
+        "source_path": "docs\\tutorial\\security\\index.md"
+      }
+    ]
+  },
+  {
+    "question": "Как кастомизировать документацию FastAPI и обработку запросов?",
+    "expected_chunk_ids": [
+      "c4a00de55f73e244",
+      "615f7b753dff5e6a",
+      "9f9c277c8d68407b",
+      "6183ebcfce3190d7",
+      "bdfb8357d8f70c9e"
+    ],
+    "num_expected_chunks": 5,
+    "answer": "В FastAPI нет прямого способа кастомизировать документацию с самого начала, как это можно сделать напрямую из объекта `Request`. Однако, вы можете настроить и улучшить вашу документацию через несколько методов:\n\n1. **Использование Pydantic моделей для объявления параметров и тела запроса**: FastAPI автоматически генерирует документацию схемы данных в формате OpenAPI, которая затем используется для создания интерактивной документации на основе Swagger UI.\n\n2. **Добавление дополнительных метаданных через декораторы**:\n   - Вы можете использовать декораторы, такие как `Depends`, `Response`, и другие, чтобы добавлять дополнительные сведения о вашем API в схему OpenAPI.\n   \n3. **Использование Swagger UI для ручной настройки**: Если вам нужно более тонкое управление документацией, вы можете использовать Swagger UI напрямую и настроить его через конфигурационные файлы.\n\nДля примера, смотрите [Документ 5] (docs\\tutorial\\body-nested-models.md#Резюме), где показано использование моделей Pydantic для объявления параметров тела запроса. Это автоматически создает документацию в формате OpenAPI.\n\nТаким образом, вы можете настроить и улучшить вашу документацию с помощью Pydantic моделей и дополнительных декораторов, но не существует прямого способа кастомизировать документацию напрямую из объекта `Request`.\n\n[Документ 5]",
+    "retrieved_chunk_ids": [
+      "ae49926edc022a6e",
+      "ca7b34ed805319df",
+      "c6b5fe7f47687514",
+      "9b87d64542e2716a",
+      "9a611ff7c3818bf2"
+    ],
+    "metrics": {
+      "mrr": 0,
+      "recall@5": 0,
+      "precision@5": 0
+    },
+    "sources": [
+      {
+        "score": 1.897949,
+        "title": "Прямое использование Request",
+        "chunk_id": "ae49926edc022a6e",
+        "source_path": "docs\\advanced\\using-request-directly.md"
+      },
+      {
+        "score": 1.8889827,
+        "title": "Path-параметры",
+        "chunk_id": "ca7b34ed805319df",
+        "source_path": "docs\\tutorial\\path-params.md"
+      },
+      {
+        "score": 1.8882306,
+        "title": "Path-параметры",
+        "chunk_id": "c6b5fe7f47687514",
+        "source_path": "docs\\tutorial\\path-params.md"
+      },
+      {
+        "score": 1.8877273,
+        "title": "Body - Множество параметров",
+        "chunk_id": "9b87d64542e2716a",
+        "source_path": "docs\\tutorial\\body-multiple-params.md"
+      },
+      {
+        "score": 1.8866887,
+        "title": "Body - Вложенные модели",
+        "chunk_id": "9a611ff7c3818bf2",
+        "source_path": "docs\\tutorial\\body-nested-models.md"
+      }
+    ]
+  },
+  {
+    "question": "Преимущества ASGI над WSGI?",
+    "expected_chunk_ids": [
+      "bcd254236572ea51",
+      "5e8abc9fe2623190",
+      "b3f814160a920f9e",
+      "0bc043ac02217ea0",
+      "bee16194ea8648ab",
+      "5a7a71ae2fa06250",
+      "ad5b7dfa00d94266",
+      "02701967a4842869"
+    ],
+    "num_expected_chunks": 8,
+    "answer": "ASGI (Asynchronous Server Gateway Interface) имеет ряд преимуществ над WSGI (Web Server Gateway Interface), особенно в контексте современных асинхронных веб-приложений, таких как FastAPI.\n\n1. **Асинхронность**: ASGI является асинхронным стандартом, что делает его идеальным для работы с веб-серверами на основе событий (event-driven servers), такими как Uvicorn, Hypercorn и Daphne. Это позволяет эффективно использовать мощные серверы, такие как NGINX Unit, которые могут быть более производительными и гибкими по сравнению с традиционными веб-серверами на основе событий.\n\n2. **Универсальность**: ASGI не зависит от конкретного фреймворка или сервера. Он предоставляет общую спецификацию для асинхронных веб-приложений, что делает его универсальным и позволяет легко заменять серверы или инструменты.\n\n3. **Документация и поддержка**: Хотя ASGI не является стандартом Python (PEP), он уже используется как «стандарт» несколькими инструментами, что улучшает совместимость и доступность информации о нем. Это особенно важно для новых веб-фреймворков, таких как FastAPI.\n\n4. **Мiddleware**: ASGI предоставляет более гибкий подход к использованию middleware. В отличие от WSGI, где middleware обычно нужно реализовывать самостоятельно или использовать готовые решения, ASGI предлагает более простой и автоматизированный способ добавления middleware с помощью метода `app.add_middleware()`.\n\nТаким образом, ASGI предоставляет больше гибкости, производительности и универсальности по сравнению с WSGI в контексте современных асинхронных веб-приложений.",
+    "retrieved_chunk_ids": [
+      "5a7a71ae2fa06250",
+      "b3001ee9925e05ae",
+      "02701967a4842869",
+      "92b47a49dd815ae2",
+      "d6911119f0339cab"
+    ],
+    "metrics": {
+      "mrr": 1,
+      "recall@5": 0.25,
+      "precision@5": 0.4
+    },
+    "sources": [
+      {
+        "score": 1.8384284,
+        "title": "Альтернативы, источники вдохновения и сравнения",
+        "chunk_id": "5a7a71ae2fa06250",
+        "source_path": "docs\\alternatives.md"
+      },
+      {
+        "score": 1.8351738,
+        "title": "Запуск сервера вручную",
+        "chunk_id": "b3001ee9925e05ae",
+        "source_path": "docs\\deployment\\manually.md"
+      },
+      {
+        "score": 1.8321371,
+        "title": "Альтернативы, источники вдохновения и сравнения",
+        "chunk_id": "02701967a4842869",
+        "source_path": "docs\\alternatives.md"
+      },
+      {
+        "score": 1.8257954,
+        "title": "Расширенное использование middleware",
+        "chunk_id": "92b47a49dd815ae2",
+        "source_path": "docs\\advanced\\middleware.md"
+      },
+      {
+        "score": 1.8209507,
+        "title": "Расширенное использование middleware",
+        "chunk_id": "d6911119f0339cab",
+        "source_path": "docs\\advanced\\middleware.md"
+      }
+    ]
+  },
+  {
+    "question": "Как FastAPI автоматически проверяет входящие данные и преобразует (сериализует) исходящие данные в JSON? Что происходит, если данные не проходят валидацию?",
+    "expected_chunk_ids": [
+      "d7202fa05c28e8a2",
+      "5e8abc9fe2623190",
+      "615f7b753dff5e6a",
+      "6183ebcfce3190d7",
+      "c0ad209131d910e1",
+      "0e6cbe719d6511aa",
+      "4bfd2e2135d56297",
+      "bdfb8357d8f70c9e"
+    ],
+    "num_expected_chunks": 8,
+    "answer": "FastAPI автоматически проверяет входящие данные при помощи кастомных валидаторов, которые можно определить самостоятельно или использовать из библиотеки Pydantic. Эти валидаторы используют те же данные, что и пришли в запросе.\n\nЕсли данные не проходят валидацию, FastAPI автоматически генерирует JSON-ответ с ошибками. Это происходит посредством обработчиков исключений, которые можно переопределить на свои собственные.\n\nВ случае, если параметр пути имеет значение, которое не соответствует ожидаемому типу (например, строка вместо числа), FastAPI генерирует ошибку типа `int_parsing`, указывая конкретное место в коде и причину проблемы. Например:\n\n```JSON\n{\n  \"detail\": [\n    {\n      \"type\": \"int_parsing\",\n      \"loc\": [\n        \"path\",\n        \"item_id\"\n      ],\n      \"msg\": \"Input should be a valid integer, unable to parse string as an integer\",\n      \"input\": \"foo\"\n    }\n  ]\n}\n```\n\nТакже FastAPI автоматически преобразует данные из запроса и возвращает их в формате JSON при помощи объекта `Request` или Pydantic моделей. Если же данные не проходят валидацию, FastAPI генерирует соответствующие ошибки.\n\nИсточники информации:\n1. [Документ 1]\n2. [Документ 5]",
+    "retrieved_chunk_ids": [
+      "3c0816d62e4b03f9",
+      "9b87d64542e2716a",
+      "2513429c7179a513",
+      "88824a170676923a",
+      "7fa1502101867292"
+    ],
+    "metrics": {
+      "mrr": 0,
+      "recall@5": 0,
+      "precision@5": 0
+    },
+    "sources": [
+      {
+        "score": 1.8982958,
+        "title": "Query-параметры и валидация строк",
+        "chunk_id": "3c0816d62e4b03f9",
+        "source_path": "docs\\tutorial\\query-params-str-validations.md"
+      },
+      {
+        "score": 1.889085,
+        "title": "Body - Множество параметров",
+        "chunk_id": "9b87d64542e2716a",
+        "source_path": "docs\\tutorial\\body-multiple-params.md"
+      },
+      {
+        "score": 1.8883283,
+        "title": "Обработка ошибок",
+        "chunk_id": "2513429c7179a513",
+        "source_path": "docs\\tutorial\\handling-errors.md"
+      },
+      {
+        "score": 1.8867468,
+        "title": "Прямое использование Request",
+        "chunk_id": "88824a170676923a",
+        "source_path": "docs\\advanced\\using-request-directly.md"
+      },
+      {
+        "score": 1.8856666,
+        "title": "Path-параметры",
+        "chunk_id": "7fa1502101867292",
+        "source_path": "docs\\tutorial\\path-params.md"
+      }
+    ]
+  },
+  {
+    "question": "Как работает Pydantic в FastAPI? Как использовать Pydantic модели для определения структуры тела запроса (request body) и ответа (response model)?",
+    "expected_chunk_ids": [
+      "d173989f58a6fafd",
+      "c8a576eabcc53f5a",
+      "45184fde4728cc69",
+      "d5dfbdc699e18c09"
+    ],
+    "num_expected_chunks": 4,
+    "answer": "Pydantic модели в FastAPI используются для определения структуры тела запроса (request body) и ответа (response model). Они предоставляют гибкость, простоту и элегантность вашего кода. Вот как это работает:\n\n1. **Тело запроса**: Вы можете объявить параметры пути и тело запроса одновременно. FastAPI распознает, что параметры функции, соответствующие параметрам пути, должны быть получены из пути, а параметры функции, объявленные как модели Pydantic, должны быть получены из тела запроса.\n\n2. **Ответы**: Вы также можете комбинировать информацию об ответах из разных мест, включая `response_model`, `status_code` и `responses`. FastAPI сохраняет дополнительную информацию из `responses` и объединяет её с JSON-схемой из вашей модели.\n\n3. **Резюме Pydantic**: С помощью FastAPI вы получаете максимальную гибкость, предоставляемую моделями Pydantic, сохраняя при этом простоту, краткость и элегантность вашего кода. Это включает поддержку редактора кода (автозавершение доступно везде!), преобразование данных (парсинг/serilization), валидацию данных, документацию схемы данных и автоматическую генерацию документации.\n\n4. **Дополнительный ответ с `model`**: Вы можете передать вашим декораторам операций пути параметр `responses`, который принимает словарь: ключи — это статус-коды для каждого ответа (например, `200`), а значения — другие словари с информацией для каждого из них. Каждый из этих словарей для ответа может иметь ключ `model`, содержащий Pydantic-модель.\n\nИсточники информации:\n1. [Документ 1]\n2. [Документ 2]\n3. [Документ 3]\n4. [Документ 4]\n\nЭто позволяет вам создавать более гибкие и управляемые API с использованием моделей Pydantic для структурирования данных в телах запросов и ответах.",
+    "retrieved_chunk_ids": [
+      "8d42254530b0b882",
+      "e6f96a682b18fb84",
+      "d7d0a0728a6244ae",
+      "9a611ff7c3818bf2",
+      "7b2f8d1e9898bece"
+    ],
+    "metrics": {
+      "mrr": 0,
+      "recall@5": 0,
+      "precision@5": 0
+    },
+    "sources": [
+      {
+        "score": 1.9244542,
+        "title": "Тело запроса",
+        "chunk_id": "8d42254530b0b882",
+        "source_path": "docs\\tutorial\\body.md"
+      },
+      {
+        "score": 1.9124496,
+        "title": "Дополнительные ответы в OpenAPI",
+        "chunk_id": "e6f96a682b18fb84",
+        "source_path": "docs\\advanced\\additional-responses.md"
+      },
+      {
+        "score": 1.911141,
+        "title": "Миграция с Pydantic v1 на Pydantic v2",
+        "chunk_id": "d7d0a0728a6244ae",
+        "source_path": "docs\\how-to\\migrate-from-pydantic-v1-to-pydantic-v2.md"
+      },
+      {
+        "score": 1.9103448,
+        "title": "Body - Вложенные модели",
+        "chunk_id": "9a611ff7c3818bf2",
+        "source_path": "docs\\tutorial\\body-nested-models.md"
+      },
+      {
+        "score": 1.909864,
+        "title": "Дополнительные ответы в OpenAPI",
+        "chunk_id": "7b2f8d1e9898bece",
+        "source_path": "docs\\advanced\\additional-responses.md"
+      }
+    ]
+  },
+  {
+    "question": "Как работать с callbacks и webhooks?",
+    "expected_chunk_ids": [
+      "03798118bd96937b",
+      "722ea1384edf0d4a",
+      "ea14bf3ceeeecafc",
+      "bd21db178c4f2247",
+      "9539605f5f548358"
+    ],
+    "num_expected_chunks": 5,
+    "answer": "Советую обратить внимание на два основных типа асинхронной работы с API: callbacks (обратные вызовы) и webhooks.\n\n**Обратные вызовы**: Это механизм, который позволяет внешнему разработчику подключать свои функции к операциям пути вашего приложения. В контексте FastAPI это делается через параметр `callbacks` в декораторе операции пути вашего API. Вы передаете атрибут `.routes` маршрутизатора обратных вызовов, который содержит список всех маршрутов и операций путей.\n\n**Вебхуки**: Это механизм, позволяющий вашему приложению отправлять запросы в сторонние системы (например, внешним API) по определенным событиям. В FastAPI это делается через атрибут `webhooks`, который позволяет объявлять вебхуки так же, как операции пути. Эти вебхуки автоматически добавляются в схему OpenAPI и интерфейс документации вашего приложения.\n\n[Документ 1] и [Документ 2] описывают подробно работу с обратными вызовами. В контексте [Документ 3], мы видим, что это отличается от вебхуков, которые используются для отправки запросов из вашей системы в сторонние системы.\n\n[Документ 4] и [Документ 5] дают больше информации о работе с асинхронным кодом в FastAPI.",
+    "retrieved_chunk_ids": [
+      "9539605f5f548358",
+      "ea14bf3ceeeecafc",
+      "ec0b81cac56cf074",
+      "6e25009a59788e2f",
+      "bd21db178c4f2247"
+    ],
+    "metrics": {
+      "mrr": 1,
+      "recall@5": 0.6,
+      "precision@5": 0.6
+    },
+    "sources": [
+      {
+        "score": 1.8608401,
+        "title": "Обратные вызовы в OpenAPI",
+        "chunk_id": "9539605f5f548358",
+        "source_path": "docs\\advanced\\openapi-callbacks.md"
+      },
+      {
+        "score": 1.8572468,
+        "title": "Обратные вызовы в OpenAPI",
+        "chunk_id": "ea14bf3ceeeecafc",
+        "source_path": "docs\\advanced\\openapi-callbacks.md"
+      },
+      {
+        "score": 1.854214,
+        "title": "Вебхуки OpenAPI",
+        "chunk_id": "ec0b81cac56cf074",
+        "source_path": "docs\\advanced\\openapi-webhooks.md"
+      },
+      {
+        "score": 1.8474699,
+        "title": "Конкурентность и async / await",
+        "chunk_id": "6e25009a59788e2f",
+        "source_path": "docs\\async.md"
+      },
+      {
+        "score": 1.8469405,
+        "title": "Вебхуки OpenAPI",
+        "chunk_id": "bd21db178c4f2247",
+        "source_path": "docs\\advanced\\openapi-webhooks.md"
+      }
+    ]
+  },
+  {
+    "question": "Что такое зависимости в контексте FastAPI?",
+    "expected_chunk_ids": [
+      "d173989f58a6fafd",
+      "c7c6bc77c0fca799",
+      "7552fc2821bce5f3",
+      "15eb710115361ba2",
+      "42e40b82a971ee16",
+      "4b0150c154d1e0f7",
+      "02701967a4842869"
+    ],
+    "num_expected_chunks": 7,
+    "answer": "В контексте FastAPI зависимости представляют собой механизм внедрения зависимостей, который позволяет создавать сложные системы с использованием вложенных зависимостей. Это означает, что даже зависимости могут иметь свои зависимости, создавая иерархию или \"граф\" зависимостей.\n\nFastAPI автоматически управляет всеми этими зависимостями, включая даже зависимости, которые могут быть вызваны из запросов. Все это обеспечивает автоматическую проверку параметров операций пути и поддерживает сложные системы аутентификации пользователей, соединений с базами данных и других интеграций.\n\nДля управления зависимостями FastAPI использует систему внедрения зависимостей. Она включает в себя возможности, такие как возможность добавления зависимостей ко всему приложению (глобальные зависимости), использование `Depends(scope=\"function\")` для раннего завершения функции-обработчика пути и использования `Depends(scope=\"request\")` для выполнения кода после отправки ответа клиенту.\n\nИсточники информации:\n1. [Документ 1]\n2. [Документ 2]\n3. [Документ 4]",
+    "retrieved_chunk_ids": [
+      "d4b79e49b237fcb5",
+      "9d821a248718d91c",
+      "15eb710115361ba2",
+      "6242f4fdd69c03ea",
+      "a795d22cf3d0f18e"
+    ],
+    "metrics": {
+      "mrr": 0.3333333333333333,
+      "recall@5": 0.1428571428571428,
+      "precision@5": 0.2
+    },
+    "sources": [
+      {
+        "score": 1.909239,
+        "title": "Подзависимости",
+        "chunk_id": "d4b79e49b237fcb5",
+        "source_path": "docs\\tutorial\\dependencies\\sub-dependencies.md"
+      },
+      {
+        "score": 1.9087173,
+        "title": "Возможности",
+        "chunk_id": "9d821a248718d91c",
+        "source_path": "docs\\features.md"
+      },
+      {
+        "score": 1.8970242,
+        "title": "Продвинутые зависимости",
+        "chunk_id": "15eb710115361ba2",
+        "source_path": "docs\\advanced\\advanced-dependencies.md"
+      },
+      {
+        "score": 1.8902819,
+        "title": "FastAPI",
+        "chunk_id": "6242f4fdd69c03ea",
+        "source_path": "docs\\index.md"
+      },
+      {
+        "score": 1.8900602,
+        "title": "Глобальные зависимости",
+        "chunk_id": "a795d22cf3d0f18e",
+        "source_path": "docs\\tutorial\\dependencies\\global-dependencies.md"
+      }
+    ]
+  },
+  {
+    "question": "Какие существуют варианты и этапы развертывания FastAPI приложений, включая FastAPI Cloud, Docker контейнеризацию, настройку Uvicorn воркеров и основные концепции продакшен-деплоя?",
+    "expected_chunk_ids": [
+      "a1fb697aca307723",
+      "5ac3090161c3232c",
+      "e15c8b1a1b5bd3bc",
+      "0da58613dc5e4ba7",
+      "18824cdd08d67f0a",
+      "4bfd2e2135d56297",
+      "605fa00c1ed16c08",
+      "ebbd003b6c3d3d1e"
+    ],
+    "num_expected_chunks": 8,
+    "answer": "Существуют несколько вариантов и этапов развертывания FastAPI приложений, включая использование FastAPI Cloud, Docker контейнеризацию, настройку Uvicorn воркеров и основные концепции продакшен-деплоя. Вот об этом немного больше информации:\n\n1. **FastAPI Cloud**: Это облачное решение от команды разработчиков FastAPI, которое упрощает процесс развертывания приложений FastAPI в облаке. Он предлагает простые инструменты для создания и управления контейнерами Docker, а также настройки Uvicorn воркеров.\n\n2. **Docker контейнеризацию**: С помощью Docker можно создать собственный образ с нуля, который будет использовать один процесс Uvicorn для запуска приложения FastAPI. Это простой подход и может быть полезен при использовании распределённой системы управления контейнерами, такой как Kubernetes.\n\n3. **Настройка Uvicorn воркеров**: Вы можете задействовать многоядерные CPU, запустив несколько процессов параллельно с помощью опции командной строки `--workers` для команды `fastapi` или `uvicorn`. Это позволяет использовать все доступные ядра процессора.\n\n4. **Основные концепции продакшен-деплоя**: В контексте FastAPI и других веб-приложений, основными концепциями продакшен-деплоя являются использование облачных провайдеров для развертывания приложений, настройка серверов или облаков для автоматизации процесса запуска приложения, а также управление масштабированием и устойчивостью системы.\n\nИсточники информации:\n1. [Документ 1] (docs\\deployment\\server-workers.md#Контейнеры и Docker)\n2. [Документ 2] (docs\\index.md#Разверните приложение (опционально))\n3. [Документ 5] (docs\\deployment\\index.md#Стратегии развёртывания)\n\nЭти варианты и этапы развертывания позволяют разработчикам управлять их приложениями в различных облачных средах, обеспечивая надежность, масш",
+    "retrieved_chunk_ids": [
+      "b63fdedfe51fe05d",
+      "d7202fa05c28e8a2",
+      "93b74fd474ff41ab",
+      "9457270e018829d1",
+      "7b94501cc247dbab"
+    ],
+    "metrics": {
+      "mrr": 0,
+      "recall@5": 0,
+      "precision@5": 0
+    },
+    "sources": [
+      {
+        "score": 1.895762,
+        "title": "Серверные воркеры — Uvicorn с воркерами",
+        "chunk_id": "b63fdedfe51fe05d",
+        "source_path": "docs\\deployment\\server-workers.md"
+      },
+      {
+        "score": 1.8945861,
+        "title": "FastAPI",
+        "chunk_id": "d7202fa05c28e8a2",
+        "source_path": "docs\\index.md"
+      },
+      {
+        "score": 1.8901733,
+        "title": "Серверные воркеры — Uvicorn с воркерами",
+        "chunk_id": "93b74fd474ff41ab",
+        "source_path": "docs\\deployment\\server-workers.md"
+      },
+      {
+        "score": 1.8891121,
+        "title": "FastAPI Cloud",
+        "chunk_id": "9457270e018829d1",
+        "source_path": "docs\\deployment\\fastapicloud.md"
+      },
+      {
+        "score": 1.8879657,
+        "title": "Развёртывание",
+        "chunk_id": "7b94501cc247dbab",
+        "source_path": "docs\\deployment\\index.md"
+      }
+    ]
+  }
+]
