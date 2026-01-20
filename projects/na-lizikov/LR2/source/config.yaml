@@ -1,0 +1,17 @@
+# Параметры разбиения на чанки
+chunk_size: 300  # Размер чанка в токенах (100-1000)
+overlap: 50  # Размер overlap между чанками
+splitter_type: hybrid  # Тип сплиттера: recursive, markdown, hybrid
+
+# Параметры эмбеддингов
+embedding_type: hybrid  # Тип векторизации: dense, sparse, hybrid
+embedding_model: BAAI/bge-base-en  # Модель эмбеддингов (например: BAAI/bge-base-en, intfloat/e5-large-v2, BAAI/bge-m3, text-embedding-3-large)
+openai_api_key: null  # OpenAI API ключ (если используется OpenAI модель), можно также установить через переменную окружения OPENAI_API_KEY
+
+# Параметры обработки заголовков
+include_headers: text  # Включение заголовков: text (в текст чанка), metadata (в метаданные), both (и то и другое)
+
+# Ограничения и производительность
+max_pages: 50  # Ограничение корпуса до 50 страниц (примерно 25,000 слов)
+batch_size: 128  # Размер батча для генерации эмбеддингов (увеличить для ускорения)
+max_tokens: 512  # Максимальная длина токенов для модели

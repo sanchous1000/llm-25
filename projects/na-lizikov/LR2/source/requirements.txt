@@ -1,0 +1,11 @@
+elasticsearch>=8.12.0
+sentence-transformers
+transformers
+pdfplumber
+python-docx
+beautifulsoup4
+pyyaml
+tqdm
+requests
+rank-bm25  # Для sparse эмбеддингов (BM25)
+openai  # Для OpenAI эмбеддингов (опционально)

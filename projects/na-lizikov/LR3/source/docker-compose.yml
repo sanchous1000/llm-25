@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  langfuse-db:
+    image: postgres:15-alpine
+    container_name: langfuse-db
+    environment:
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: langfuse
+      POSTGRES_DB: langfuse
+    volumes:
+      - langfuse-db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U langfuse"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  langfuse:
+    image: langfuse/langfuse:2.85.0
+    container_name: langfuse
+    depends_on:
+      langfuse-db:
+        condition: service_healthy
+    environment:
+      # PostgreSQL для основной БД
+      DATABASE_URL: postgresql://langfuse:langfuse@langfuse-db:5432/langfuse
+      
+      # NextAuth настройки
+      NEXTAUTH_SECRET: langfuse-secret-key-change-in-production
+      NEXTAUTH_URL: http://localhost:3000
+      
+      # Дополнительные настройки
+      SALT: langfuse-salt-change-in-production
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - langfuse-data:/app/data
+
+volumes:
+  langfuse-db-data:
+  langfuse-data:
