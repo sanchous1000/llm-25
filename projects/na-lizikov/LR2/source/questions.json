@@ -1,0 +1,92 @@
+[
+    {
+        "question": "Как работают исключения в Python C API и как их обрабатывать?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\exceptions.html"
+        ]
+    },
+    {
+        "question": "Что такое дескрипторы в Python C API и как они работают?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\descriptor.html"
+        ]
+    },
+    {
+        "question": "Как работать с буферами в Python C API?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\buffer.html"
+        ]
+    },
+    {
+        "question": "Как конвертировать типы данных в Python C API?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\conversion.html"
+        ]
+    },
+    {
+        "question": "Как работать с байтовыми массивами в Python C API?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\bytearray.html"
+        ]
+    },
+    {
+        "question": "Как работать с байтами в Python C API?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\bytes.html"
+        ]
+    },
+    {
+        "question": "Как вызывать функции и методы в Python C API?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\call.html"
+        ]
+    },
+    {
+        "question": "Как работать с капсулами в Python C API?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\capsule.html"
+        ]
+    },
+    {
+        "question": "Как работать с ячейками замыканий в Python C API?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\cell.html"
+        ]
+    },
+    {
+        "question": "Как работать с кодом и байт-кодом в Python C API?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\code.html"
+        ]
+    },
+    {
+        "question": "Как работать с кодеками и кодировками в Python C API?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\codec.html"
+        ]
+    },
+    {
+        "question": "Как работать с комплексными числами в Python C API?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\complex.html"
+        ]
+    },
+    {
+        "question": "Как работать с конкретными объектами в Python C API?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\concrete.html"
+        ]
+    },
+    {
+        "question": "Как работать с контекстными переменными в Python C API?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\contextvars.html"
+        ]
+    },
+    {
+        "question": "Как работать со словарями в Python C API?",
+        "relevant_chunks": [
+            "python-3.13-docs-html\\c-api\\dict.html"
+        ]
+    }
+]
